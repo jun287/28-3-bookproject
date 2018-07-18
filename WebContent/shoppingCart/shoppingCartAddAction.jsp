@@ -1,4 +1,4 @@
-<!-- 28기 이원상 2018. 7. 18(수) bookAddCartAction.jsp -->
+<!-- 28기 이원상 2018. 7. 18(수) shoppingCartAddAction.jsp -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="dao.bookshop.project.ShoppingCartDao" %>
 <%@ page import="dto.bookshop.project.ShoppingCart" %>
@@ -17,6 +17,7 @@
 	shoppingCart.setShoppingCartPrice(0);
 	shoppingCart.setShoppingCartDate("");
 	ShoppingCartDao shoppingCartDao= new ShoppingCartDao();
+	response.sendRedirect(request.getContextPath()+"./shoppingCartList.jsp?");	// 삭제 후 해당 member의 shoppingCartList로 이동
 %>
 
 <!DOCTYPE html>
