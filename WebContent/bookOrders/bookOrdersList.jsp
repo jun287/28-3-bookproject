@@ -1,9 +1,8 @@
-<!-- 2018-07-18 김소희 -->
-<!-- bookOrderList.jsp -->
+<!-- 2018-07-18 김소희 / bookOrderList.jsp -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import = "dao.bookshop.project.BookOrdersDao" %>
-<%@ page import = "dto.bookshop.project.Orders" %>
-<%@ page import = "java.util.ArrayList" %>
+<%@ page import = "dao.bookshop.project.BookOrdersDao" %>	<!-- dao.bookshop.project패키지 안에 BookOrdersDo클래스 import -->
+<%@ page import = "dto.bookshop.project.Orders" %>			<!-- dto.bookshop.project패키지 안에 Orders클래스 import  -->
+<%@ page import = "java.util.ArrayList" %>					<!-- ArrayList는 java.util.ArrayList에 포함 import -->
 
 <!DOCTYPE html>
 <html>
