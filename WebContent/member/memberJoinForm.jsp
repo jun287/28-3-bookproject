@@ -30,13 +30,11 @@
 					<tr>
 						<td></td>
 						<td>
-							<button type="button" onclick="location.href='<%= request.getContextPath() %>/member/memberLoginAction.jsp'">회원가입</button>
+							<input type ="submit" value="회원가입">
 							<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button>
 						</td>
 					</tr>
 				</table>
-			
-			
 			</form>
 		</div>
 	</body>
