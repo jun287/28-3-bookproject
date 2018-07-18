@@ -9,6 +9,9 @@ import util.connetion.db.DBconnection;
 
 public class ServiceMember {
 	
+	// 설명 : 로그인후 아이디를 받아 회원정보를 조회후 회원정보를 리턴하는 메서드 입니다.
+	// 매개변수 : String 참조타입으로 로그인시 아이디를 받습니다.
+	// 리턴 : id 와 일치하는 회원정보를 담은 Member 클래스 객체의 참조값을 리턴합니다.
 	public Member selectMember(String sessionId) {
 		
 		MemberDao memberDao = new MemberDao();
@@ -41,7 +44,9 @@ public class ServiceMember {
 		
 	}
 	
-	
+	// 설명 : 아이디와 비밀번호를 받아 데이터베이스 조회후 결과가 있으면 로그인 여부를 리턴하고 조건문으로 회원정보를 받아오는 메서드 입니다.
+	// 매개변수 : String 참조타입으로 memberId 와 memberPw 를 받습니다.
+	// 리턴 : 회원정보를 담은 Member 클래스 객체의 참조값을 리턴합니다.
 	public Member loginMember(String memberId, String memberPw) {
 		
 		MemberDao memberDao = new MemberDao();
