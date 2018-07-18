@@ -38,23 +38,35 @@
 	}
 	int startRow = (currentPage - 1 ) * rowPerPage;		// 시작 = (현재 페이지 -1) * 한 페이지에 보여주는 페이지 수
 	
-			
+	BookOrdersDao bookOrdersDao = new BookOrdersDao();
+	ArrayList<Orders> ordersList = bookOrdersDao.selectOrderByPage(currentPage, rowPerPage);
+	
+	for(int i=0; i<ordersList.size(); i++){
+		Orders orders = ordersList.get(i);
+%>
+		
+		<tr>
+			<td><%= orders.getOrdersNumber() %></td>
+			<td><%= orders.getBookNumber() %></td>
+			<td><%= orders.getMemberNumber() %></td>
+			<td><%= orders.getOrdersPrice() %></td>
+			<td><%= orders.getOrdersAmount() %></td>
+			<td><%= orders.getOrdersDate() %></td>
+			<td><%= orders.getOrdersAddress() %></td>
+			<td><%= orders.getOrderState() %></td>
+		</tr>
+<% 		
+	}		
+%>
+	</table>
+	<form action = "<%=request.getContextPath()%>/bookOrders/bookOrdersState.jsp" method="post">
+		<input type="submit" value="주문완료">
+	</form>
+<%
+
 %>
 
-	</table>
-<%
-	/* request.setCharacterEncoding("UTF-8");
-	
-	BookOrdersDao boDao = new BookOrdersDao();
-	String [] orders = request.getParameterValues("orders");
-	
-	ArrayList<Orders> list = boDao.bookOrders(orders[0]);
-	
-	for(int i=0; i<list.size(); i++){
-		Orders o = list.get(i);
-			
-	} */
-%>
+
 <%
 	
 %>

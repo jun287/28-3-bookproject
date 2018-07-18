@@ -1,4 +1,4 @@
-/* 2018-07-18 ±è¼ÒÈñ / BookOrdersDao.java */
+/* 2018-07-18 ï¿½ï¿½ï¿½ï¿½ï¿½ / BookOrdersDao.java */
 package dao.bookshop.project;
 import util.connetion.db.DBconnection;
 import java.sql.*;
@@ -11,8 +11,8 @@ public class BookOrdersDao {
 	
 	
 	public Orders orederSelectUpdate(int ordersNumber) {
-		// ÇÑ °³ÀÇ ÁÖ¹® Á¶È¸ÇÏ´Â ¸Þ¼Òµå
-		// return data type Orders, orederSelectUpdate ¸Þ¼Òµå (int data typeÀ¸·Î ¸Å°³º¯¼ö ordersNumber »ý¼º )
+		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ ï¿½ï¿½È¸ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½
+		// return data type Orders, orederSelectUpdate ï¿½Þ¼Òµï¿½ (int data typeï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ ordersNumber ï¿½ï¿½ï¿½ï¿½ )
 		Orders orders = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -42,10 +42,10 @@ public class BookOrdersDao {
 			e.printStackTrace();
 		} finally {
 			
-        	// °´Ã¼ Á¾·á(´Ý´Â ¼ø¼­ Áß¿ä)
+        	// ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½(ï¿½Ý´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß¿ï¿½)
 			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
-			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// Äõ¸®¿¬°áÁ¾·á
-			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DB¿¬°áÁ¾·á
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			
 		}
 	
@@ -54,8 +54,8 @@ public class BookOrdersDao {
 	}
 	
 	public ArrayList<Orders> selectBookOrders (int bookNumber){
-		// »óÇ° Å¬¸¯½Ã »ó¼¼Á¤º¸ ³ª¿À°Ô
-		// return data type ArrayList<Orders>, selectBookOrders ¸Þ¼Òµå (int data typeÀ¸·Î ¸Å°³º¯¼ö bookNumber »ý¼º )
+		// ï¿½ï¿½Ç° Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// return data type ArrayList<Orders>, selectBookOrders ï¿½Þ¼Òµï¿½ (int data typeï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ bookNumber ï¿½ï¿½ï¿½ï¿½ )
 		ArrayList<Orders> ordersList = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -87,10 +87,10 @@ public class BookOrdersDao {
 			e.printStackTrace();
 		} finally {
 			
-        	// °´Ã¼ Á¾·á(´Ý´Â ¼ø¼­ Áß¿ä)
+        	// ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½(ï¿½Ý´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß¿ï¿½)
 			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
-			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// Äõ¸®¿¬°áÁ¾·á
-			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DB¿¬°áÁ¾·á
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			
 		}
 		
@@ -100,8 +100,8 @@ public class BookOrdersDao {
 	}
 	
 	public int selectCount() {
-		// ÆäÀÌÂ¡ ÇÏ´Â ¸Þ¼Òµå
-		// return data type int, selectCount ¸Þ¼Òµå (¸Å°³º¯¼ö ¾øÀ½)
+		// ï¿½ï¿½ï¿½ï¿½Â¡ ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½
+		// return data type int, selectCount ï¿½Þ¼Òµï¿½ (ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 		int totalRow = 0;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -120,10 +120,10 @@ public class BookOrdersDao {
 			e.printStackTrace();
 		} finally {
 			
-        	// °´Ã¼ Á¾·á(´Ý´Â ¼ø¼­ Áß¿ä)
+        	// ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½(ï¿½Ý´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß¿ï¿½)
 			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
-			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// Äõ¸®¿¬°áÁ¾·á
-			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DB¿¬°áÁ¾·á
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			
 		}
 		
@@ -132,8 +132,8 @@ public class BookOrdersDao {
 		
 	}
 	
-	public ArrayList<Orders> selectOrderByPage (int currentPage, int pagePerRow){
-		// return data type ArrayList<Orders>, selectOrderBypage ¸Þ¼Òµå (int data typeÀ¸·Î currentPage ¸Å°³º¯¼ö ¼±¾ð, int data typeÀ¸·Î pagePerRow ¸Å°³º¯¼ö ¼±¾ð )
+	public ArrayList<Orders> selectOrderByPage (int currentPage, int rowPerPage){
+		// return data type ArrayList<Orders>, selectOrderBypage ï¿½Þ¼Òµï¿½ (int data typeï¿½ï¿½ï¿½ï¿½ currentPage ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, int data typeï¿½ï¿½ï¿½ï¿½ pagePerRow ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ )
 		ArrayList<Orders> ordersList = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -142,15 +142,15 @@ public class BookOrdersDao {
 		try {
 			connection = DBconnection.getConnetion();
 			preparedStatement = connection.prepareStatement("SELECT orders_no, book_no, member_no, orders_price, orders_amount, orders_date, orders_addr ,orders_state FROM orders ORDER BY orders_no DESC LIMIT ?,?");
-			preparedStatement.setInt(1, (currentPage-1)*pagePerRow);
-			preparedStatement.setInt(2, pagePerRow);
+			preparedStatement.setInt(1, (currentPage-1)*rowPerPage);
+			preparedStatement.setInt(2, rowPerPage);
 			
 			resultSet = preparedStatement.executeQuery();
 			
 			while(resultSet.next()) {
 				
 				Orders orders = new Orders();
-				//Orders data typeÀ¸·Î o º¯¼ö¸¦ »ý¼ºÇÏ°í new»ý¼ºÀÚ¸Þ¼Òµå·Î  »ý¼ºµÈ Orders°´Ã¼ÀÇ ÁÖ¼Ò °ªÀ» o º¯¼ö¿¡ ÇÒ´çÇÑ´Ù
+				//Orders data typeï¿½ï¿½ï¿½ï¿½ o ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ newï¿½ï¿½ï¿½ï¿½ï¿½Ú¸Þ¼Òµï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ordersï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½ o ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½ï¿½Ñ´ï¿½
 				orders.setOrdersNumber(resultSet.getInt("orderNumber"));
 				orders.setBookNumber(resultSet.getInt("bookNumber"));
 				orders.setOrdersPrice(resultSet.getInt("ordersPrice"));
@@ -168,10 +168,10 @@ public class BookOrdersDao {
 			e.printStackTrace();
 		} finally {
 			
-        	// °´Ã¼ Á¾·á(´Ý´Â ¼ø¼­ Áß¿ä)
+        	// ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½(ï¿½Ý´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß¿ï¿½)
 			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
-			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// Äõ¸®¿¬°áÁ¾·á
-			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// DB¿¬°áÁ¾·á
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// DBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			
 		}
 		
