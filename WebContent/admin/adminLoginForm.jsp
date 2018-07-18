@@ -15,12 +15,12 @@
 				<table>
 					<tr>
 						<td align="right">아이디 : </td>
-						<td><input type="text" name="adminId"></td>
+						<td><input type="text" name="adminId" required></td>
 						<td><input type="submit" value="로그인"></td>
 					</tr>
 					<tr>
 						<td align="right">비밀번호 : </td>
-						<td><input type="password" name="adminPw"></td>
+						<td><input type="password" name="adminPw" required></td>
 						<td><button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button></td>
 					</tr>
 				</table>
