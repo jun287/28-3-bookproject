@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ page import = "dao.bookshop.project.MemberDao" %>
 <%@ page import = "dto.bookshop.project.Member" %>
+<%@ page import = "service.bookshop.project.ServiceMember" %>
 
 <!DOCTYPE html>
 <html>
@@ -18,19 +18,18 @@
 			System.out.println(memberId);
 			System.out.println(memberPw);
 			
-			MemberDao memberDao = new MemberDao();
-			String result = memberDao.loginCheckMember(memberId, memberPw);
+			ServiceMember serviceMember = new ServiceMember();
 			
-			if(result.equals("로그인성공")){
-				Member member = memberDao.memberInformationSelect(memberId);
+			Member member = serviceMember.loginMember(memberId, memberPw);
+			
+			if(member != null){
 				session.setAttribute("sessionId", member.getMemberId());
 				session.setAttribute("sessionName", member.getMemberName());
 				session.setAttribute("sessionNo", member.getMemberNum());
-				
 				response.sendRedirect(request.getContextPath()+"/index.jsp");
-			}else if(result.equals("로그인실패")){
-				response.sendRedirect(request.getContextPath()+"/member/memberJoinForm.jsp");
-			}
+			}else {
+				response.sendRedirect(request.getContextPath()+"/member/memberLoginForm.jsp");
+			}			
 		%>
 	</body>
 </html>

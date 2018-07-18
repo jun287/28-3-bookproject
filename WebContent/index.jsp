@@ -36,8 +36,8 @@
 					}
 				%>
 					<a href="<%= request.getContextPath() %>/book/bookList.jsp">도서 목록</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-					<a href="<%= request.getContextPath() %>/shoppingCart/shoppingCartList.jsp?sessionNo=<%= sessionNo %>">카트</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-					<a href="<%= request.getContextPath() %>/bookOrders/bookOrdersList.jsp?sessionNo=<%= sessionNo %>">도서 구매</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+					<a href="<%= request.getContextPath() %>/shoppingCart/shoppingCartList.jsp?memberNo=<%= sessionNo %>">카트</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+					<a href="<%= request.getContextPath() %>/bookOrders/bookOrdersList.jsp?memberNo=<%= sessionNo %>">도서 구매</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 					<a href="<%= request.getContextPath() %>/boardQnA/boardList.jsp">Q&A</a>
 			</div>
 	</body>

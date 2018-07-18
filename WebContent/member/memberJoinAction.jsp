@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ page import = "dto.bookshop.project.Member" %>
-<%@ page import = "dao.bookshop.project.MemberDao" %>
+<%@ page import = "service.bookshop.project.ServiceMember" %>
 
 <!DOCTYPE html>
 <html>
@@ -23,8 +23,9 @@
 			member.setMemberName(memberName);
 			member.setMemberAddr(memberAddr);
 			
-			MemberDao memberDao = new MemberDao();
-			memberDao.insertMember(member);
+			ServiceMember serviceMember = new ServiceMember();
+			
+			serviceMember.insertMember(member);
 			
 			response.sendRedirect(request.getContextPath()+"/index.jsp");
 		%>
