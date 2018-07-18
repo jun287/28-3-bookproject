@@ -1,67 +1,70 @@
-<!-- 18.7.18 ÃÖÁö¼ö : bookOrdersForm.jsp -->
-<!-- »óÇ° ÁÖ¹®ÇÏ´Â ÆäÀÌÁö -->
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<!-- 18.7.18 ìµœì§€ìˆ˜ : bookOrdersForm.jsp -->
+<!-- ìƒí’ˆ ì£¼ë¬¸í•˜ëŠ” íŽ˜ì´ì§€ -->
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Insert title here</title>
 	</head>
 	<body>
 <%
-	/* if(session.getAttribute("sessionId")==null){		// ·Î±×ÀÎÀÌ µÇ¾îÀÖ´ÂÁö È®ÀÎÇÏ¿© ·Î±×ÀÎÀÌ ¾ÈµÇ¾îÀÖÀ¸¸é ·Î±×ÀÎÆäÀÌÁö·Î ÀÌµ¿
+	/* if(session.getAttribute("sessionId")==null){		// ë¡œê·¸ì¸ì´ ë˜ì–´ìžˆëŠ”ì§€ í™•ì¸í•˜ì—¬ ë¡œê·¸ì¸ì´ ì•ˆë˜ì–´ìžˆìœ¼ë©´ ë¡œê·¸ì¸íŽ˜ì´ì§€ë¡œ ì´ë™
 		response.sendRedirect(request.getContextPath() + "/member/memberLoginForm.jsp" );
 	}
-	int bookNumber = Integer.parseInt(request.getParameter("bookNumber"));		// book_no¸¦ ¹Þ¾Æ¿À´Â ÄÚµå
-	int memberNumber = Integer.parseInt(request.getParameter("memberNumber"));	// member_no¸¦ ¹Þ¾Æ¿À´Â ÄÚµå
-	int ordersAmount = Integer.parseInt(request.getParameter("amount"));				// ¼ö·®À» ¹Þ¾Æ¿À´Â ÄÚµå */
+	int bookNumber = Integer.parseInt(request.getParameter("bookNumber"));		// book_noë¥¼ ë°›ì•„ì˜¤ëŠ” ì½”ë“œ
+	int memberNumber = Integer.parseInt(request.getParameter("memberNumber"));	// member_noë¥¼ ë°›ì•„ì˜¤ëŠ” ì½”ë“œ
+	int ordersAmount = Integer.parseInt(request.getParameter("amount"));				// ìˆ˜ëŸ‰ì„ ë°›ì•„ì˜¤ëŠ” ì½”ë“œ */
 	
-	int price = 50000;															// »óÇ°±Ý¾×(ÀÓ½Ã)
-	int memberPoint = 20000;													// È¸¿øÀÇ Æ÷ÀÎÆ®¸¦ ¹Þ¾Æ¿À´Â º¯¼ö
-	int usePoint = 0;															// Æ÷ÀÎÆ® »ç¿ë±Ý¾×À» ¹Þ¾Æ¿À´Â º¯¼ö
-	if(request.getParameter("usePoint")!=null){									// Æ÷ÀÎÆ® »ç¿ë±Ý¾×ÀÌ ÀÖÀ» °æ¿ì
-		if(Integer.parseInt(request.getParameter("usePoint"))<=memberPoint){	// ÀÔ·ÂÇÑ °ªÀÌ ÃÑ Æ÷ÀÎÆ®ÀÇ °ªº¸´Ù ³·°Å³ª °°À» °æ¿ì¿¡¸¸
-			usePoint = Integer.parseInt(request.getParameter("usePoint"));		// usePoint º¯¼ö¿¡ ¹Þ¾Æ¿Â °ª ÀÔ·Â
+	int price = 50000;															// ìƒí’ˆê¸ˆì•¡(ìž„ì‹œ)
+	int memberPoint = 20000;													// íšŒì›ì˜ í¬ì¸íŠ¸ë¥¼ ë°›ì•„ì˜¤ëŠ” ë³€ìˆ˜
+	int usePoint = 0;															// í¬ì¸íŠ¸ ì‚¬ìš©ê¸ˆì•¡ì„ ë°›ì•„ì˜¤ëŠ” ë³€ìˆ˜
+	if(request.getParameter("usePoint")!=null){									// í¬ì¸íŠ¸ ì‚¬ìš©ê¸ˆì•¡ì´ ìžˆì„ ê²½ìš°
+		if(Integer.parseInt(request.getParameter("usePoint"))<=memberPoint){	// ìž…ë ¥í•œ ê°’ì´ ì´ í¬ì¸íŠ¸ì˜ ê°’ë³´ë‹¤ ë‚®ê±°ë‚˜ ê°™ì„ ê²½ìš°ì—ë§Œ
+			usePoint = Integer.parseInt(request.getParameter("usePoint"));		// usePoint ë³€ìˆ˜ì— ë°›ì•„ì˜¨ ê°’ ìž…ë ¥
 		}
 	}
-	int addressCheck = 0;														// ±âÁ¸ÁÖ¼ÒÀÎÁö, »õ·Î¿î ÁÖ¼ÒÀÎÁö ¼±ÅÃÈ®ÀÎÀ§ÇÑ º¯¼ö ¼±¾ð
-	 if(request.getParameter("addressCheck")!=null){							// addressCheck¸¦ ¹Þ¾Æ¿À´Â °ªÀÌ ÀÖÀ»¶§
-		 addressCheck = Integer.parseInt(request.getParameter("addressCheck"));	// »õ·Î¿î ÁÖ¼Ò¸¦ ¼±ÅÃÇÑ °ªÀ» addressCheckº¯¼ö¿¡ ´ëÀÔ
+	int addressCheck = 0;														// ê¸°ì¡´ì£¼ì†Œì¸ì§€, ìƒˆë¡œìš´ ì£¼ì†Œì¸ì§€ ì„ íƒí™•ì¸ìœ„í•œ ë³€ìˆ˜ ì„ ì–¸
+	 if(request.getParameter("addressCheck")!=null){							// addressCheckë¥¼ ë°›ì•„ì˜¤ëŠ” ê°’ì´ ìžˆì„ë•Œ
+		 addressCheck = Integer.parseInt(request.getParameter("addressCheck"));	// ìƒˆë¡œìš´ ì£¼ì†Œë¥¼ ì„ íƒí•œ ê°’ì„ addressCheckë³€ìˆ˜ì— ëŒ€ìž…
 	 }
-	String recentAddress = null;												// ÃÖ±Ù¹è¼ÛÁö ¹Þ¾Æ¿À´Â º¯¼ö
-	int savePoint = price*5/100;
-	int ordersPrice = price-usePoint;
+	String recentAddress = null;												// ìµœê·¼ë°°ì†¡ì§€ ë°›ì•„ì˜¤ëŠ” ë³€ìˆ˜
+	int ordersPrice = price-usePoint;											// í¬ì¸íŠ¸ ì ìš© í›„ ìµœì¢… ê²°ì œê¸ˆì•¡
 %>	
 	<form action="<%=request.getContextPath()%>/bookOrders/bookOrdersAction.jsp" method="post">
-		<%-- <input type="hidden" name="ordersPrice" value="<%=(ordersPrice-usePoint)%>">
-		<input type="hidden" name="bookNumber" value="<%=bookNumber%>">
-		<input type="hidden" name="ordersAmount" value="<%=ordersAmount%>"> --%>
+		<input type="hidden" name="ordersPrice" value="<%=ordersPrice%>">
+		<%-- <input type="hidden" name="bookNumber" value="<%=bookNumber%>">
+		<input type="hidden" name="orderAmount" value="<%=orderAmount%>"> --%>
+		<input type="hidden" name="bookNumber" value="<%=1%>">
+		<input type="hidden" name="orderAmount" value="<%=3%>">
+		<input type="hidden" name="memberNumber" value="<%=1%>">
 		<table>
 			<tr>
-				<th>ÁÖ¹®ÀÚÀÌ¸§</th>
-				<td>È«±æµ¿</td>
+				<th>ì£¼ë¬¸ìžì´ë¦„</th>
+				<td>í™ê¸¸ë™</td>
 			</tr>
 			<tr>
-				<th>¹è¼ÛÁÖ¼Ò</th>
-				<td><a href="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp">±âÁ¸ÁÖ¼Ò</a></td>
-				<td><a href="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp?addressCheck=1&usePoint=<%=usePoint%>">»õ·Î¿îÁÖ¼Ò</a></td>
-				<td><a href="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp?addressCheck=2&usePoint=<%=usePoint%>">ÃÖ±Ù¹è¼ÛÁö</a></td>
+				<th>ë°°ì†¡ì£¼ì†Œ</th>
+				<td><a href="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp">ê¸°ì¡´ì£¼ì†Œ</a></td>
+				<td><a href="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp?addressCheck=1&usePoint=<%=usePoint%>">ìƒˆë¡œìš´ì£¼ì†Œ</a></td>
+				<td><a href="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp?addressCheck=2&usePoint=<%=usePoint%>">ìµœê·¼ë°°ì†¡ì§€</a></td>
 			</tr>
 			<tr>
 <%
-			if(addressCheck==0){				// ±âÁ¸ÁÖ¼Ò¸¦ ¼±ÅÃÇßÀ»¶§
+			if(addressCheck==0){				// ê¸°ì¡´ì£¼ì†Œë¥¼ ì„ íƒí–ˆì„ë•Œ
 %>
-				<td colspan="3" align="center"><input type="text" name="ordersAddress" value="±âÁ¸ÁÖ¼ÒÇ¥½Ã¿µ¿ª" readonly="readonly"></td>
+				<td colspan="3" align="center"><input type="text" name="ordersAddress" value="ê¸°ì¡´ì£¼ì†Œí‘œì‹œì˜ì—­" readonly="readonly"></td>
 <%
-			}else if(addressCheck==1){								// »õ·Î¿îÁÖ¼Ò¸¦ ¼±ÅÃÇßÀ»¶§
+			}else if(addressCheck==1){								// ìƒˆë¡œìš´ì£¼ì†Œë¥¼ ì„ íƒí–ˆì„ë•Œ
 %>
 				<td colspan="3" align="center"><input type="text" name="ordersAddress"></td>
 <%
 			}else{
 				if(recentAddress == null){
 %>
-				<td colspan="3" align="center">ÃÖ±Ù¹è¼ÛÁö°¡ ¾ø½À´Ï´Ù</td>
+				<td colspan="3" align="center">ìµœê·¼ë°°ì†¡ì§€ê°€ ì—†ìŠµë‹ˆë‹¤</td>
 <%					
 				}else{
 %>
@@ -74,46 +77,46 @@
 		</table>
 		<table>
 			<tr>
-				<th>»óÇ°¸í</th>
-				<td>»óÇ°¸í ¹Þ¾Æ¿Â°ª ÀÔ·Â</td>
+				<th>ìƒí’ˆëª…</th>
+				<td>ìƒí’ˆëª… ë°›ì•„ì˜¨ê°’ ìž…ë ¥</td>
 			</tr>
 			<tr>
-				<th>¼ö·®</th>
-				<td>¼ö·® ¹Þ¾Æ¿Â°ª ÀÔ·Â</td>
+				<th>ìˆ˜ëŸ‰</th>
+				<td>ìˆ˜ëŸ‰ ë°›ì•„ì˜¨ê°’ ìž…ë ¥</td>
 			</tr>
 		</table>
-		<button>ÁÖ¹®ÇÏ±â</button>
+		<button>ì£¼ë¬¸í•˜ê¸°</button>
 	</form>
 	<form action="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp" method="post">
 		<input type="hidden" name="addressCheck" value="<%=addressCheck %>">
 		<table>
 			<tr>
-				<th>º¸À¯ Æ÷ÀÎÆ®</th>
+				<th>ë³´ìœ  í¬ì¸íŠ¸</th>
 				<td><%=memberPoint %></td>
 			</tr>
 			<tr>
-				<th>»ç¿ë Æ÷ÀÎÆ®</th>
-				<td><input type="text" name="usePoint" value="<%=usePoint%>"> <button type="submit">Àû¿ë</button></td>
+				<th>ì‚¬ìš© í¬ì¸íŠ¸</th>
+				<td><input type="text" name="usePoint" value="<%=usePoint%>"> <button type="submit">ì ìš©</button></td>
 			</tr>
 		</table>
 	</form>
 		<table>
 			<tr>
-				<th>±Ý¾×</th>
+				<th>ê¸ˆì•¡</th>
 				<td><%=price %></td>
 			</tr>
 			<tr>
-				<th>ÇÒÀÎ(Æ÷ÀÎÆ®»ç¿ë)</th>
+				<th>í• ì¸(í¬ì¸íŠ¸ì‚¬ìš©)</th>
 				<td><%=usePoint %></td>
 			</tr>
 			<tr>
-				<th>ÃÑ ±Ý¾×</th>
+				<th>ì´ ê¸ˆì•¡</th>
 				<td><%= ordersPrice %></td>
 			</tr>
 		</table>
 		<div>
-			Ã¥ ±¸¸Å½Ã Àû¸³Æ÷ÀÎÆ® : <%=price*5/100 %>¿ø Àû¸³ <br>
-			Ã¥ ¸®ºäÀÛ¼º½Ã Àû¸³Æ÷ÀÎÆ® : <%=price*1/100 %>¿ø Àû¸³
+			ì±… êµ¬ë§¤ì‹œ ì ë¦½í¬ì¸íŠ¸ : <%=price*5/100 %>ì› ì ë¦½ <br>
+			ì±… ë¦¬ë·°ìž‘ì„±ì‹œ ì ë¦½í¬ì¸íŠ¸ : <%=price*1/100 %>ì› ì ë¦½
 		</div>
 	</body>
 </html>
