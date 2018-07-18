@@ -7,21 +7,21 @@ public class DBconnection {
 	
 	public static Connection getConnetion() {
 		
-		String jdbcDriver = "jdbc:mysql://localhost:3306/bookshop?useUnicode=true&characterEncoding=euckr";
+		String jdbcDriver = "jdbc:mysql://localhost:3306/bookshop?useUnicode=true&characterEncoding=utf8";
 		String dbUser = "root";
 		String dbPass = "java0000";
 			
-		Connection connetion= null;
+		Connection connection= null;
 		
 		try {
 			
 			Class.forName("com.mysql.jdbc.Driver");
-			connetion = DriverManager.getConnection(jdbcDriver,dbUser,dbPass);
+			connection = DriverManager.getConnection(jdbcDriver,dbUser,dbPass);
 			
 		}catch(Exception e) {
 			System.out.println(e);
 		}
 		
-		return connetion;
+		return connection;
 	}
 }
