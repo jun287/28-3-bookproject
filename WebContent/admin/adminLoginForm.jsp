@@ -1,27 +1,27 @@
-<!-- 2018. 07. 17. °ø¼¼ÁØ -->
+<!-- 2018. 07. 17. ê³µì„¸ì¤€ -->
 
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>adminLoginForm.jsp</title>
 	</head>
 	<body>
 		<div align="center">
-			<h1>°ü¸®ÀÚ ·Î±×ÀÎ</h1>
+			<h1>ê´€ë¦¬ìž ë¡œê·¸ì¸</h1>
 			<form method="post" action="<%= request.getContextPath() %>/admin/adminLoginAction.jsp">
 				<table>
 					<tr>
-						<td align="right">¾ÆÀÌµð : </td>
+						<td align="right">ì•„ì´ë”” : </td>
 						<td><input type="text" name="adminId" required></td>
-						<td><input type="submit" value="·Î±×ÀÎ"></td>
+						<td><input type="submit" value="ë¡œê·¸ì¸"></td>
 					</tr>
 					<tr>
-						<td align="right">ºñ¹Ð¹øÈ£ : </td>
+						<td align="right">ë¹„ë°€ë²ˆí˜¸ : </td>
 						<td><input type="password" name="adminPw" required></td>
-						<td><button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">¸ÞÀÎÀ¸·Î</button></td>
+						<td><button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">ë©”ì¸ìœ¼ë¡œ</button></td>
 					</tr>
 				</table>
 			</form>
