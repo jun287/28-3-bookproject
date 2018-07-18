@@ -1,37 +1,37 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>memberJoinForm</title>
 	</head>
 	<body>
 		<div align="center">
-			<h1>х╦©Ь ╟║ют</h1>
+			<h1>М ▄Л⌡░ Й╟─Л·┘</h1>
 			<form method="post" action="<%= request.getContextPath() %>/member/memberJoinAction.jsp">
 				<table>
 					<tr>
-						<td align="right">╬фюл╣П : </td>
+						<td align="right">Л∙└Л²╢К■■ : </td>
 						<td><input type="text" name="memberId" required></td>
 					</tr>
 					<tr>
-						<td align="right">╨Я╧п╧Ьхё : </td>
+						<td align="right">К╧└К╟─К╡┬М≤╦ : </td>
 						<td><input type="password" name="memberPw" required></td>
 					</tr>
 					<tr>
-						<td align="right">юл╦╖ :</td>
+						<td align="right">Л²╢К╕└ :</td>
 						<td><input type="text" name="memberName" required></td>
 					</tr>
 					<tr>
-						<td align="right">аж╪р :</td>
+						<td align="right">Лё╪Л├▄ :</td>
 						<td><input type="text" name="memberAddr" required></td>
 					</tr>
 					<tr>
 						<td></td>
 						<td>
-							<button type="button" onclick="location.href='<%= request.getContextPath() %>/member/memberLoginAction.jsp'">х╦©Ь╟║ют</button>
-							<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">╦чюню╦╥н</button>
+							<button type="button" onclick="location.href='<%= request.getContextPath() %>/member/memberLoginAction.jsp'">М ▄Л⌡░Й╟─Л·┘</button>
+							<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">К╘■Л²╦Л°╪К║°</button>
 						</td>
 					</tr>
 				</table>

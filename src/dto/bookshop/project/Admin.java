@@ -7,6 +7,7 @@ public class Admin {
 	private String adminPw;
 	private String adminName;
 	private String adminDate;
+	
 	public int getAdminNo() {
 		return adminNo;
 	}

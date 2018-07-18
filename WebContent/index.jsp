@@ -1,19 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Index</title>
 	</head>
 	<body>
 		<div align ="center">
 			<h1>Book Shop</h1>
-				<a href="<%= request.getContextPath() %>/member/memberJoinForm.jsp">È¸¿ø°¡ÀÔ</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-				<a href="<%= request.getContextPath() %>/member/memberLoginForm.jsp">·Î±×ÀÎ</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-				<a href="<%= request.getContextPath() %>/book/bookList.jsp">µµ¼­ ¸ñ·Ï</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-				<a href="<%= request.getContextPath() %>/bookCart/bookCartList.jsp">Ä«Æ®</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-				<a href="<%= request.getContextPath() %>/bookOrders/bookOrdersList.jsp">µµ¼­ ±¸¸Å</a>&nbsp;&nbsp;&nbsp;
+				<a href="<%= request.getContextPath() %>/member/memberJoinForm.jsp">íšŒì›ê°€ì…</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+				<a href="<%= request.getContextPath() %>/member/memberLoginForm.jsp">ë¡œê·¸ì¸</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+				<a href="<%= request.getContextPath() %>/book/bookList.jsp">ë„ì„œ ëª©ë¡</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+				<a href="<%= request.getContextPath() %>/bookCart/bookCartList.jsp">ì¹´íŠ¸</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+				<a href="<%= request.getContextPath() %>/bookOrders/bookOrdersList.jsp">ë„ì„œ êµ¬ë§¤</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+				<a href="<%= request.getContextPath() %>/boardQnA/boardList.jsp">Q&A</a>
 		</div>
 	</body>
 </html>
