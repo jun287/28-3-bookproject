@@ -10,6 +10,7 @@ import util.connetion.db.DBconnection;
 
 public class MemberDao {
 	
+	
 	// 설명 : id 를 받아서 데이터베이스에 일치하는 id 가 있으면 그 정보를 가져오는 메서드 입니다.
 	// 매개변수 : String 타입으로 memberId를 받습니다.
 	// 리턴 : 회원정보가 담긴 Member 클래스 객체의 참조값을 리턴 합니다.
