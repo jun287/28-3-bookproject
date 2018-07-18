@@ -41,8 +41,8 @@
 				<tr>
 					<td><%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartNumber()%></td>
 					<td><%=memberAndBookAndShoppingCart.getShoppingCart().getBookNumber() %></td>
-					<td><%=memberAndBookAndShoppingCart.getBook().getBookname() %></td>
-					<td><%=memberAndBookAndShoppingCart.getBook().getBookAuthor() %></td>
+					<td><%=memberAndBookAndShoppingCart.getBook().getBook_name() %></td>
+					<td><%=memberAndBookAndShoppingCart.getBook().getBook_author() %></td>
 					<td><%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartPrice()%></td>
 					<td><%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartDate() %></td>
 					<td>
