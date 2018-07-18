@@ -1,75 +1,138 @@
+//2018-07-18 김소희
 package dao.bookshop.project;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import util.connetion.db.DBconnection;
+import java.sql.*;
 import java.util.ArrayList;
 
 import dto.bookshop.project.Orders;
 
 public class BookOrdersDao {
-	/*orders_no
-	 * book_no
-	 * member_no
-	 * orders_price
-	 * orders_amount
-	 * orders_date
-	 * orders_addr
-	 * orders_state
-	 * */
-	public ArrayList<Orders> bookOrders (String orders){
+
+	
+	public ArrayList<Orders> selectBookOrders (int bookNumber){
 		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		ArrayList<Orders> list = new ArrayList<>();
+		ArrayList<Orders> ordersList = new ArrayList<>();
+		
+		DBconnection.getConnetion();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			connection = DBconnection.getConnetion();
+			preparedStatement = connection.prepareStatement("SELECT orders_no, book_no, member_no, orders_price, orders_amount, orders_date, orders_addr, orders_state FROM orders  WHERE book_no=?");
+			preparedStatement.setInt(1, bookNumber);
 			
-            String jdbcDriver = "jdbc:mysql://localhost:3306/5mysqlcrud?useUnicode=true&characterEncoding=euckr"; //데이터베이스 명
-            String dbUser = "root";        
-            String dbPass = "java0000";        
-
-			conn = DriverManager.getConnection(jdbcDriver, dbUser, dbPass);
-			System.out.println(conn + "<--conn");
-	          
-			pstmt = conn.prepareStatement("SELECT orders.orders_no, orders.orders_price, orders.orders_amount, orders.orders_date, orders.orders_addr FROM orders, member, book WHERE orders.orders_no = member.member_no AND orders.orders_no = book.book_no AND orders.book_no=?");
-			pstmt.setString(1, orders);
-			rs = pstmt.executeQuery();
+			resultSet = preparedStatement.executeQuery();
 			
-			while(rs.next()) {
-				
-				Orders o = new Orders();
-				
-				o.setOrdersNumber(rs.getInt("orderNumber"));
-				o.setBookNumber(rs.getInt("bookNumber"));
-				o.setOrdersPrice(rs.getInt("ordersPrice"));
-				o.setOrderAmount(rs.getInt("ordersAmount"));
-				o.setOrdersDate(rs.getString("ordersDate"));
-				o.setOrdersAddress(rs.getString("ordersAddress"));
-				o.setOrderState(rs.getString("ordersState"));
-				
-				list.add(o);
+		while(resultSet.next()) {
+			Orders orders = new Orders();
+			
+			orders.setOrdersNumber(resultSet.getInt("orderNumber"));
+			orders.setBookNumber(resultSet.getInt("bookNumber"));
+			orders.setOrdersPrice(resultSet.getInt("ordersPrice"));
+			orders.setOrdersAmount(resultSet.getInt("ordersAmount"));
+			orders.setOrdersDate(resultSet.getString("ordersDate"));
+			orders.setOrdersAddress(resultSet.getString("ordersAddress"));
+			orders.setOrderState(resultSet.getString("ordersState"));
+			
+			ordersList.add(orders);
+			
+		}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			
+        	// 객체 종료(닫는 순서 중요)
+			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 쿼리연결종료
+			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DB연결종료
+			
+		}
+		
+			
+		return ordersList;
+		
+	}
+	public int selectCount() {
+		
+		int totalRow = 0;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			connection = DBconnection.getConnetion();
+			preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM orders");	
+			resultSet = preparedStatement.executeQuery();
+			if(resultSet.next()) {
+				totalRow = resultSet.getInt("COUNT(*)");
 			}
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
 			
+        	// 객체 종료(닫는 순서 중요)
+			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 쿼리연결종료
+			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DB연결종료
 			
-			
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();		
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
-			
+		}
 		
 		
-			return list;
+		return totalRow;
 		
 	}
 	
+	public ArrayList<Orders> selectOrderByPage (int currentPage, int pagePerRow){
+		
+		ArrayList<Orders> ordersList = new ArrayList<>();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			connection = DBconnection.getConnetion();
+			preparedStatement = connection.prepareStatement("SELECT orders_no, book_no, member_no, orders_price, orders_amount, orders_date, orders_addr ,orders_state FROM orders ORDER BY orders_no DESC LIMIT ?,?");
+			preparedStatement.setInt(1, (currentPage-1)*pagePerRow);
+			preparedStatement.setInt(2, pagePerRow);
+			
+			resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				
+				Orders orders = new Orders();
+				//Orders data type으로 o 변수를 생성하고 new생성자메소드로  생성된 Orders객체의 주소 값을 o 변수에 할당한다
+				orders.setOrdersNumber(resultSet.getInt("orderNumber"));
+				orders.setBookNumber(resultSet.getInt("bookNumber"));
+				orders.setOrdersPrice(resultSet.getInt("ordersPrice"));
+				orders.setOrdersAmount(resultSet.getInt("ordersAmount"));
+				orders.setOrdersDate(resultSet.getString("ordersDate"));
+				orders.setOrdersAddress(resultSet.getString("ordersAddress"));
+				orders.setOrderState(resultSet.getString("ordersState"));
+				
+				ordersList.add(orders);
+			}
+			
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			
+        	// 객체 종료(닫는 순서 중요)
+			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 쿼리연결종료
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// DB연결종료
+			
+		}
+		
+		
+		return ordersList;
+		
+	}
 	
-
 }

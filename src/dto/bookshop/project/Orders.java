@@ -1,11 +1,12 @@
+// 2018-07-18 김소희 Orders.java
 package dto.bookshop.project;
 
 public class Orders {
-	private int ordersNumber;
+	private int ordersNumber;			// 접근지정자 private 같은클래스 내에서만 사용가능, int data type으로 ordersNumber변수 선언
 	private int bookNumber;
 	private int memberNumber;
 	private int ordersPrice;
-	private int orderAmount;
+	private int ordersAmount;
 	private String ordersDate;
 	private String ordersAddress;
 	private String orderState;
@@ -34,11 +35,11 @@ public class Orders {
 	public void setOrdersPrice(int ordersPrice) {
 		this.ordersPrice = ordersPrice;
 	}
-	public int getOrderAmount() {
-		return orderAmount;
+	public int getOrdersAmount() {
+		return ordersAmount;
 	}
-	public void setOrderAmount(int orderAmount) {
-		this.orderAmount = orderAmount;
+	public void setOrdersAmount(int ordersAmount) {
+		this.ordersAmount = ordersAmount;
 	}
 	public String getOrdersDate() {
 		return ordersDate;
@@ -60,8 +61,4 @@ public class Orders {
 	}
 	
 	
-	
-	
-
-
 }
