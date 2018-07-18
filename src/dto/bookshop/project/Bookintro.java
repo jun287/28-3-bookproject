@@ -1,5 +1,5 @@
 package dto.bookshop.project;
 
-public class publisher {
+public class Bookintro {
 
 }
