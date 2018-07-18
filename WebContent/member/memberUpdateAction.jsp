@@ -4,9 +4,9 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Insert title here</title>
+		<title>memberUpdateAction</title>
 	</head>
 	<body>
-	
+		String memberId = request.
 	</body>
 </html>
