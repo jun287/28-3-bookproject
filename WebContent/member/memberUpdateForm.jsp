@@ -23,11 +23,11 @@
 				<table>
 					<tr>
 						<td align="right">아이디 : </td>
-						<td><input type="text" name="memberId" value="<%= member.getMemberId() %>"required></td>
+						<td><input type="text" name="memberId" value="<%= member.getMemberId() %>" readonly></td>
 					</tr>
 					<tr>
 						<td align="right">비밀번호 : </td>
-						<td><input type="password" name="memberPw" value="<%= member.getMemberPw() %>" required></td>
+						<td><input type="password" name="memberPw" value="<%= member.getMemberPw()	 %>" required></td>
 					</tr>
 					<tr>
 						<td align="right">이름 :</td>

@@ -119,6 +119,33 @@ public class MemberDao {
 		return result;
 	}
 	
+	// 설명 : 회원정보를 받아서 데이터베이스에 업데이트 하는 메서드 입니다.
+	// 매개변수 : Member 클래스 타입으로 객체의 참조값을 받습니다.
+	// 리턴 : void로 없습니다.
+	public void updateMember(Connection connection, Member member) {
+		
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			
+			preparedStatement = connection.prepareStatement("UPDATE member SET member_pw=?,member_name=?,member_addr=? WHERE member_id=?");
+			preparedStatement.setString(1, member.getMemberPw());
+			preparedStatement.setString(2, member.getMemberName());
+			preparedStatement.setString(3, member.getMemberAddr());
+			preparedStatement.setString(4, member.getMemberId());
+			preparedStatement.executeUpdate();
+			
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+		}finally {
+			if(preparedStatement != null)try{
+				preparedStatement.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+		}
+	}
+	
 	// 설명 : 회원정보를 담은 Member 객체의 참조값을 받아 insert쿼리문을 실행시켜 데이터베이스에 저장 하는 메서드 입니다.
 	// 매개변수 : Member 클래스 타입으로 객체의 참조값을 받습니다.
 	// 리턴 : void로 없습니다.
@@ -128,7 +155,7 @@ public class MemberDao {
 		
 		try {
 			
-			preparedStatement = connection.prepareStatement("INSERT INTO member(member_id, member_pw, member_name, member_addr, member_date) VALUES (?,?,?,?,now())");
+			preparedStatement = connection.prepareStatement("INSERT INTO member(member_id, member_pw, member_name, member_addr,member_point, member_date) VALUES (?,?,?,?,'0',now())");
 			preparedStatement.setString(1, member.getMemberId());
 			preparedStatement.setString(2, member.getMemberPw());
 			preparedStatement.setString(3, member.getMemberName());
