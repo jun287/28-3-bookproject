@@ -12,13 +12,13 @@
 	o.setBookNumber(Integer.parseInt(request.getParameter("bookNumber")));
 	o.setMemberNumber(Integer.parseInt(request.getParameter("memberNumber")));
 	o.setOrdersPrice(Integer.parseInt(request.getParameter("ordersPrice")));
-	o.setOrderAmount(Integer.parseInt(request.getParameter("orderAmount")));
+	o.setOrdersAmount(Integer.parseInt(request.getParameter("orderAmount")));
 	o.setOrdersAddress(request.getParameter("ordersAddress"));
 	
 	System.out.println(o.getBookNumber());
 	System.out.println(o.getMemberNumber());
 	System.out.println(o.getOrdersPrice());
-	System.out.println(o.getOrderAmount());
+	System.out.println(o.getOrdersAmount());
 	System.out.println(o.getOrdersAddress());
 	
 	eo.insertBookOrder(o);

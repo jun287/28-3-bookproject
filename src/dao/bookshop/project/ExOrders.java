@@ -25,7 +25,7 @@ public class ExOrders {
 			pstmt.setInt(1, o.getBookNumber());
 			pstmt.setInt(2, o.getMemberNumber());
 			pstmt.setInt(3, o.getOrdersPrice());
-			pstmt.setInt(4, o.getOrderAmount());
+			pstmt.setInt(4, o.getOrdersAmount());
 			pstmt.setString(5, o.getOrdersAddress());
 			
 			System.out.println(o.getOrdersAddress());
