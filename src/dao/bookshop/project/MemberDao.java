@@ -10,9 +10,9 @@ import dto.bookshop.project.Member;
 public class MemberDao {
 	
 	
-	// ì„¤ëª… : id ë¥¼ ë°›ì•„ì„œ ë°ì´í„°ë² ì´ìŠ¤ì— ì¼ì¹˜í•˜ëŠ” id ê°€ ìˆìœ¼ë©´ ê·¸ ì •ë³´ë¥¼ ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ ì…ë‹ˆë‹¤.
-	// ë§¤ê°œë³€ìˆ˜ : String íƒ€ì…ìœ¼ë¡œ memberIdë¥¼ ë°›ìŠµë‹ˆë‹¤.
-	// ë¦¬í„´ : íšŒì›ì •ë³´ê°€ ë‹´ê¸´ Member í´ë˜ìŠ¤ ê°ì²´ì˜ ì°¸ì¡°ê°’ì„ ë¦¬í„´ í•©ë‹ˆë‹¤.
+	// ¼³¸í : id ¸¦ ¹Ş¾Æ¼­ µ¥ÀÌÅÍº£ÀÌ½º¿¡ ÀÏÄ¡ÇÏ´Â id °¡ ÀÖÀ¸¸é ±× Á¤º¸¸¦ °¡Á®¿À´Â ¸Ş¼­µå ÀÔ´Ï´Ù.
+	// ¸Å°³º¯¼ö : String Å¸ÀÔÀ¸·Î memberId¸¦ ¹Ş½À´Ï´Ù.
+	// ¸®ÅÏ : È¸¿øÁ¤º¸°¡ ´ã±ä Member Å¬·¡½º °´Ã¼ÀÇ ÂüÁ¶°ªÀ» ¸®ÅÏ ÇÕ´Ï´Ù.
 	public Member selectMemberInfor(Connection connection, String memberId) {
 		
 		Member member = new Member();
@@ -43,9 +43,9 @@ public class MemberDao {
 		return member;
 	}
 	
-	// ì„¤ëª… : idì™€ pwë¥¼ ë°›ì•„ì„œ ë°ì´í„°ë² ì´ìŠ¤ì— ìˆëŠ” ì •ë³´ë¥¼ ê²€ìƒ‰í•˜ì—¬ ë¡œê·¸ì¸ì²´í¬ í•˜ëŠ” ë©”ì„œë“œ ì…ë‹ˆë‹¤.
-	// ë§¤ê°œë³€ìˆ˜ : String ì°¸ì¡°íƒ€ì…ìœ¼ë¡œ memberId, memberPw ë¥¼ ë°›ìŠµë‹ˆë‹¤.
-	// ë¦¬í„´ : String ì°¸ì¡°íƒ€ì…ìœ¼ë¡œ ì¡°ê±´ë¬¸ì— ê²°ê³¼ê°’ì¸ "ë¡œê·¸ì¸ì„±ê³µ" ë˜ëŠ” "ë¡œê·¸ì¸ì‹¤íŒ¨" ë¥¼ resultì— ëŒ€ì…í›„ ë¦¬í„´í•©ë‹ˆë‹¤. 
+	// ¼³¸í : id¿Í pw¸¦ ¹Ş¾Æ¼­ µ¥ÀÌÅÍº£ÀÌ½º¿¡ ÀÖ´Â Á¤º¸¸¦ °Ë»öÇÏ¿© ·Î±×ÀÎÃ¼Å© ÇÏ´Â ¸Ş¼­µå ÀÔ´Ï´Ù.
+	// ¸Å°³º¯¼ö : String ÂüÁ¶Å¸ÀÔÀ¸·Î memberId, memberPw ¸¦ ¹Ş½À´Ï´Ù.
+	// ¸®ÅÏ : String ÂüÁ¶Å¸ÀÔÀ¸·Î Á¶°Ç¹®¿¡ °á°ú°ªÀÎ "·Î±×ÀÎ¼º°ø" ¶Ç´Â "·Î±×ÀÎ½ÇÆĞ" ¸¦ result¿¡ ´ëÀÔÈÄ ¸®ÅÏÇÕ´Ï´Ù. 
 	public String loginCheckMember(Connection connection ,String memberId, String memberPw) {
 	
 		PreparedStatement preparedStatement = null;
@@ -60,9 +60,9 @@ public class MemberDao {
 			resultSet = preparedStatement.executeQuery();
 			
 			if(resultSet.next()) {
-				result = "ë¡œê·¸ì¸ì„±ê³µ";
+				result = "·Î±×ÀÎ¼º°ø";
 			}else {
-				result = "ë¡œê·¸ì¸ì‹¤íŒ¨";
+				result = "·Î±×ÀÎ½ÇÆĞ";
 			}
 			
 		}catch(SQLException ex) {
@@ -96,9 +96,9 @@ public class MemberDao {
 			resultSet = preparedStatement.executeQuery();
 			
 			if(resultSet.next()) {
-				result = "ì•„ì´ë””ì¡´ì¬";
+				result = "¾ÆÀÌµğÁ¸Àç";
 			}else {
-				result = "ê°€ì…ê°€ëŠ¥";
+				result = "°¡ÀÔ°¡´É";
 			}
 			
 		}catch(SQLException ex){
@@ -119,9 +119,9 @@ public class MemberDao {
 		return result;
 	}
 	
-	// ì„¤ëª… : íšŒì›ì •ë³´ë¥¼ ë°›ì•„ì„œ ë°ì´í„°ë² ì´ìŠ¤ì— ì—…ë°ì´íŠ¸ í•˜ëŠ” ë©”ì„œë“œ ì…ë‹ˆë‹¤.
-	// ë§¤ê°œë³€ìˆ˜ : Member í´ë˜ìŠ¤ íƒ€ì…ìœ¼ë¡œ ê°ì²´ì˜ ì°¸ì¡°ê°’ì„ ë°›ìŠµë‹ˆë‹¤.
-	// ë¦¬í„´ : voidë¡œ ì—†ìŠµë‹ˆë‹¤.
+	// ¼³¸í : È¸¿øÁ¤º¸¸¦ ¹Ş¾Æ¼­ µ¥ÀÌÅÍº£ÀÌ½º¿¡ ¾÷µ¥ÀÌÆ® ÇÏ´Â ¸Ş¼­µå ÀÔ´Ï´Ù.
+	// ¸Å°³º¯¼ö : Member Å¬·¡½º Å¸ÀÔÀ¸·Î °´Ã¼ÀÇ ÂüÁ¶°ªÀ» ¹Ş½À´Ï´Ù.
+	// ¸®ÅÏ : void·Î ¾ø½À´Ï´Ù.
 	public void updateMember(Connection connection, Member member) {
 		
 		PreparedStatement preparedStatement = null;
@@ -146,9 +146,9 @@ public class MemberDao {
 		}
 	}
 	
-	// ì„¤ëª… : íšŒì›ì •ë³´ë¥¼ ë‹´ì€ Member ê°ì²´ì˜ ì°¸ì¡°ê°’ì„ ë°›ì•„ insertì¿¼ë¦¬ë¬¸ì„ ì‹¤í–‰ì‹œì¼œ ë°ì´í„°ë² ì´ìŠ¤ì— ì €ì¥ í•˜ëŠ” ë©”ì„œë“œ ì…ë‹ˆë‹¤.
-	// ë§¤ê°œë³€ìˆ˜ : Member í´ë˜ìŠ¤ íƒ€ì…ìœ¼ë¡œ ê°ì²´ì˜ ì°¸ì¡°ê°’ì„ ë°›ìŠµë‹ˆë‹¤.
-	// ë¦¬í„´ : voidë¡œ ì—†ìŠµë‹ˆë‹¤.
+	// ¼³¸í : È¸¿øÁ¤º¸¸¦ ´ãÀº Member °´Ã¼ÀÇ ÂüÁ¶°ªÀ» ¹Ş¾Æ insertÄõ¸®¹®À» ½ÇÇà½ÃÄÑ µ¥ÀÌÅÍº£ÀÌ½º¿¡ ÀúÀå ÇÏ´Â ¸Ş¼­µå ÀÔ´Ï´Ù.
+	// ¸Å°³º¯¼ö : Member Å¬·¡½º Å¸ÀÔÀ¸·Î °´Ã¼ÀÇ ÂüÁ¶°ªÀ» ¹Ş½À´Ï´Ù.
+	// ¸®ÅÏ : void·Î ¾ø½À´Ï´Ù.
 	public void insertMember(Connection connection, Member member) {
 		
 		PreparedStatement preparedStatement = null;
