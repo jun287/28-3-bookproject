@@ -37,6 +37,17 @@ public class MemberDao {
 			
 		}catch(SQLException ex){
 			ex.printStackTrace();
+		}finally {
+			if(preparedStatement != null)try{
+				preparedStatement.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+			if(resultSet != null)try{
+				resultSet.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
 		}
 		
 		
