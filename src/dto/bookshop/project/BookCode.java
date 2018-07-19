@@ -1,7 +1,7 @@
 package dto.bookshop.project;
 
 public class BookCode {
-	//ì¹´í…Œê³ ë¦¬ì—ì„œ ì‚¬ìš©ë˜ëŠ” ë°ì´í„°ë“¤ì˜ ì €ìž¥í•  ê³µê°„ì„ ìº¡ìŠí™”ë¡œ ìƒì„±í•œë‹¤.
+	//Ä«Å×°í¸®¿¡¼­ »ç¿ëµÇ´Â µ¥ÀÌÅÍµéÀÇ ÀúÀåÇÒ °ø°£À» Ä¸½¶È­·Î »ý¼ºÇÑ´Ù.
 	private int bookcode_no;
 	private String bookcode_name;
 	

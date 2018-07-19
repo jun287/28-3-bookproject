@@ -1,4 +1,4 @@
-// 28ê¸° ì´ì›ìƒ 2018. 7. 18(ìˆ˜) ShoppingCartDao.java
+// 28±â ÀÌ¿ø»ó 2018. 7. 18(¼ö) ShoppingCartDao.java
 package dao.bookshop.project;
 import util.connetion.db.DBconnection;
 import dto.bookshop.project.MemberAndBookAndShoppingCart;
@@ -9,34 +9,34 @@ import java.sql.*;
 import java.util.*;
 
 public class ShoppingCartDao {						
-	Connection connection;							// ì¸ìŠ¤í„´ìŠ¤ ë³€ìˆ˜ ì„ ì–¸
+	Connection connection;							// ÀÎ½ºÅÏ½º º¯¼ö ¼±¾ğ
 	PreparedStatement preparedStatement;
 	ResultSet resultSet;
 	String sql1;
 	String sql2;
 	
-	public ShoppingCartDao() {						// ShoppingCartDaoí´ë˜ìŠ¤ ì¸ìˆ˜ì—†ëŠ” ìƒì„±ì ë©”ì†Œë“œ ìƒì„±
-		this.connection = null;						// ì¸ìŠ¤í„´ìŠ¤ ë³€ìˆ˜ ì´ˆê¸°í™”
+	public ShoppingCartDao() {						// ShoppingCartDaoÅ¬·¡½º ÀÎ¼ö¾ø´Â »ı¼ºÀÚ ¸Ş¼Òµå »ı¼º
+		this.connection = null;						// ÀÎ½ºÅÏ½º º¯¼ö ÃÊ±âÈ­
 		this.preparedStatement = null;
-		this.resultSet = null;						// this - ë§Œë“¤ì–´ì§ˆ ì¸ìŠ¤í„´ìŠ¤ì˜ ì¸ìŠ¤í„´ìŠ¤ ë³€ìˆ˜ë¥¼ ê°€ë¥´í‚´
-		this.sql1 = null;							// ì°¸ì¡°ë³€ìˆ˜ì˜ ì´ˆê¸°ê°’ null
-		this.sql2 = null;							// ì°¸ì¡°ë³€ìˆ˜ì˜ ì´ˆê¸°ê°’ null
+		this.resultSet = null;						// this - ¸¸µé¾îÁú ÀÎ½ºÅÏ½ºÀÇ ÀÎ½ºÅÏ½º º¯¼ö¸¦ °¡¸£Å´
+		this.sql1 = null;							// ÂüÁ¶º¯¼öÀÇ ÃÊ±â°ª null
+		this.sql2 = null;							// ÂüÁ¶º¯¼öÀÇ ÃÊ±â°ª null
 	}
 	
-	/* 1ë²ˆ ë©”ì†Œë“œ
-	 * ê¸°ëŠ¥ : ì¥ë°”êµ¬ë‹ˆë¦¬ìŠ¤íŠ¸ì— êµ¬ë§¤í•  ì±…ì˜ ì •ë³´ë¥¼ ë‹´ëŠ” ë©”ì†Œë“œ (DB shoppingcart í…Œì´ë¸”ì— 1ê°œ í–‰ ì…ë ¥)
-	 * ë§¤ê°œë³€ìˆ˜ : ShoppingCartí´ë˜ìŠ¤ì˜ ì¸ìŠ¤í„´ìŠ¤ ì°¸ì¡°ê°’
-	 * ë¦¬í„´ê°’ : ì—†ìŒ
-	 * ShoppingCartí´ë˜ìŠ¤ ì¸ìŠ¤í„´ìŠ¤ ë³€ìˆ˜(ë©¤ë²„ë³€ìˆ˜) ì ‘ê·¼ì œí•œì private
+	/* 1¹ø ¸Ş¼Òµå
+	 * ±â´É : Àå¹Ù±¸´Ï¸®½ºÆ®¿¡ ±¸¸ÅÇÒ Ã¥ÀÇ Á¤º¸¸¦ ´ã´Â ¸Ş¼Òµå (DB shoppingcart Å×ÀÌºí¿¡ 1°³ Çà ÀÔ·Â)
+	 * ¸Å°³º¯¼ö : ShoppingCartÅ¬·¡½ºÀÇ ÀÎ½ºÅÏ½º ÂüÁ¶°ª
+	 * ¸®ÅÏ°ª : ¾øÀ½
+	 * ShoppingCartÅ¬·¡½º ÀÎ½ºÅÏ½º º¯¼ö(¸â¹öº¯¼ö) Á¢±ÙÁ¦ÇÑÀÚ private
 	 * int shoppingCartNumber, int bookNumber, int memberNumber, int shoppingCartAmount, 
 	 * int shoppingCartPrice, String shoppingCartDate
 	*/
 	public void insertShoppingCart(ShoppingCart shoppingCart) {
-		connection = DBconnection.getConnetion();				// DBconnectioní´ë˜ìŠ¤ì˜ í´ë˜ìŠ¤ ë©”ì†Œë“œ, importë¡œ íŒ¨í‚¤ì§€ëª… ìƒëµ
+		connection = DBconnection.getConnetion();				// DBconnectionÅ¬·¡½ºÀÇ Å¬·¡½º ¸Ş¼Òµå, import·Î ÆĞÅ°Áö¸í »ı·«
 		try {
 			sql1 = "INSERT INTO shoppingcart (book_no, member_no, shoppingcart_amount, shoppingcart_price, shoppingcart_date) VALUES (?, ?, ?, ?, NOW())";
 			preparedStatement = connection.prepareStatement(sql1);
-			connection.setAutoCommit(false);		// ì¿¼ë¦¬ì‹¤í–‰ ê²°ê³¼ê°€ ìë™ìœ¼ë¡œ DBì— ì…ë ¥(ìˆ˜ì •)ë˜ëŠ” ê²ƒ(commit)ì„ ìˆ˜ë™ìœ¼ë¡œ ì§€ì • 			
+			connection.setAutoCommit(false);		// Äõ¸®½ÇÇà °á°ú°¡ ÀÚµ¿À¸·Î DB¿¡ ÀÔ·Â(¼öÁ¤)µÇ´Â °Í(commit)À» ¼öµ¿À¸·Î ÁöÁ¤ 			
 			preparedStatement.setInt(1, shoppingCart.getBookNumber());		
 			preparedStatement.setInt(2, shoppingCart.getMemberNumber());
 			preparedStatement.setInt(3, shoppingCart.getShoppingCartAmount());
@@ -51,21 +51,21 @@ public class ShoppingCartDao {
 		}
 	}	
 	
-	/* 2ë²ˆ ë©”ì†Œë“œ
-	 * ê¸°ëŠ¥ : ì¥ë°”êµ¬ë‹ˆë¦¬ìŠ¤íŠ¸ì— êµ¬ë§¤í•  ì±…ì˜ ì •ë³´ë¥¼ ì‚­ì œì‹œí‚¤ëŠ” ë©”ì†Œë“œ (DB shoppingcart í…Œì´ë¸”ì— 1ê°œ í–‰ ì‚­ì œ)
-	 *  íšŒì›ì´ ì¥ë°”êµ¬ë‹ˆ ë¦¬ìŠ¤íŠ¸ì—ì„œ ì‚­ì œë²„íŠ¼ì„ ëˆŒë €ì„ë•Œ ì‚­ì œë˜ëŠ” ë©”ì†Œë“œì„.
-	 * ë§¤ê°œë³€ìˆ˜ : int shoppingCartNumber(shoppingCartListì—ì„œ ë„˜ê²¨ë°›ì„ ê°’, DB shoppingcart í…Œì´ë¸”ì˜ ê¸°ë³¸í‚¤)
-	 * ë¦¬í„´ê°’ : ì—†ìŒ
-	 * ShoppingCartí´ë˜ìŠ¤ ì¸ìŠ¤í„´ìŠ¤ ë³€ìˆ˜(ë©¤ë²„ë³€ìˆ˜) ì ‘ê·¼ì œí•œì private
+	/* 2¹ø ¸Ş¼Òµå
+	 * ±â´É : Àå¹Ù±¸´Ï¸®½ºÆ®¿¡ ±¸¸ÅÇÒ Ã¥ÀÇ Á¤º¸¸¦ »èÁ¦½ÃÅ°´Â ¸Ş¼Òµå (DB shoppingcart Å×ÀÌºí¿¡ 1°³ Çà »èÁ¦)
+	 *  È¸¿øÀÌ Àå¹Ù±¸´Ï ¸®½ºÆ®¿¡¼­ »èÁ¦¹öÆ°À» ´­·¶À»¶§ »èÁ¦µÇ´Â ¸Ş¼ÒµåÀÓ.
+	 * ¸Å°³º¯¼ö : int shoppingCartNumber(shoppingCartList¿¡¼­ ³Ñ°Ü¹ŞÀ» °ª, DB shoppingcart Å×ÀÌºíÀÇ ±âº»Å°)
+	 * ¸®ÅÏ°ª : ¾øÀ½
+	 * ShoppingCartÅ¬·¡½º ÀÎ½ºÅÏ½º º¯¼ö(¸â¹öº¯¼ö) Á¢±ÙÁ¦ÇÑÀÚ private
 	 * int shoppingCartNumber, int bookNumber, int memberNumber, int shoppingCartAmount, 
 	 * int shoppingCartPrice, String shoppingCartDate
 	*/
 	public void deleteShoppingCart(int shoppingCartNumber) {
-		connection = DBconnection.getConnetion();				// DBconnectioní´ë˜ìŠ¤ì˜ í´ë˜ìŠ¤ ë©”ì†Œë“œ, importë¡œ íŒ¨í‚¤ì§€ëª… ìƒëµ
+		connection = DBconnection.getConnetion();				// DBconnectionÅ¬·¡½ºÀÇ Å¬·¡½º ¸Ş¼Òµå, import·Î ÆĞÅ°Áö¸í »ı·«
 		try {
 			sql1 = "DELETE FROM shoppingcart WHERE shoppingcart_no=?";
 			preparedStatement = connection.prepareStatement(sql1);
-			connection.setAutoCommit(false);		// ì¿¼ë¦¬ì‹¤í–‰ ê²°ê³¼ê°€ ìë™ìœ¼ë¡œ DBì— ì…ë ¥(ìˆ˜ì •)ë˜ëŠ” ê²ƒ(commit)ì„ ìˆ˜ë™ìœ¼ë¡œ ì§€ì •
+			connection.setAutoCommit(false);		// Äõ¸®½ÇÇà °á°ú°¡ ÀÚµ¿À¸·Î DB¿¡ ÀÔ·Â(¼öÁ¤)µÇ´Â °Í(commit)À» ¼öµ¿À¸·Î ÁöÁ¤
 			preparedStatement.setInt(1, shoppingCartNumber);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
@@ -77,18 +77,18 @@ public class ShoppingCartDao {
 		}
 	}
 	
-/*	 3ë²ˆ ë©”ì†Œë“œ(2ë²ˆ ë©”ì†Œë“œ ì˜¤ë²„ë¡œë”©)
-	 * ê¸°ëŠ¥ : ì¥ë°”êµ¬ë‹ˆë¦¬ìŠ¤íŠ¸ì— êµ¬ë§¤í•  ì±…ì˜ ì •ë³´ë¥¼ ì‚­ì œì‹œí‚¤ëŠ” ë©”ì†Œë“œ (DB shoppingcart í…Œì´ë¸”ì— 1ê°œ í–‰ ì‚­ì œ)
-	 *  íšŒì›ì´ ì£¼ë¬¸ì„ ì™„ë£Œí–ˆì„ë•Œ ì¥ë°”êµ¬ë‹ˆ ë¦¬ìŠ¤íŠ¸ì—ì„œ ì‚­ì œì‹œí‚¤ëŠ” ë©”ì†Œë“œ
-	 * ë§¤ê°œë³€ìˆ˜ : ShoppingCartí´ë˜ìŠ¤ì˜ ì¸ìŠ¤í„´ìŠ¤ ì°¸ì¡°ê°’
-	 * ë¦¬í„´ê°’ : ì—†ìŒ
+/*	 3¹ø ¸Ş¼Òµå(2¹ø ¸Ş¼Òµå ¿À¹ö·Îµù)
+	 * ±â´É : Àå¹Ù±¸´Ï¸®½ºÆ®¿¡ ±¸¸ÅÇÒ Ã¥ÀÇ Á¤º¸¸¦ »èÁ¦½ÃÅ°´Â ¸Ş¼Òµå (DB shoppingcart Å×ÀÌºí¿¡ 1°³ Çà »èÁ¦)
+	 *  È¸¿øÀÌ ÁÖ¹®À» ¿Ï·áÇßÀ»¶§ Àå¹Ù±¸´Ï ¸®½ºÆ®¿¡¼­ »èÁ¦½ÃÅ°´Â ¸Ş¼Òµå
+	 * ¸Å°³º¯¼ö : ShoppingCartÅ¬·¡½ºÀÇ ÀÎ½ºÅÏ½º ÂüÁ¶°ª
+	 * ¸®ÅÏ°ª : ¾øÀ½
 	
 	public void deleteShoppingCart(ShoppingCart shoppingCart) {
-		connection = DBconnection.getConnetion();				// DBconnectioní´ë˜ìŠ¤ì˜ í´ë˜ìŠ¤ ë©”ì†Œë“œ, importë¡œ íŒ¨í‚¤ì§€ëª… ìƒëµ
+		connection = DBconnection.getConnetion();				// DBconnectionÅ¬·¡½ºÀÇ Å¬·¡½º ¸Ş¼Òµå, import·Î ÆĞÅ°Áö¸í »ı·«
 		try {
 			sql1 = "DELETE FROM shoppingcart WHERE shoppingcart_no=?";
 			preparedStatement = connection.prepareStatement(sql1); 			
-			connection.setAutoCommit(false);		// ì¿¼ë¦¬ì‹¤í–‰ ê²°ê³¼ê°€ ìë™ìœ¼ë¡œ DBì— ì…ë ¥(ìˆ˜ì •)ë˜ëŠ” ê²ƒ(commit)ì„ ìˆ˜ë™ìœ¼ë¡œ ì§€ì •
+			connection.setAutoCommit(false);		// Äõ¸®½ÇÇà °á°ú°¡ ÀÚµ¿À¸·Î DB¿¡ ÀÔ·Â(¼öÁ¤)µÇ´Â °Í(commit)À» ¼öµ¿À¸·Î ÁöÁ¤
 			preparedStatement.setInt(1, shoppingCart.getShoppingCartNumber());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
@@ -102,16 +102,16 @@ public class ShoppingCartDao {
 	}*/
 	
 	
-	/* 4ë²ˆ ë©”ì†Œë“œ
-	 * ê¸°ëŠ¥ : í•œëª…ì˜ íšŒì›ì˜ ì¥ë°”êµ¬ë‹ˆë¥¼ ì¡°íšŒí•˜ëŠ” ë©”ì†Œë“œ (DB shoppingcart,member,book í…Œì´ë¸”ì— íŠ¹ì • member_noì˜ inner join ê²°ê³¼ í–‰ ì¡°íšŒ)
-	 * ë§¤ê°œë³€ìˆ˜ : int memberNumber(bookView.jspì—ì„œ ë„˜ê²¨ë°›ì„ ê°’, DB shoppingcart í…Œì´ë¸”ì˜ ì°¸ì¡°í‚¤)currentPage(ì‹œì‘í˜ì´ì§€), pagePerRow(í˜ì´ì§€ë‹¹ ë³¼ í–‰ì˜ ìˆ˜)
-	 * ë¦¬í„´ê°’ : ShoppingCart,Member,Bookí´ë˜ìŠ¤ì˜ ì¸ìŠ¤í„´ìŠ¤ë¥¼ ê°€ë¦¬í‚¤ëŠ” ì°¸ì¡°ë³€ìˆ˜ë¥¼ ë‹´ì€  ArrayListì¿¨ë˜ìŠ¤ì˜ ì¸ìŠ¤í„´ìŠ¤ë¥¼ ê°€ë¥´í‚¤ëŠ” ì°¸ì¡°ë³€ìˆ˜ë¥¼ ë¦¬í„´
-	 * ShoppingCartí´ë˜ìŠ¤ ì¸ìŠ¤í„´ìŠ¤ ë³€ìˆ˜(ë©¤ë²„ë³€ìˆ˜) ì ‘ê·¼ì œí•œì private
+	/* 4¹ø ¸Ş¼Òµå
+	 * ±â´É : ÇÑ¸íÀÇ È¸¿øÀÇ Àå¹Ù±¸´Ï¸¦ Á¶È¸ÇÏ´Â ¸Ş¼Òµå (DB shoppingcart,member,book Å×ÀÌºí¿¡ Æ¯Á¤ member_noÀÇ inner join °á°ú Çà Á¶È¸)
+	 * ¸Å°³º¯¼ö : int memberNumber(bookView.jsp¿¡¼­ ³Ñ°Ü¹ŞÀ» °ª, DB shoppingcart Å×ÀÌºíÀÇ ÂüÁ¶Å°)currentPage(½ÃÀÛÆäÀÌÁö), pagePerRow(ÆäÀÌÁö´ç º¼ ÇàÀÇ ¼ö)
+	 * ¸®ÅÏ°ª : ShoppingCart,Member,BookÅ¬·¡½ºÀÇ ÀÎ½ºÅÏ½º¸¦ °¡¸®Å°´Â ÂüÁ¶º¯¼ö¸¦ ´ãÀº  ArrayListÄğ·¡½ºÀÇ ÀÎ½ºÅÏ½º¸¦ °¡¸£Å°´Â ÂüÁ¶º¯¼ö¸¦ ¸®ÅÏ
+	 * ShoppingCartÅ¬·¡½º ÀÎ½ºÅÏ½º º¯¼ö(¸â¹öº¯¼ö) Á¢±ÙÁ¦ÇÑÀÚ private
 	 * int shoppingCartNumber, int bookNumber, int memberNumber, int shoppingCartAmount, 
 	 * int shoppingCartPrice, String shoppingCartDate
 	*/
 	public ArrayList<MemberAndBookAndShoppingCart> selectShoppingCartListBypage(int memberNumber, int currentPage, int pagePerRow) {
-		connection = DBconnection.getConnetion();				// DBconnectioní´ë˜ìŠ¤ì˜ í´ë˜ìŠ¤ ë©”ì†Œë“œ, importë¡œ íŒ¨í‚¤ì§€ëª… ìƒëµ
+		connection = DBconnection.getConnetion();				// DBconnectionÅ¬·¡½ºÀÇ Å¬·¡½º ¸Ş¼Òµå, import·Î ÆĞÅ°Áö¸í »ı·«
 		ArrayList<MemberAndBookAndShoppingCart> shoppingCartList = new ArrayList<MemberAndBookAndShoppingCart>();
 		try {
 			int startRow = (currentPage-1)*pagePerRow;
@@ -122,7 +122,7 @@ public class ShoppingCartDao {
 					+ "from shoppingcart sc inner join member m on sc.member_no = m.member_no "
 					+ "inner join book b on sc.book_no = b.book_no where sc.member_no = ? order by sc.shoppingcart_date desc limit ?,?";
 			
-			// connection.setAutoCommit(false);		// ì¿¼ë¦¬ì‹¤í–‰ ê²°ê³¼ê°€ ìë™ìœ¼ë¡œ DBì— ì…ë ¥(ìˆ˜ì •)ë˜ëŠ” ê²ƒ(commit)ì„ ìˆ˜ë™ìœ¼ë¡œ ì§€ì •
+			// connection.setAutoCommit(false);		// Äõ¸®½ÇÇà °á°ú°¡ ÀÚµ¿À¸·Î DB¿¡ ÀÔ·Â(¼öÁ¤)µÇ´Â °Í(commit)À» ¼öµ¿À¸·Î ÁöÁ¤
 			preparedStatement.setInt(1, memberNumber);
 			preparedStatement.setInt(2, startRow);
 			preparedStatement.setInt(3, pagePerRow);
@@ -160,16 +160,16 @@ public class ShoppingCartDao {
 		return shoppingCartList;
 	}
 	
-	/* 5ë²ˆ ë©”ì†Œë“œ
-	 * ê¸°ëŠ¥ : í•œëª…ì˜ íšŒì›ì˜ ì¥ë°”êµ¬ë‹ˆë¥¼ ë‹´ê¸´ í–‰ì„ ì¡°íšŒí•˜ëŠ” ë©”ì†Œë“œ (shoppingcartí…Œì´ë¸”ì— íŠ¹ì • member_noì˜ í–‰ì˜ ìˆ˜ë¥¼ ì¡°íšŒ)
-	 * ë§¤ê°œë³€ìˆ˜ : int memberNumber(ì¡°íšŒí•  íšŒì›ì˜ ê¸°ë³¸í‚¤), pagePerRow(í˜ì´ì§€ë‹¹ ë³¼ í–‰ì˜ ìˆ˜)
-	 * ë¦¬í„´ê°’ : lastPage(ì¥ë°”êµ¬ë‹ˆ Pageì˜ ë§ˆì§€ë§‰ í˜ì´ì§€ë¥¼ ì•Œê¸°ìœ„í•´ ì¿¼ë¦¬ì‹¤í–‰ ê²°ê³¼ê°’(ì´í–‰)/í˜ì´ì§€ë‹¹ ë³¼í–‰)ë¥¼ êµ¬í•´ ì •ìˆ˜í˜•íƒœë¡œ ë¦¬í„´
-	 * ShoppingCartí´ë˜ìŠ¤ ì¸ìŠ¤í„´ìŠ¤ ë³€ìˆ˜(ë©¤ë²„ë³€ìˆ˜) ì ‘ê·¼ì œí•œì private
+	/* 5¹ø ¸Ş¼Òµå
+	 * ±â´É : ÇÑ¸íÀÇ È¸¿øÀÇ Àå¹Ù±¸´Ï¸¦ ´ã±ä ÇàÀ» Á¶È¸ÇÏ´Â ¸Ş¼Òµå (shoppingcartÅ×ÀÌºí¿¡ Æ¯Á¤ member_noÀÇ ÇàÀÇ ¼ö¸¦ Á¶È¸)
+	 * ¸Å°³º¯¼ö : int memberNumber(Á¶È¸ÇÒ È¸¿øÀÇ ±âº»Å°), pagePerRow(ÆäÀÌÁö´ç º¼ ÇàÀÇ ¼ö)
+	 * ¸®ÅÏ°ª : lastPage(Àå¹Ù±¸´Ï PageÀÇ ¸¶Áö¸· ÆäÀÌÁö¸¦ ¾Ë±âÀ§ÇØ Äõ¸®½ÇÇà °á°ú°ª(ÃÑÇà)/ÆäÀÌÁö´ç º¼Çà)¸¦ ±¸ÇØ Á¤¼öÇüÅÂ·Î ¸®ÅÏ
+	 * ShoppingCartÅ¬·¡½º ÀÎ½ºÅÏ½º º¯¼ö(¸â¹öº¯¼ö) Á¢±ÙÁ¦ÇÑÀÚ private
 	 * int shoppingCartNumber, int bookNumber, int memberNumber, int shoppingCartAmount, 
 	 * int shoppingCartPrice, String shoppingCartDate
 	*/
 	public int countMemberShoppingCart(int memberNumber, int pagePerRow) {
-		connection = DBconnection.getConnetion();				// DBconnectioní´ë˜ìŠ¤ì˜ í´ë˜ìŠ¤ ë©”ì†Œë“œ, importë¡œ íŒ¨í‚¤ì§€ëª… ìƒëµ
+		connection = DBconnection.getConnetion();				// DBconnectionÅ¬·¡½ºÀÇ Å¬·¡½º ¸Ş¼Òµå, import·Î ÆĞÅ°Áö¸í »ı·«
 		int latsPage = 0;
 		try {
 			preparedStatement = connection.prepareStatement(sql1);

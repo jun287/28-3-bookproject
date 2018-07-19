@@ -17,9 +17,9 @@ public class BookDao {
 public void insertBook(Book book ) {
 	DBconnection.getConnetion();				
 	if(book.getBook_amount()>0) {
-		book.setBook_out("ì¬ê³ ìˆìŒ");
+		book.setBook_out("Àç°íÀÖÀ½");
 	}else {
-		book.setBook_out("ì¬ê³ ì—†ìŒ");
+		book.setBook_out("Àç°í¾øÀ½");
 	}
 	
 	try {
@@ -48,7 +48,3 @@ public void insertBook(Book book ) {
 	}
 }
 }
-			
-	
-		
-	

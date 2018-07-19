@@ -1,17 +1,17 @@
-//// 28ê¸° ì´ì›ìƒ 2018. 7. 18(ìˆ˜) MemberAndBookAndShoppingCart.java
+//// 28±â ÀÌ¿ø»ó 2018. 7. 18(¼ö) MemberAndBookAndShoppingCart.java
 package dto.bookshop.project;
 
-public class MemberAndBookAndShoppingCart {				// ì ‘ê·¼ì œí•œì private ìº¡ìŠí™”
+public class MemberAndBookAndShoppingCart {				// Á¢±ÙÁ¦ÇÑÀÚ private Ä¸½¶È­
 	private Member member;
 	private Book book;
 	private ShoppingCart shoppingCart;
 	
-	public MemberAndBookAndShoppingCart() {				// ì¸ìˆ˜ì—†ëŠ” ìƒì„±ì ë©”ì†Œë“œ ìƒì„±
-		this.member=null;								// ì¸ìŠ¤í„´ìŠ¤ ë³€ìˆ˜ ì´ˆê¸°í™”
+	public MemberAndBookAndShoppingCart() {				// ÀÎ¼ö¾ø´Â »ı¼ºÀÚ ¸Ş¼Òµå »ı¼º
+		this.member=null;								// ÀÎ½ºÅÏ½º º¯¼ö ÃÊ±âÈ­
 		this.book=null;
 		this.shoppingCart=null;
 	}
-	// ê°„ì ‘ ì ‘ê·¼ ë°©ë²• get, set ë©”ì†Œë“œ setting
+	// °£Á¢ Á¢±Ù ¹æ¹ı get, set ¸Ş¼Òµå setting
 	public Member getMember() {
 		return this.member;
 	}

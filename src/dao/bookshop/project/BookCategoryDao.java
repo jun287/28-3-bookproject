@@ -13,8 +13,8 @@ import util.connetion.db.DBconnection;
 
 public class BookCategoryDao {
 	
-	//ì¹´í…Œê³ ë¦¬ ì¶”ê°€í•˜ëŠ” ë©”ì„œë“œ
-	//ë§¤ê°œë³€ìˆ˜ì— ì¹´í…Œê³ ë¦¬ ì´ë¦„ì„ ë°›ì•„ì„œ ì €ì¥í•œë‹¤.
+	//Ä«Å×°í¸® Ãß°¡ÇÏ´Â ¸Ş¼­µå
+	//¸Å°³º¯¼ö¿¡ Ä«Å×°í¸® ÀÌ¸§À» ¹Ş¾Æ¼­ ÀúÀåÇÑ´Ù.
 	public void insertBookCategory(String category) {
 		Connection connection=null;
 		PreparedStatement statement=null;
@@ -22,20 +22,20 @@ public class BookCategoryDao {
 		//
 		String sql="insert into bookcode(bookcode_name) values(?)";
 		try {
-			//dbì—°ê²°
+			//db¿¬°á
 			connection=DBconnection.getConnetion();
 			
-			//ì¿¼ë¦¬ì‹¤í–‰ì¤€ë¹„
+			//Äõ¸®½ÇÇàÁØºñ
 			statement=connection.prepareStatement(sql);
 			statement.setString(1, category);
-			//ì¿¼ë¦¬ì‹¤í–‰
+			//Äõ¸®½ÇÇà
 			statement.executeUpdate();
 		
 		}catch (SQLException e) {
 			
 			e.printStackTrace();
 		}finally {
-			//ê°ì²´ë°˜ë‚©
+			//°´Ã¼¹İ³³
 			try {statement.close();} catch (SQLException e) {e.printStackTrace();}
 			try {connection.close();} catch (SQLException e) {e.printStackTrace();}
 			
@@ -43,7 +43,7 @@ public class BookCategoryDao {
 		
 	}
 	
-	//dbì— ì €ì¥ë˜ì–´ ìˆëŠ” ì¹´í…Œê³ ë¦¬ë¥¼ ì „ë¶€ ì¡°íšŒí•˜ëŠ” ë©”ì†Œë“œ
+	//db¿¡ ÀúÀåµÇ¾î ÀÖ´Â Ä«Å×°í¸®¸¦ ÀüºÎ Á¶È¸ÇÏ´Â ¸Ş¼Òµå
 	public ArrayList<BookCode> selectBookCategory(){
 		Connection connection=null;
 		PreparedStatement statement=null;

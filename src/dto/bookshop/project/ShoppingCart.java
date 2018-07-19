@@ -1,16 +1,16 @@
-// 28ê¸° ì´ì›ìƒ 2018. 7. 18(ìˆ˜) ShoppingCart.java
+// 28±â ÀÌ¿ø»ó 2018. 7. 18(¼ö) ShoppingCart.java
 package dto.bookshop.project;
 
-public class ShoppingCart {						// ì ‘ê·¼ì œí•œì private ìº¡ìŠí™”
-	private int shoppingCartNumber;				// ì‡¼í•‘ì¹´íŠ¸ no
-	private int bookNumber;						// ì±… no
-	private int memberNumber;					// íšŒì› no
-	private int shoppingCartAmount;				// ì‡¼í•‘ì¹´íŠ¸ ìˆ˜ëŸ‰(ì±…)
-	private int shoppingCartPrice;				// ì‡¼í•‘ì¹´íŠ¸ ê°€ê²©
-	private String shoppingCartDate;			// ì‡¼í•‘ì¹´íŠ¸ ìƒì„±ì¼
+public class ShoppingCart {						// Á¢±ÙÁ¦ÇÑÀÚ private Ä¸½¶È­
+	private int shoppingCartNumber;				// ¼îÇÎÄ«Æ® no
+	private int bookNumber;						// Ã¥ no
+	private int memberNumber;					// È¸¿ø no
+	private int shoppingCartAmount;				// ¼îÇÎÄ«Æ® ¼ö·®(Ã¥)
+	private int shoppingCartPrice;				// ¼îÇÎÄ«Æ® °¡°İ
+	private String shoppingCartDate;			// ¼îÇÎÄ«Æ® »ı¼ºÀÏ
 	
-	public ShoppingCart() {						// ì¸ìˆ˜ì—†ëŠ” ìƒì„±ì ë©”ì†Œë“œ ìƒì„±
-		this.shoppingCartNumber = 0;			// ì¸ìŠ¤í„´ìŠ¤ ë³€ìˆ˜ ì´ˆê¸°í™”
+	public ShoppingCart() {						// ÀÎ¼ö¾ø´Â »ı¼ºÀÚ ¸Ş¼Òµå »ı¼º
+		this.shoppingCartNumber = 0;			// ÀÎ½ºÅÏ½º º¯¼ö ÃÊ±âÈ­
 		this.bookNumber = 0;					
 		this.memberNumber = 0;
 		this.shoppingCartAmount = 0;
@@ -18,9 +18,9 @@ public class ShoppingCart {						// ì ‘ê·¼ì œí•œì private ìº¡ìŠí™”
 		this.shoppingCartDate = null;
 	}
 	
-	// ê°„ì ‘ ì ‘ê·¼ ë°©ë²• get, set ë©”ì†Œë“œ setting
+	// °£Á¢ Á¢±Ù ¹æ¹ı get, set ¸Ş¼Òµå setting
 	public int getShoppingCartNumber() {
-		return this.shoppingCartNumber;			// this - ë§Œë“¤ì–´ì§ˆ ì¸ìŠ¤í„´ìŠ¤ì˜ ì¸ìŠ¤í„´ìŠ¤ ë³€ìˆ˜ë¥¼ ê°€ë¥´í‚´ 	
+		return this.shoppingCartNumber;			// this - ¸¸µé¾îÁú ÀÎ½ºÅÏ½ºÀÇ ÀÎ½ºÅÏ½º º¯¼ö¸¦ °¡¸£Å´ 	
 	}
 
 	public void setShoppingCartNumber(int shoppingCartNumber) {
@@ -74,4 +74,3 @@ public class ShoppingCart {						// ì ‘ê·¼ì œí•œì private ìº¡ìŠí™”
 	}
 	
 }
-
