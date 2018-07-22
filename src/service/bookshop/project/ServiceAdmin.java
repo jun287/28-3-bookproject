@@ -1,3 +1,5 @@
+// 2018. 07. 22 공세준
+
 package service.bookshop.project;
 
 import java.sql.Connection;
@@ -9,6 +11,9 @@ import util.connetion.db.DBconnection;
 
 public class ServiceAdmin {
 	
+	// 설명 : 관리자 로그인 체크후 관리자의 정보를 리턴하는 메서드 입니다.
+	// 매개변수 : String 참조 타입으로 관리자 id와 pw를 받습니다.
+	// 리턴 : Admin 클래스 타입으로 관리자의 정보가 담긴 객체의 참조값을 리턴합니다.
 	public Admin loginAdmin(String adminId, String adminPw) {
 		
 		AdminDao adminDao = new AdminDao();
@@ -22,9 +27,9 @@ public class ServiceAdmin {
 			
 			String result = adminDao.loginCheckAdmin(connection, adminId, adminPw);
 			
-			if(result.equals("�α��μ���")){
+			if(result.equals("로그인성공")){
 				admin = adminDao.selectAdminInfor(connection, adminId);
-			}else if(result.equals("�α��ν���")) {
+			}else if(result.equals("로그인실패")) {
 				admin = null;
 			}
 			connection.commit();

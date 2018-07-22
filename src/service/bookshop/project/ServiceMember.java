@@ -1,3 +1,5 @@
+// 2018. 07. 22 ê³µì„¸ì¤€
+
 package service.bookshop.project;
 
 import java.sql.Connection;
@@ -9,9 +11,9 @@ import util.connetion.db.DBconnection;
 
 public class ServiceMember {
 	
-	// ¼³¸í : È¸¿øÁ¤º¸ º¯°æÈÄ µ¥ÀÌÅÍ °ªÀ» ¹Ş¾Æ µ¥ÀÌÅÍº£ÀÌ½º¿¡ ¾÷µ¥ÀÌÆ® ÇÏ´Â ¸Ş¼­µå ÀÔ´Ï´Ù.
-	// ¸Å°³º¯¼ö : Member Å¬·¡½ºÅ¸ÀÔÀ¸·Î member °´Ã¼ÀÇ ÂüÁ¶°ªÀ» ¹Ş½À´Ï´Ù.
-	// ¸®ÅÏ : void·Î ¾ø½À´Ï´Ù.
+	// ì„¤ëª… : íšŒì›ì •ë³´ ë³€ê²½í›„ ë°ì´í„° ê°’ì„ ë°›ì•„ ë°ì´í„°ë² ì´ìŠ¤ì— ì—…ë°ì´íŠ¸ í•˜ëŠ” ë©”ì„œë“œ ì…ë‹ˆë‹¤.
+	// ë§¤ê°œë³€ìˆ˜ : Member í´ë˜ìŠ¤íƒ€ì…ìœ¼ë¡œ member ê°ì²´ì˜ ì°¸ì¡°ê°’ì„ ë°›ìŠµë‹ˆë‹¤.
+	// ë¦¬í„´ : voidë¡œ ì—†ìŠµë‹ˆë‹¤.
 	public void updateMember(Member member) {
 		
 		MemberDao memberDao = new MemberDao();
@@ -41,9 +43,9 @@ public class ServiceMember {
 		
 	}
 	
-	// ¼³¸í : ·Î±×ÀÎÈÄ ¾ÆÀÌµğ¸¦ ¹Ş¾Æ È¸¿øÁ¤º¸¸¦ Á¶È¸ÈÄ È¸¿øÁ¤º¸¸¦ ¸®ÅÏÇÏ´Â ¸Ş¼­µå ÀÔ´Ï´Ù.
-	// ¸Å°³º¯¼ö : String ÂüÁ¶Å¸ÀÔÀ¸·Î ·Î±×ÀÎ½Ã ¾ÆÀÌµğ¸¦ ¹Ş½À´Ï´Ù.
-	// ¸®ÅÏ : id ¿Í ÀÏÄ¡ÇÏ´Â È¸¿øÁ¤º¸¸¦ ´ãÀº Member Å¬·¡½º °´Ã¼ÀÇ ÂüÁ¶°ªÀ» ¸®ÅÏÇÕ´Ï´Ù.
+	// ì„¤ëª… : ë¡œê·¸ì¸í›„ ì•„ì´ë””ë¥¼ ë°›ì•„ íšŒì›ì •ë³´ë¥¼ ì¡°íšŒí›„ íšŒì›ì •ë³´ë¥¼ ë¦¬í„´í•˜ëŠ” ë©”ì„œë“œ ì…ë‹ˆë‹¤.
+	// ë§¤ê°œë³€ìˆ˜ : String ì°¸ì¡°íƒ€ì…ìœ¼ë¡œ ë¡œê·¸ì¸ì‹œ ì•„ì´ë””ë¥¼ ë°›ìŠµë‹ˆë‹¤.
+	// ë¦¬í„´ : id ì™€ ì¼ì¹˜í•˜ëŠ” íšŒì›ì •ë³´ë¥¼ ë‹´ì€ Member í´ë˜ìŠ¤ ê°ì²´ì˜ ì°¸ì¡°ê°’ì„ ë¦¬í„´í•©ë‹ˆë‹¤.
 	public Member selectMember(String sessionId) {
 		
 		MemberDao memberDao = new MemberDao();
@@ -76,9 +78,9 @@ public class ServiceMember {
 		
 	}
 	
-	// ¼³¸í : ¾ÆÀÌµğ¿Í ºñ¹Ğ¹øÈ£¸¦ ¹Ş¾Æ µ¥ÀÌÅÍº£ÀÌ½º Á¶È¸ÈÄ °á°ú°¡ ÀÖÀ¸¸é ·Î±×ÀÎ ¿©ºÎ¸¦ ¸®ÅÏÇÏ°í Á¶°Ç¹®À¸·Î È¸¿øÁ¤º¸¸¦ ¹Ş¾Æ¿À´Â ¸Ş¼­µå ÀÔ´Ï´Ù.
-	// ¸Å°³º¯¼ö : String ÂüÁ¶Å¸ÀÔÀ¸·Î memberId ¿Í memberPw ¸¦ ¹Ş½À´Ï´Ù.
-	// ¸®ÅÏ : È¸¿øÁ¤º¸¸¦ ´ãÀº Member Å¬·¡½º °´Ã¼ÀÇ ÂüÁ¶°ªÀ» ¸®ÅÏÇÕ´Ï´Ù.
+	// ì„¤ëª… : ì•„ì´ë””ì™€ ë¹„ë°€ë²ˆí˜¸ë¥¼ ë°›ì•„ ë°ì´í„°ë² ì´ìŠ¤ ì¡°íšŒí›„ ê²°ê³¼ê°€ ìˆìœ¼ë©´ ë¡œê·¸ì¸ ì—¬ë¶€ë¥¼ ë¦¬í„´í•˜ê³  ì¡°ê±´ë¬¸ìœ¼ë¡œ íšŒì›ì •ë³´ë¥¼ ë°›ì•„ì˜¤ëŠ” ë©”ì„œë“œ ì…ë‹ˆë‹¤.
+	// ë§¤ê°œë³€ìˆ˜ : String ì°¸ì¡°íƒ€ì…ìœ¼ë¡œ memberId ì™€ memberPw ë¥¼ ë°›ìŠµë‹ˆë‹¤.
+	// ë¦¬í„´ : íšŒì›ì •ë³´ë¥¼ ë‹´ì€ Member í´ë˜ìŠ¤ ê°ì²´ì˜ ì°¸ì¡°ê°’ì„ ë¦¬í„´í•©ë‹ˆë‹¤.
 	public Member loginMember(String memberId, String memberPw) {
 		
 		MemberDao memberDao = new MemberDao();
@@ -92,9 +94,9 @@ public class ServiceMember {
 			
 			String result = memberDao.loginCheckMember(connection, memberId, memberPw);
 			
-			if(result.equals("·Î±×ÀÎ¼º°ø")){
+			if(result.equals("ë¡œê·¸ì¸ì„±ê³µ")){
 				member = memberDao.selectMemberInfor(connection, memberId);
-			}else if(result.equals("·Î±×ÀÎ½ÇÆĞ")) {
+			}else if(result.equals("ë¡œê·¸ì¸ì‹¤íŒ¨")) {
 				member = null;
 			}
 			connection.commit();
@@ -116,9 +118,9 @@ public class ServiceMember {
 		return member;
 	}
 	
-	// ¼³¸í : È¸¿øÁ¤º¸¸¦ ¹Ş¾Æ µ¥ÀÌÅÍº£ÀÌ½º¿¡ ¾ÆÀÌµğ°¡ Á¸ÀçÇÏ´ÂÁö È®ÀÎÈÄ È¸¿ø°¡ÀÔ ½ÃÅ°´Â ¸Ş¼­µå ÀÔ´Ï´Ù.
-	// ¸Å°³º¯¼ö : È¸¿øÁ¤º¸¸¦ ´ãÀº  Member Å¬·¡½º Å¸ÀÔÀÇ member °´Ã¼ÀÇ ÂüÁ¶°ªÀ» ¹Ş½À´Ï´Ù.
-	// ¸®ÅÏ : void ·Î ¾ø½À´Ï´Ù.
+	// ì„¤ëª… : íšŒì›ì •ë³´ë¥¼ ë°›ì•„ ë°ì´í„°ë² ì´ìŠ¤ì— ì•„ì´ë””ê°€ ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸í›„ íšŒì›ê°€ì… ì‹œí‚¤ëŠ” ë©”ì„œë“œ ì…ë‹ˆë‹¤.
+	// ë§¤ê°œë³€ìˆ˜ : íšŒì›ì •ë³´ë¥¼ ë‹´ì€  Member í´ë˜ìŠ¤ íƒ€ì…ì˜ member ê°ì²´ì˜ ì°¸ì¡°ê°’ì„ ë°›ìŠµë‹ˆë‹¤.
+	// ë¦¬í„´ : void ë¡œ ì—†ìŠµë‹ˆë‹¤.
 	public void insertMember(Member member) {
 		
 		MemberDao memberDao = new MemberDao();
@@ -131,10 +133,10 @@ public class ServiceMember {
 			
 			String result = memberDao.selectCheckMemberId(connection , member.getMemberId());
 			
-			if(result.equals("°¡ÀÔ°¡´É")) {
+			if(result.equals("ê°€ì…ê°€ëŠ¥")) {
 				memberDao.insertMember(connection , member);
-			}else if(result.equals("¾ÆÀÌµğÁ¸Àç")) {
-				System.out.println("¾ÆÀÌµğ°¡ Á¸Àç ÇÕ´Ï´Ù");
+			}else if(result.equals("ì•„ì´ë””ì¡´ì¬")) {
+				System.out.println("ì•„ì´ë””ê°€ ì¡´ì¬ í•©ë‹ˆë‹¤");
 			}
 			connection.commit();
 		}catch(Exception e) {

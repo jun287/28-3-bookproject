@@ -12,14 +12,12 @@
 			String sessionId = (String)session.getAttribute("sessionId");
 			String sessionName = (String)session.getAttribute("sessionName");
 			String sessionAdminId = (String)session.getAttribute("sessionAdminId");
+			
 			int sessionNo = 0;
 			if(session.getAttribute("sessionNo") != null){
 				sessionNo = (int)session.getAttribute("sessionNo");
 			}
 			
-			System.out.println(sessionId);
-			System.out.println(sessionName);
-			System.out.println(sessionNo);
 		%>
 			<div align ="center">
 				<h1>Book Shop</h1>
