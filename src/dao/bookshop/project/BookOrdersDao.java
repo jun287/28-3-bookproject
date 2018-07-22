@@ -1,4 +1,4 @@
-/* 2018-07-18 ±è¼ÒÈñ / BookOrdersDao.java */
+/* 2018-07-18 ê¹€ì†Œí¬ / BookOrdersDao.java */
 package dao.bookshop.project;
 import util.connetion.db.DBconnection;
 import java.sql.*;
@@ -11,8 +11,8 @@ public class BookOrdersDao {
 	
 	
 	public Orders orederSelectUpdate(int ordersNumber) {
-		// ÇÑ °³ÀÇ ÁÖ¹® Á¶È¸ÇÏ´Â ¸Ş¼Òµå
-		// return data type Orders, orederSelectUpdate ¸Ş¼Òµå (int data typeÀ¸·Î  ordersNumber ¸Å°³º¯¼ö »ı¼º)
+		// í•œ ê°œì˜ ì£¼ë¬¸ ì¡°íšŒí•˜ëŠ” ë©”ì†Œë“œ
+		// return data type Orders, orederSelectUpdate ë©”ì†Œë“œ (int data typeìœ¼ë¡œ  ordersNumber ë§¤ê°œë³€ìˆ˜ ìƒì„±)
 		Orders orders = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -42,10 +42,10 @@ public class BookOrdersDao {
 			e.printStackTrace();
 		} finally {
 			
-			// °´Ã¼ Á¾·á(´İ´Â ¼ø¼­ Áß¿ä)
+			// ê°ì²´ ì¢…ë£Œ(ë‹«ëŠ” ìˆœì„œ ì¤‘ìš”)
 			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
-			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// Äõ¸®¿¬°áÁ¾·á
-			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DB¿¬°áÁ¾·á
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// ì¿¼ë¦¬ì—°ê²°ì¢…ë£Œ
+			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DBì—°ê²°ì¢…ë£Œ
 			
 		}
 	
@@ -54,8 +54,8 @@ public class BookOrdersDao {
 	}
 	
 	public ArrayList<Orders> selectBookOrders (int bookNumber){
-		// »óÇ° Å¬¸¯½Ã »ó¼¼Á¤º¸ ³ª¿À°Ô
-		// return data type ArrayList<Orders>, selectBookOrders ¸Ş¼Òµå (int data typeÀ¸·Î ¸Å°³º¯¼ö bookNumber »ı¼º )
+		// ìƒí’ˆ í´ë¦­ì‹œ ìƒì„¸ì •ë³´ ë‚˜ì˜¤ê²Œ
+		// return data type ArrayList<Orders>, selectBookOrders ë©”ì†Œë“œ (int data typeìœ¼ë¡œ ë§¤ê°œë³€ìˆ˜ bookNumber ìƒì„± )
 		ArrayList<Orders> ordersList = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -87,10 +87,10 @@ public class BookOrdersDao {
 			e.printStackTrace();
 		} finally {
 			
-			// °´Ã¼ Á¾·á(´İ´Â ¼ø¼­ Áß¿ä)
+			// ê°ì²´ ì¢…ë£Œ(ë‹«ëŠ” ìˆœì„œ ì¤‘ìš”)
 			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
-			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// Äõ¸®¿¬°áÁ¾·á
-			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DB¿¬°áÁ¾·á
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// ì¿¼ë¦¬ì—°ê²°ì¢…ë£Œ
+			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DBì—°ê²°ì¢…ë£Œ
 			
 		}
 		
@@ -100,8 +100,8 @@ public class BookOrdersDao {
 	}
 	
 	public int selectCount() {
-		// ÆäÀÌÂ¡ ÇÏ´Â ¸Ş¼Òµå
-		// return data type int, selectCount ¸Ş¼Òµå (¸Å°³º¯¼ö ¾øÀ½)
+		// í˜ì´ì§• í•˜ëŠ” ë©”ì†Œë“œ
+		// return data type int, selectCount ë©”ì†Œë“œ (ë§¤ê°œë³€ìˆ˜ ì—†ìŒ)
 		int totalRow = 0;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -120,10 +120,10 @@ public class BookOrdersDao {
 			e.printStackTrace();
 		} finally {
 			
-			// °´Ã¼ Á¾·á(´İ´Â ¼ø¼­ Áß¿ä)
+			// ê°ì²´ ì¢…ë£Œ(ë‹«ëŠ” ìˆœì„œ ì¤‘ìš”)
 			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
-			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// Äõ¸®¿¬°áÁ¾·á
-			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DB¿¬°áÁ¾·á
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// ì¿¼ë¦¬ì—°ê²°ì¢…ë£Œ
+			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DBì—°ê²°ì¢…ë£Œ
 			
 		}
 		
@@ -133,7 +133,7 @@ public class BookOrdersDao {
 	}
 	
 	public ArrayList<Orders> selectOrderByPage (int currentPage, int rowPerPage){
-		// return data type ArrayList<Orders>, selectOrderBypage ¸Ş¼Òµå (int data typeÀ¸·Î currentPage ¸Å°³º¯¼ö ¼±¾ğ, int data typeÀ¸·Î pagePerRow ¸Å°³º¯¼ö ¼±¾ğ )
+		// return data type ArrayList<Orders>, selectOrderBypage ë©”ì†Œë“œ (int data typeìœ¼ë¡œ currentPage ë§¤ê°œë³€ìˆ˜ ì„ ì–¸, int data typeìœ¼ë¡œ pagePerRow ë§¤ê°œë³€ìˆ˜ ì„ ì–¸ )
 		ArrayList<Orders> ordersList = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -150,7 +150,7 @@ public class BookOrdersDao {
 			while(resultSet.next()) {
 				
 				Orders orders = new Orders();
-				//Orders data typeÀ¸·Î o º¯¼ö¸¦ »ı¼ºÇÏ°í new»ı¼ºÀÚ¸Ş¼Òµå·Î  »ı¼ºµÈ Orders°´Ã¼ÀÇ ÁÖ¼Ò °ªÀ» o º¯¼ö¿¡ ÇÒ´çÇÑ´Ù	
+				//Orders data typeìœ¼ë¡œ o ë³€ìˆ˜ë¥¼ ìƒì„±í•˜ê³  newìƒì„±ìë©”ì†Œë“œë¡œ  ìƒì„±ëœ Ordersê°ì²´ì˜ ì£¼ì†Œ ê°’ì„ o ë³€ìˆ˜ì— í• ë‹¹í•œë‹¤	
 				orders.setBookNumber(resultSet.getInt("bookNumber"));
 				orders.setOrdersPrice(resultSet.getInt("ordersPrice"));
 				orders.setOrdersAmount(resultSet.getInt("ordersAmount"));
@@ -167,10 +167,10 @@ public class BookOrdersDao {
 			e.printStackTrace();
 		} finally {
 			
-			// °´Ã¼ Á¾·á(´İ´Â ¼ø¼­ Áß¿ä)
+			// ê°ì²´ ì¢…ë£Œ(ë‹«ëŠ” ìˆœì„œ ì¤‘ìš”)
 			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
-			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// Äõ¸®¿¬°áÁ¾·á
-			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// DB¿¬°áÁ¾·á
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// ì¿¼ë¦¬ì—°ê²°ì¢…ë£Œ
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// DBì—°ê²°ì¢…ë£Œ
 			
 		}
 		

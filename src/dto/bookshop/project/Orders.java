@@ -1,8 +1,8 @@
-// 2018-07-18 ±è¼ÒÈñ Orders.java
+// 2018-07-18 ê¹€ì†Œí¬ Orders.java
 package dto.bookshop.project;
 
 public class Orders {
-	private int ordersNumber;			// Á¢±ÙÁöÁ¤ÀÚ private °°ÀºÅ¬·¡½º ³»¿¡¼­¸¸ »ç¿ë°¡´É, int data typeÀ¸·Î ordersNumberº¯¼ö ¼±¾ğ
+	private int ordersNumber;			// ì ‘ê·¼ì§€ì •ì private ê°™ì€í´ë˜ìŠ¤ ë‚´ì—ì„œë§Œ ì‚¬ìš©ê°€ëŠ¥, int data typeìœ¼ë¡œ ordersNumberë³€ìˆ˜ ì„ ì–¸
 	private int bookNumber;
 	private int memberNumber;
 	private int ordersPrice;

@@ -10,9 +10,9 @@ import util.connetion.db.DBconnection;
 public class ExOrders {
 
 	public void insertBookOrder(Orders o) {
-		// ordersÅ×ÀÌºí¿¡ ÁÖ¹®Á¤º¸¸¦ Ãß°¡ÇÏ´Â ¸Ş¼­µå
-		// ¸Å°³º¯¼ö : OrdersÅ¬·¡½º¿Í ¿¬°áÇÒ¼ö ÀÖ´Â ÂüÁ¶°ª
-		// ¸®ÅÏ°ª ¾øÀ½
+		// ordersí…Œì´ë¸”ì— ì£¼ë¬¸ì •ë³´ë¥¼ ì¶”ê°€í•˜ëŠ” ë©”ì„œë“œ
+		// ë§¤ê°œë³€ìˆ˜ : Ordersí´ë˜ìŠ¤ì™€ ì—°ê²°í• ìˆ˜ ìˆëŠ” ì°¸ì¡°ê°’
+		// ë¦¬í„´ê°’ ì—†ìŒ
 		
 		Connection conn = null;			
 		PreparedStatement pstmt = null;
@@ -21,7 +21,7 @@ public class ExOrders {
 			
 			conn = DBconnection.getConnetion();
 			
-			pstmt = conn.prepareStatement("INSERT INTO orders (book_no, member_no, orders_price, orders_amount, orders_date, orders_addr, orders_state) VALUES (?, ?, ?, ?, NOW(), ?, 'ÁÖ¹®¿Ï·á')");
+			pstmt = conn.prepareStatement("INSERT INTO orders (book_no, member_no, orders_price, orders_amount, orders_date, orders_addr, orders_state) VALUES (?, ?, ?, ?, NOW(), ?, 'ì£¼ë¬¸ì™„ë£Œ')");
 			pstmt.setInt(1, o.getBookNumber());
 			pstmt.setInt(2, o.getMemberNumber());
 			pstmt.setInt(3, o.getOrdersPrice());
