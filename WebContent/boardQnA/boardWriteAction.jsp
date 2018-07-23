@@ -28,6 +28,7 @@
 			request.setCharacterEncoding("UTF-8");
 			String boardQnaTitle = request.getParameter("boardQnaTitle");
 			String boardQnaContent = request.getParameter("boardQnaContent");
+			boardQnaContent = boardQnaContent.replace("\r\n","<br>");
 			
 			int sessionNo = 0;
 			if(session.getAttribute("sessionNo") != null){

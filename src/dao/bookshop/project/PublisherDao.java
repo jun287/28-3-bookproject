@@ -53,9 +53,9 @@ public class PublisherDao {
 			while(resultSet.next()) {
 				Publisher publisher=new Publisher();
 				
-				publisher.setPublischerNo(resultSet.getInt("publisher_no"));
-				publisher.setPublischerName(resultSet.getString("publisher_name"));
-				publisher.setPublischerWebsite(resultSet.getString("publisher_website"));
+				publisher.setPublisherNo(resultSet.getInt("publisher_no"));
+				publisher.setPublisherName(resultSet.getString("publisher_name"));
+				publisher.setPublisherWebsite(resultSet.getString("publisher_website"));
 				
 				list.add(publisher);
 			}

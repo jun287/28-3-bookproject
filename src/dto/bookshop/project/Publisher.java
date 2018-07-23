@@ -2,27 +2,29 @@ package dto.bookshop.project;
 
 public class Publisher {
 
-	private int publischerNo;
-	private String publischerName;
-	private String publischerWebsite;
-	public int getPublischerNo() {
-		return publischerNo;
+	private int publisherNo;
+	private String publisherName;
+	private String publisherWebsite;
+	
+	public int getPublisherNo() {
+		return publisherNo;
 	}
-	public void setPublischerNo(int publischerNo) {
-		this.publischerNo = publischerNo;
+	public void setPublisherNo(int publisherNo) {
+		this.publisherNo = publisherNo;
 	}
-	public String getPublischerName() {
-		return publischerName;
+	public String getPublisherName() {
+		return publisherName;
 	}
-	public void setPublischerName(String publischerName) {
-		this.publischerName = publischerName;
+	public void setPublisherName(String publisherName) {
+		this.publisherName = publisherName;
 	}
-	public String getPublischerWebsite() {
-		return publischerWebsite;
+	public String getPublisherWebsite() {
+		return publisherWebsite;
 	}
-	public void setPublischerWebsite(String publischerWebsite) {
-		this.publischerWebsite = publischerWebsite;
+	public void setPublisherWebsite(String publisherWebsite) {
+		this.publisherWebsite = publisherWebsite;
 	}
+	
 	
 
 }

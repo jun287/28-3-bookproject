@@ -54,7 +54,7 @@
 						Publisher publisher = list.get(i);
 				
 				%>
-						<option value="<%=publisher.getPublischerNo() %>"><%=publisher.getPublischerName() %></option>
+						<option value="<%=publisher.getPublisherNo() %>"><%=publisher.getPublisherName() %></option>
 						
 				<%
 					}

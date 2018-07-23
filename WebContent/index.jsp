@@ -28,7 +28,7 @@
 				%>
 						<a href="<%= request.getContextPath() %>/member/memberInformationList.jsp">회원정보</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 						<a href="<%= request.getContextPath() %>/member/memberLogout.jsp">로그아웃</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-						<a href="<%= request.getContextPath() %>/book/bookList.jsp">도서 목록</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+						<a href="<%= request.getContextPath() %>/bookCategory/bookCategoryView.jsp">도서 목록</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 						<a href="<%= request.getContextPath() %>/shoppingCart/shoppingCartList.jsp?memberNo=<%= sessionNo %>">카트</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 						<a href="<%= request.getContextPath() %>/bookOrders/bookOrdersList.jsp?memberNo=<%= sessionNo %>">도서 구매</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 						<a href="<%= request.getContextPath() %>/boardQnA/boardList.jsp">질문게시판</a>
@@ -39,7 +39,7 @@
 						<a href="<%= request.getContextPath() %>/member/memberLogout.jsp">로그아웃</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 						<a href="<%= request.getContextPath() %>/book/bookInsertForm.jsp">도서 등록</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 						<a href="<%= request.getContextPath() %>/publisher/publisherInsertForm.jsp">출판사 등록</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-						<a href="<%= request.getContextPath() %>/book/bookList.jsp">도서 목록</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+						<a href="<%= request.getContextPath() %>/bookCategory/bookCategoryView.jsp">도서 목록</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 						<a href="<%= request.getContextPath() %>/boardQnA/boardList.jsp">질문게시판</a>
 				<%	
 
@@ -47,7 +47,7 @@
 				%>
 						<a href="<%= request.getContextPath() %>/member/memberJoinForm.jsp">회원가입</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 						<a href="<%= request.getContextPath() %>/member/memberLoginForm.jsp">로그인</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-						<a href="<%= request.getContextPath() %>/book/bookList.jsp">도서 목록</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+						<a href="<%= request.getContextPath() %>/bookCategory/bookCategoryView.jsp">도서 목록</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 						<a href="<%= request.getContextPath() %>/boardQnA/boardList.jsp">질문게시판</a>
 				<%
 					}

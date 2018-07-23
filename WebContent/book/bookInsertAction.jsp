@@ -21,14 +21,6 @@
 		int bookPoint = Integer.parseInt(request.getParameter("bookPoint"));
 		int bookAmount = Integer.parseInt(request.getParameter("bookAmount"));
 		
-		System.out.println(bookName+"<--bookName");
-		System.out.println(bookAuthor+"<--bookAuthor");
-		System.out.println(publisher+"<--publisher");
-		System.out.println(category+"<--category");
-		System.out.println(bookPrice+"<--bookPrice");
-		System.out.println(bookPoint+"<--bookPoint");
-		System.out.println(bookAmount+"<--bookAmount");
-		
 		
 		Book book=new Book();
 		book.setBookName(bookName);
@@ -36,14 +28,14 @@
 		book.setBookPrice(bookPrice);
 		book.setBookPoint(bookPoint);
 		book.setBookAmount(bookAmount);
-		book.setBookCodeNo(publisher);
-		book.setPublisherNo(category);
+		book.setBookCodeNo(category);
+		book.setPublisherNo(publisher);
 		
 		System.out.println(book.getBookName()+"<--bookName");
 		System.out.println(book.getBookAuthor()+"<--bookAuthor");
 		System.out.println(book.getPublisherNo()+"<--publisher");
 		System.out.println(book.getBookCodeNo()+"<--category");
-		
+		System.out.println("---------------------------------");
 		 
 		BookDao BookDao = new BookDao();
 		BookDao.insertBook(book);  

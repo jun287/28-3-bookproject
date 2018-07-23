@@ -28,16 +28,20 @@
 						<td><%= member.getMemberId() %></td>
 					</tr>
 					<tr>
-						<td align="right">포인트 : </td>
+						<td align="right">포 인 트 : </td>
 						<td><%= member.getMemberPoint() %></td>
 					</tr>
 					<tr>
-						<td align="right">이름 : </td>
+						<td align="right">이 름 : </td>
 						<td><%= member.getMemberName() %></td>
 					</tr>
 					<tr>
-						<td align="right">주소 : </td>
+						<td align="right">주 소 : </td>
 						<td><%= member.getMemberAddr() %></td>
+					</tr>
+					<tr>
+						<td align="right">내 카테고리 : </td>
+						<td></td>
 					</tr>
 				</table><br>
 					<input type ="submit" value="정보수정">
