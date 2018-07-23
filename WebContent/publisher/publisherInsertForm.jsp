@@ -8,9 +8,9 @@
 	<body>
 		<form action="<%=request.getContextPath()%>/publisher/publisherInsertAction.jsp" method="post">
 			<label>출판사이름</label>
-			<input type="text" name="publisherName"><br>
+			<input type="text" name="publisherName" required><br>
 			<label>출판사홈페이지</label>
-			<input type="text" name="publishersite"><br>
+			<input type="text" name="publisherSite" required><br>
 			<input type="submit" value="등록">
 		</form>
 	</body>

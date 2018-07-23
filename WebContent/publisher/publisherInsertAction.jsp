@@ -12,10 +12,12 @@
 		<%			
 			Publisher publisher=new Publisher();
 			publisher.setPublischerName(request.getParameter("publisherName"));
-			publisher.setPublischerWebsite(request.getParameter("publishersite"));
+			publisher.setPublischerWebsite(request.getParameter("publisherSite"));
 			
 			PublisherDao publisherDao=new PublisherDao();
 			publisherDao.insertPublisher(publisher.getPublischerName(),publisher.getPublischerWebsite());
+			
+			
 		%>
 	</body>
 </html>

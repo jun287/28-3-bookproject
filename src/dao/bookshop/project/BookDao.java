@@ -15,19 +15,19 @@ public class BookDao {
 	}
 
 public void insertBook(Book book) {
-	DBconnection.getConnetion();				
+	connection = DBconnection.getConnetion();
+	
 	if(book.getBookAmount()>0) {
 		book.setBookOut("재고있음");
 	}else {
 		book.setBookOut("재고없음");
 	}
-	
+
 	try {
 		sql1 = "INSERT INTO book (bookcode_no, publisher_no, book_name, book_author, book_price, book_point, book_amount, book_out, book_date) VALUES (?,?,?,?,?,?,?,?, NOW())";
 		
 		preparedStatement = connection.prepareStatement(sql1);
 				 			
-		
 		preparedStatement.setInt(1, book.getBookCodeNo());		
 		preparedStatement.setInt(2, book.getPublisherNo());
 		preparedStatement.setString(3, book.getBookName());

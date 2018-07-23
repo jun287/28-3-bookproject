@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DBconnection {
-	
+
 	public static Connection getConnetion() {
 		
 		String jdbcDriver = "jdbc:mysql://localhost:3306/bookshop?useUnicode=true&characterEncoding=utf8";

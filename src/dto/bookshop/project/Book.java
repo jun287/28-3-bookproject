@@ -10,6 +10,7 @@ public class Book {
 	private int bookPoint;
 	private int bookAmount;
 	private String bookOut;
+	
 	public int getBookNo() {
 		return bookNo;
 	}

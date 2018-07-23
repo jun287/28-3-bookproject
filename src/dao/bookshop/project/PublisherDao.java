@@ -19,7 +19,7 @@ public class PublisherDao {
 		Connection connection=null;
 		PreparedStatement statement=null;
 		
-		String sql="insert into publisher(publischer_name,publischer_website) values(?,?)";
+		String sql="insert into publisher(publisher_name,publisher_website) values(?,?)";
 	
 		try {
 			connection=DBconnection.getConnetion();
@@ -69,4 +69,6 @@ public class PublisherDao {
 		
 		return list;
 	}
+
+	
 }
