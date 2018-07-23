@@ -40,17 +40,17 @@
 					
 			%>
 				<tr>
-					<td><%=bookCode.getBookcode_no() %></td>
-					<td><%=bookCode.getBookcode_name() %></td>
-					<td><a href="<%=request.getContextPath()%>/book/bookCategoryUpdateForm.jsp?categoryNO=<%=bookCode.getBookcode_no() %>">수정</a></td>
-					<td><a href="<%=request.getContextPath()%>/book/bookCategoryDelete.jsp?categoryNO=<%=bookCode.getBookcode_no() %>">삭제</a></td>
+					<td><%=bookCode.getBookCodeNo() %></td>
+					<td><%=bookCode.getBookCodeName() %></td>
+					<td><a href="<%=request.getContextPath()%>/bookCategory/bookCategoryUpdateForm.jsp?categoryNO=<%=bookCode.getBookCodeNo() %>">수정</a></td>
+					<td><a href="<%=request.getContextPath()%>/bookCategory/bookCategoryDelete.jsp?categoryNO=<%=bookCode.getBookCodeNo() %>">삭제</a></td>
 				</tr>
 			<%
 				}
 			%>
 		
 		</table>
-			<a href="<%=request.getContextPath()%>/book/insertBookCategoryForm.jsp">추가</a>
-			<a href="<%=request.getContextPath()%>/book/bookCategoryView.jsp">목록으로</a>
+			<a href="<%=request.getContextPath()%>/bookCategory/insertBookCategoryForm.jsp">추가</a>
+			<a href="<%=request.getContextPath()%>/bookCategory/bookCategoryView.jsp">목록으로</a>
 	</body>
 </html>

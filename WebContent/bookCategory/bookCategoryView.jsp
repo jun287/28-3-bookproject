@@ -39,7 +39,7 @@
 					BookCode bookCode=result.get(i);
 					
 			%>
-				<div id="list">▶<%=bookCode.getBookcode_name() %></div>
+				<div id="list">▶<%=bookCode.getBookCodeName() %></div>
 			<%
 				}
 			%>
@@ -48,7 +48,7 @@
 		
 		<!-- 버튼을 클릭하면 추가,수정,삭제가 있는 관리 페이지로 이동한다  -->
 		<div id="button">
-			<a href="<%=request.getContextPath()%>/book/bookManagement.jsp"><button>관리</button></a>
+			<a href="<%=request.getContextPath()%>/bookCategory/bookCategoryManagement.jsp"><button>관리</button></a>
 		</div>
 	</body>
 </html>

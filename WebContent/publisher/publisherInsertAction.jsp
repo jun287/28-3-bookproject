@@ -11,11 +11,11 @@
 	<body>
 		<%			
 			Publisher publisher=new Publisher();
-			publisher.setPublischer_name(request.getParameter("publisherName"));
-			publisher.setPublischer_website(request.getParameter("publishersite"));
+			publisher.setPublischerName(request.getParameter("publisherName"));
+			publisher.setPublischerWebsite(request.getParameter("publishersite"));
 			
 			PublisherDao publisherDao=new PublisherDao();
-			publisherDao.insertPublisher(publisher.getPublischer_name(),publisher.getPublischer_website());
+			publisherDao.insertPublisher(publisher.getPublischerName(),publisher.getPublischerWebsite());
 		%>
 	</body>
 </html>
