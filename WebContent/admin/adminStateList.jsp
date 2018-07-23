@@ -1,5 +1,5 @@
-<!--2017.07.23 김소희 / adminStateList.jsp (관리자 진행상태 리스트)-->
-<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+<!--2017.07.23 김소희 / adminStateList.jsp 관리자	 주문 진행상태 리스트-->
+<%@ page language = "java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ page import = "dao.bookshop.project.BookOrdersDao" %>	<!-- dao.bookshop.project패키지 안에 BookOrdersDo클래스 import -->
 <%@ page import = "dto.bookshop.project.Orders" %>			<!-- dto.bookshop.project패키지 안에 Orders클래스 import  -->
 <%@ page import = "java.util.ArrayList" %>					<!-- ArrayList는 java.util.ArrayList에 포함 import -->
@@ -52,13 +52,13 @@
 				<td><%=orders.getOrdersDate() %></td>
 				<td><%=orders.getOrdersAddress() %></td>
 				<%
-					if(orders.getOrderState().equals("주문완료")){
+					if(orders.getOrderState().equals("주문완료")){			//getOrderState()에 담겨있는 값이 "주문완료"랑 같으면  if문 실행 주문완료 클릭시 배송완료로 변경
 				%>
 					<td><a href="<%=request.getContextPath()%>/admin/adminStateApproval.jsp?ordersNumber=<%=orders.getOrdersNumber()%>"><%=orders.getOrderState() %></a></td>
 				<%		
 					}else{
 				%>
-				<td><%=orders.getOrderState() %></td>
+					<td><%=orders.getOrderState() %></td>
 				<%
 					}
 				%>
@@ -79,12 +79,12 @@
 	}
 	
 	
-	if(currentPage > 1){
+	if(currentPage > 1){							// currentPage(시작페이지)가 1보다 크면
 %>
 	<a href="<%=request.getContextPath()%>/admin/adminStateList.jsp?currentPage=<%=currentPage-1%>">이전</a>
 <% 		
 	}
-	if(currentPage < lastPage){
+	if(currentPage < lastPage){						// currentPage(시작페이지)가 lastPage(마지막페이지)보다 작으면
 %>
 	<a href="<%=request.getContextPath()%>/admin/adminStateList.jsp?currentPage=<%=currentPage+1%>">다음</a>
 <%

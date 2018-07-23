@@ -9,27 +9,31 @@ import dto.bookshop.project.Orders;
 public class BookOrdersDao {
 	
 	public  void updateStateApproval (int ordersNumber) {
-		
+		// 상품 진행 상태 바꿔주는 메소드
+		// 리턴값 없는 updateStateApproval메소드 (int data type으로 orderNumber매개변수 생성)
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
 		try {
 			connection = DBconnection.getConnetion();
-			preparedStatement = connection.prepareStatement("UPDATE orders SET	orders_state='배송완료' WHERE orders_no=?");
+			preparedStatement = connection.prepareStatement("UPDATE orders SET orders_state='배송완료' WHERE orders_no=?");
 			preparedStatement.setInt(1, ordersNumber);
 			
 			preparedStatement.executeUpdate();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("예외발생");
 			e.printStackTrace();
+			
 		} finally {
+			// 객체 종료 (닫는 순서 중요)
 			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 객체 종료
 			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// DB연결종료
 		}
 		
 		
 	}
+	
 	public ArrayList<Orders> selectOrdersState (int currentPage, int pagePerRow){
 		// 관리자 상품 진행상태 승인 메소드
 		// return data type ArrayList<Orders>, selectOrdersState 메소드 (int data type currentPage 매개변수, int data type memberNumber 매개변수 )
@@ -74,13 +78,14 @@ public class BookOrdersDao {
 			
 		}
 		
-		
 		return selectOrdersList;
 		
 	}
+	
 	public Orders selectOrdersRecentAddress(int MemberNumber) {
 		// 주문정보를 조회하여 가장 최신의 정보를 조회하는 메서드
-		// Orders클래스 리턴하여 조회된값 세팅및 불러오기
+		// return data type Orders, selectOrdersRecentAddress 메소드 (int data type으로 MemberNumber매개변수 선언)
+		// Orders클래스 return하여 조회된 값 세팅 및 불러오기
 		// 매개변수는 회원번호를 받아서 주문정보를 조회한다
 		Orders orders = null;
 		Connection connection = null;
@@ -129,16 +134,13 @@ public class BookOrdersDao {
 		PreparedStatement  preparedStatement= null;
 		
 		try{
-			
 			connection = DBconnection.getConnetion();
-			
 			preparedStatement = connection.prepareStatement("INSERT INTO orders (book_no, member_no, orders_price, orders_amount, orders_date, orders_addr, orders_state) VALUES (?, ?, ?, ?, NOW(), ?, '주문완료')");
 			preparedStatement.setInt(1, orders.getBookNumber());
 			preparedStatement.setInt(2, orders.getMemberNumber());
 			preparedStatement.setInt(3, orders.getOrdersPrice());
 			preparedStatement.setInt(4, orders.getOrdersAmount());
 			preparedStatement.setString(5, orders.getOrdersAddress());
-			
 			System.out.println(orders.getOrdersAddress());
 			
 			preparedStatement.executeUpdate();
@@ -187,7 +189,6 @@ public class BookOrdersDao {
 			System.out.println("예외발생");
 			e.printStackTrace();
 		} finally {
-			
 			// 객체 종료(닫는 순서 중요)
 			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
 			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 객체 종료
@@ -199,8 +200,7 @@ public class BookOrdersDao {
 		
 	}
 	
-	
-	
+
 	public int selectCount() {
 		// 페이징하는 메소드
 		// return data type int, selectCount 메소드 (매개변수 없음)
@@ -221,7 +221,6 @@ public class BookOrdersDao {
 			System.out.println("예외발생");
 			e.printStackTrace();
 		} finally {
-			
 			// 객체종료 (닫는 순서 중요)
 			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
 			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 객체종료
@@ -281,7 +280,7 @@ public class BookOrdersDao {
 		
 		
 		return ordersList;
-		
+
 	}
 	
 }

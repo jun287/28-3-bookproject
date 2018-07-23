@@ -1,8 +1,8 @@
-// 2018-07-18 源����� Orders.java
+// 2018-07-18 김소희 / Orders.java
 package dto.bookshop.project;
 
 public class Orders {
-	private int ordersNumber;			// ��洹쇱����� private 媛����대���� �댁����留� �ъ�⑷���, int data type�쇰� ordersNumber蹂��� ����
+	private int ordersNumber;			
 	private int bookNumber;
 	private int memberNumber;
 	private int ordersPrice;
