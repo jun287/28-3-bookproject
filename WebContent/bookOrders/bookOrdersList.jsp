@@ -18,6 +18,7 @@
 	<body>
 	<table>
 		<tr>
+			<th>주문번호</th>
 			<th>상품번호</th>
 			<th>회원번호</th>
 			<th>주문가격</th>
@@ -63,16 +64,32 @@
 		<input type="submit" value="주문완료">
 	</form>
 <%
-
+	int totalRow = bookOrdersDao.selectCount();			// 총 개수
+	int lastPage = 0;							// 마지막 페이지
+	
+	if(totalRow % rowPerPage == 0) {
+	    lastPage = totalRow / rowPerPage;		// 마지막 페이지 = 총 개수 나누기 한 페이지에 보이는 개수
+	    
+	}else{
+	    lastPage = totalRow / rowPerPage + 1;	// 마지막 페이지 = 총 개수 나누기 한 페이지에 보이는 개수 + 1
+	            
+	}
+	
+	
+	if(currentPage > 1){
 %>
-
-
+	 <a href="<%=request.getContextPath()%>/bookOrders/bookOrdersList.jsp?currentPage=<%=currentPage-1%>">이전</a>
 <%
 	
+	}
+	if(currentPage < lastPage){
+%>
+	  <a href="<%=request.getContextPath()%>/bookOrders/bookOrdersList.jsp?currentPage=<%=currentPage+1%>">다음</a>
+<%
+	}
 %>
 
 
 
-	
 	</body>
 </html>
