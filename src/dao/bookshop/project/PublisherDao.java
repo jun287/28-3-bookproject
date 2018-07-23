@@ -33,5 +33,21 @@ public class PublisherDao {
 		}
 	}
 
-	//출판사 리스트를 보여주는
+	//출판사 리스트를 보여주는메서드
+	public void selectPublisher() {
+		System.out.println("selectPublisher");
+		
+		Connection connection=null;
+		PreparedStatement statement=null;
+		
+		try {
+			connection=DBconnection.getConnetion();
+			
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			
+		}
+	}
 }
