@@ -2,24 +2,24 @@
 <!-- bookOrdersForm.jsp에서 주문버튼 누르면 처리하는 페이지 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "dto.bookshop.project.Orders" %>
-<%@ page import = "dao.bookshop.project.ExOrders" %>
+<%@ page import = "dao.bookshop.project.BookOrdersDao" %>
 <!DOCTYPE html>
 <%
 	request.setCharacterEncoding("UTF-8");
-	ExOrders eo = new ExOrders();
-	Orders o = new Orders();
+	BookOrdersDao bookOrderDao = new BookOrdersDao();
+	Orders orders = new Orders();
 	
-	o.setBookNumber(Integer.parseInt(request.getParameter("bookNumber")));
-	o.setMemberNumber(Integer.parseInt(request.getParameter("memberNumber")));
-	o.setOrdersPrice(Integer.parseInt(request.getParameter("ordersPrice")));
-	o.setOrdersAmount(Integer.parseInt(request.getParameter("orderAmount")));
-	o.setOrdersAddress(request.getParameter("ordersAddress"));
+	orders.setBookNumber(Integer.parseInt(request.getParameter("bookNumber")));
+	orders.setMemberNumber(Integer.parseInt(request.getParameter("memberNumber")));
+	orders.setOrdersPrice(Integer.parseInt(request.getParameter("ordersPrice")));
+	orders.setOrdersAmount(Integer.parseInt(request.getParameter("orderAmount")));
+	orders.setOrdersAddress(request.getParameter("ordersAddress"));
 	
-	System.out.println(o.getBookNumber());
-	System.out.println(o.getMemberNumber());
-	System.out.println(o.getOrdersPrice());
-	System.out.println(o.getOrdersAmount());
-	System.out.println(o.getOrdersAddress());
+	System.out.println(orders.getBookNumber());
+	System.out.println(orders.getMemberNumber());
+	System.out.println(orders.getOrdersPrice());
+	System.out.println(orders.getOrdersAmount());
+	System.out.println(orders.getOrdersAddress());
 	
-	eo.insertBookOrder(o);
+	bookOrderDao.insertBookOrders(orders);
 %>

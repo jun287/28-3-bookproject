@@ -2,7 +2,11 @@
 <!-- 상품 주문하는 페이지 -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ page import = "java.util.ArrayList" %>
+<%@ page import = "service.bookshop.project.ServiceMember" %>
+<%@ page import = "dto.bookshop.project.Member" %>
+<%@ page import = "dto.bookshop.project.Orders" %>
+<%@ page import = "dao.bookshop.project.BookOrdersDao" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -11,39 +15,72 @@
 	</head>
 	<body>
 <%
-	/* if(session.getAttribute("sessionId")==null){		// 로그인이 되어있는지 확인하여 로그인이 안되어있으면 로그인페이지로 이동
+	if(session.getAttribute("sessionId")==null){		// 로그인이 되어있는지 확인하여 로그인이 안되어있으면 로그인페이지로 이동
 		response.sendRedirect(request.getContextPath() + "/member/memberLoginForm.jsp" );
 	}
+
+	ServiceMember ServiceMember = new ServiceMember();										// ServiceMember 객체생성
+	BookOrdersDao BookOrdersDao = new BookOrdersDao();										// BookOrdersDao 객체생성
+	
+	Member Member = ServiceMember.selectMember((String)session.getAttribute("sessionId"));	// 멤버의 정보를 받아오기 위한 메서드 호출
+
+	
 	int bookNumber = Integer.parseInt(request.getParameter("bookNumber"));		// book_no를 받아오는 코드
 	int memberNumber = Integer.parseInt(request.getParameter("memberNumber"));	// member_no를 받아오는 코드
-	int ordersAmount = Integer.parseInt(request.getParameter("amount"));				// 수량을 받아오는 코드 */
-	
-	int price = 50000;															// 상품금액(임시)
-	int memberPoint = 20000;													// 회원의 포인트를 받아오는 변수
+	int ordersAmount = 0;														// 수량을 받아오는 코드
+	int price = 0;																// 상품금액(임시)
+	int memberPoint = Member.getMemberPoint();									// 회원의 포인트를 받아오는 변수
 	int usePoint = 0;															// 포인트 사용금액을 받아오는 변수
+	int addressCheck = 0;														// 기존주소인지, 새로운 주소인지 선택확인위한 변수 선언
+	
+	
 	if(request.getParameter("usePoint")!=null){									// 포인트 사용금액이 있을 경우
 		if(Integer.parseInt(request.getParameter("usePoint"))<=memberPoint){	// 입력한 값이 총 포인트의 값보다 낮거나 같을 경우에만
 			usePoint = Integer.parseInt(request.getParameter("usePoint"));		// usePoint 변수에 받아온 값 입력
 		}
 	}
-	int addressCheck = 0;														// 기존주소인지, 새로운 주소인지 선택확인위한 변수 선언
+	
+	
+	if(request.getParameter("shoppingCartNumber") == null){						// shoppingCartNumber가 넘어오지 않으면 view페이지에서 값 받기
+		System.out.println("뷰페이지 받기");
+		
+		ordersAmount = Integer.parseInt(request.getParameter("amount"));
+		price = Integer.parseInt(request.getParameter("price"));
+	}else{
+		System.out.println("장바구니 받기");
+		
+		ordersAmount = Integer.parseInt(request.getParameter("shoppingCartAmount"));
+		price = Integer.parseInt(request.getParameter("shoppingCartPrice"));
+	}
+	
+	
+	int ordersPrice = price-usePoint;											// 포인트 적용 후 최종 결제금액
+	
+	
 	 if(request.getParameter("addressCheck")!=null){							// addressCheck를 받아오는 값이 있을때
 		 addressCheck = Integer.parseInt(request.getParameter("addressCheck"));	// 새로운 주소를 선택한 값을 addressCheck변수에 대입
 	 }
+	
 	String recentAddress = null;												// 최근배송지 받아오는 변수
-	int ordersPrice = price-usePoint;											// 포인트 적용 후 최종 결제금액
+	
+	Orders orders = BookOrdersDao.selectOrdersRecentAddress(memberNumber);		// 최근배송지 받아오는 메서드
+	if(orders != null){															// 메서드 호출하여 결과값이 있으면 
+		recentAddress = orders.getOrdersAddress();								// 받아온 주소값 recentAddress변수에 대입
+	}
+	
+	
 %>	
 	<form action="<%=request.getContextPath()%>/bookOrders/bookOrdersAction.jsp" method="post">
 		<input type="hidden" name="ordersPrice" value="<%=ordersPrice%>">
 		<%-- <input type="hidden" name="bookNumber" value="<%=bookNumber%>">
 		<input type="hidden" name="orderAmount" value="<%=orderAmount%>"> --%>
-		<input type="hidden" name="bookNumber" value="<%=1%>">
-		<input type="hidden" name="orderAmount" value="<%=3%>">
-		<input type="hidden" name="memberNumber" value="<%=1%>">
+		<input type="hidden" name="bookNumber" value="<%=bookNumber%>">
+		<input type="hidden" name="ordersAmount" value="<%=ordersAmount%>">
+		<input type="hidden" name="memberNumber" value="<%=memberNumber%>">
 		<table>
 			<tr>
 				<th>주문자이름</th>
-				<td>홍길동</td>
+				<td><%= Member.getMemberName() %></td>
 			</tr>
 			<tr>
 				<th>배송주소</th>
@@ -55,7 +92,7 @@
 <%
 			if(addressCheck==0){				// 기존주소를 선택했을때
 %>
-				<td colspan="3" align="center"><input type="text" name="ordersAddress" value="기존주소표시영역" readonly="readonly"></td>
+				<td colspan="3" align="center"><input type="text" name="ordersAddress" value="<%=Member.getMemberAddr() %>" readonly="readonly"></td>
 <%
 			}else if(addressCheck==1){								// 새로운주소를 선택했을때
 %>
@@ -82,7 +119,7 @@
 			</tr>
 			<tr>
 				<th>수량</th>
-				<td>수량 받아온값 입력</td>
+				<td><%=ordersAmount %></td>
 			</tr>
 		</table>
 		<button>주문하기</button>
