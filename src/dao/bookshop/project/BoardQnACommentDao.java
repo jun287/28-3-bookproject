@@ -21,7 +21,7 @@ public class BoardQnACommentDao {
 		
 		try {
 			
-			preparedStatement = connection.prepareStatement("DELETE FROM qnacomment WHERE qna_no=? and admin_no=?");
+			preparedStatement = connection.prepareStatement("DELETE FROM qna_comment WHERE qna_no=? and admin_no=?");
 			preparedStatement.setInt(1, boardQnAComment.getBoardQnaNo());
 			preparedStatement.setInt(2, boardQnAComment.getAdminNo());
 			preparedStatement.executeUpdate();
@@ -48,7 +48,7 @@ public class BoardQnACommentDao {
 		
 		try {
 			
-			preparedStatement = connection.prepareStatement("UPDATE qnacomment SET comment_content=? WHERE qna_no=?");
+			preparedStatement = connection.prepareStatement("UPDATE qna_comment SET comment_content=? WHERE qna_no=?");
 			preparedStatement.setString(1, boardQnAComment.getBoardQnaCommentContent());
 			preparedStatement.setInt(2, boardQnAComment.getBoardQnaNo());
 			preparedStatement.executeUpdate();
@@ -76,7 +76,7 @@ public class BoardQnACommentDao {
 		
 		try {
 			
-			preparedStatement = connection.prepareStatement("SELECT * FROM qnacomment WHERE qna_no=?");
+			preparedStatement = connection.prepareStatement("SELECT * FROM qna_comment WHERE qna_no=?");
 			preparedStatement.setInt(1, boardQnaComment.getBoardQnaNo());
 			resultSet = preparedStatement.executeQuery();
 			
@@ -113,7 +113,7 @@ public class BoardQnACommentDao {
 		
 		try {
 			
-			preparedStatement = connection.prepareStatement("INSERT INTO qnacomment(qna_no, admin_no, comment_content, comment_date) VALUES (?,?,?,now())");
+			preparedStatement = connection.prepareStatement("INSERT INTO qna_comment(qna_no, admin_no, comment_content, comment_date) VALUES (?,?,?,now())");
 			preparedStatement.setInt(1, boardQnAComment.getBoardQnaNo());
 			preparedStatement.setInt(2, boardQnAComment.getAdminNo());
 			preparedStatement.setString(3, boardQnAComment.getBoardQnaCommentContent());

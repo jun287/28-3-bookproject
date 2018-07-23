@@ -1,4 +1,4 @@
-// 2018. 07. 22 怨듭�몄�
+// 2018. 07. 22 공세준
 
 package dao.bookshop.project;
 
@@ -49,10 +49,10 @@ public class MemberDao {
 	}
 	
 	public void updateMemberPoint(int memberNumber, int memberPoint) {
-		// 18.7.23 理�吏���
-		// 援щℓ��猷� �� �ъ�명�� ��由� or 李④����� 硫�����
-		// 留ㅺ�蹂��� memberNumber 諛����� �대�� ����留� ���곗�댄��
-		// 由ы�닿� ����
+		// 18.7.23 최지수
+		// 구매완료 시 포인트 적립 or 차감하는 메서드
+		// 매개변수 memberNumber 받아서 해당 회원만 업데이트
+		// 리턴값 없음
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -76,9 +76,9 @@ public class MemberDao {
 		
 	}
 	
-	// �ㅻ� : id 瑜� 諛����� �곗�댄�곕��댁�ㅼ�� �쇱����� id 媛� ���쇰㈃ 洹� ��蹂대�� 媛��몄�ㅻ�� 硫����� ������.
-	// 留ㅺ�蹂��� : String �����쇰� memberId瑜� 諛��듬����.
-	// 由ы�� : ������蹂닿� �닿릿 Member �대���� 媛�泥댁�� 李몄“媛��� 由ы�� �⑸����.
+	// 설명 : id 를 받아서 데이터베이스에 일치하는 id 가 있으면 그 정보를 가져오는 메서드 입니다.
+	// 매개변수 : String 타입으로 memberId를 받습니다.
+	// 리턴 : 회원정보가 담긴 Member 클래스 객체의 참조값을 리턴 합니다.
 	public Member selectMemberInfor(Connection connection, String memberId) {
 		
 		Member member = new Member();
@@ -120,9 +120,9 @@ public class MemberDao {
 		return member;
 	}
 	
-	// �ㅻ� : id�� pw瑜� 諛����� �곗�댄�곕��댁�ㅼ�� ���� ��蹂대�� 寃������� 濡�洹몄�몄껜�� ���� 硫����� ������.
-	// 留ㅺ�蹂��� : String 李몄“�����쇰� memberId, memberPw 瑜� 諛��듬����.
-	// 由ы�� : String 李몄“�����쇰� 議곌굔臾몄�� 寃곌낵媛��� "濡�洹몄�몄�깃났" ���� "濡�洹몄�몄�ㅽ��" 瑜� result�� ������ 由ы�댄�⑸����. 
+	// 설명 : id와 pw를 받아서 데이터베이스에 있는 정보를 검색하여 로그인체크 하는 메서드 입니다.
+	// 매개변수 : String 참조타입으로 memberId, memberPw 를 받습니다.
+	// 리턴 : String 참조타입으로 조건문에 결과값인 "로그인성공" 또는 "로그인실패" 를 result에 대입후 리턴합니다. 
 	public String loginCheckMember(Connection connection ,String memberId, String memberPw) {
 	
 		PreparedStatement preparedStatement = null;
@@ -137,9 +137,9 @@ public class MemberDao {
 			resultSet = preparedStatement.executeQuery();
 			
 			if(resultSet.next()) {
-				result = "濡�洹몄�몄�깃났";
+				result = "로그인성공";
 			}else {
-				result = "濡�洹몄�몄�ㅽ��";
+				result = "로그인실패";
 			}
 			
 		}catch(SQLException ex) {
@@ -173,9 +173,9 @@ public class MemberDao {
 			resultSet = preparedStatement.executeQuery();
 			
 			if(resultSet.next()) {
-				result = "���대��議댁��";
+				result = "아이디존재";
 			}else {
-				result = "媛���媛���";
+				result = "가입가능";
 			}
 			
 		}catch(SQLException ex){
@@ -196,9 +196,9 @@ public class MemberDao {
 		return result;
 	}
 	
-	// �ㅻ� : ������蹂대�� 諛����� �곗�댄�곕��댁�ㅼ�� ���곗�댄�� ���� 硫����� ������.
-	// 留ㅺ�蹂��� : Member �대���� �����쇰� 媛�泥댁�� 李몄“媛��� 諛��듬����.
-	// 由ы�� : void濡� ���듬����.
+	// 설명 : 회원정보를 받아서 데이터베이스에 업데이트 하는 메서드 입니다.
+	// 매개변수 : Member 클래스 타입으로 객체의 참조값을 받습니다.
+	// 리턴 : void로 없습니다.
 	public void updateMember(Connection connection, Member member) {
 		
 		PreparedStatement preparedStatement = null;
@@ -223,9 +223,9 @@ public class MemberDao {
 		}
 	}
 	
-	// �ㅻ� : ������蹂대�� �댁�� Member 媛�泥댁�� 李몄“媛��� 諛��� insert荑쇰━臾몄�� �ㅽ����耳� �곗�댄�곕��댁�ㅼ�� ���� ���� 硫����� ������.
-	// 留ㅺ�蹂��� : Member �대���� �����쇰� 媛�泥댁�� 李몄“媛��� 諛��듬����.
-	// 由ы�� : void濡� ���듬����.
+	// 설명 : 회원정보를 담은 Member 객체의 참조값을 받아 insert쿼리문을 실행시켜 데이터베이스에 저장 하는 메서드 입니다.
+	// 매개변수 : Member 클래스 타입으로 객체의 참조값을 받습니다.
+	// 리턴 : void로 없습니다.
 	public void insertMember(Connection connection, Member member) {
 		
 		PreparedStatement preparedStatement = null;
