@@ -8,29 +8,83 @@ import dto.bookshop.project.Orders;
 
 public class BookOrdersDao {
 
+	/*public void deleteBookOrders (int bookOrdersNumber) {
+		// orders 테이블 주문정보 삭제하는 메소드
+		// 리턴값 없고 int data type으로 bookOrdersNumber 매개변수 생성
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		conn = DBconnection.getConnetion();
+		
+		
+	}*/
 	
-	public void insertBookOrder(Orders o) {
+	public Orders selectOrdersRecentAddress(int MemberNumber) {
+		// 주문정보를 조회하여 가장 최신의 정보를 조회하는 메서드
+		// Orders클래스 리턴하여 조회된값 세팅및 불러오기
+		// 매개변수는 회원번호를 받아서 주문정보를 조회한다
+		Orders orders = null;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			connection = DBconnection.getConnetion();
+			preparedStatement = connection.prepareStatement("SELECT orders_no,book_no,member_no,orders_price,orders_amount, orders_date,orders_addr,orders_state FROM orders WHERE member_no=? AND orders_no=(SELECT max(orders_no) FROM orders WHERE member_no=?)");
+			preparedStatement.setInt(1, MemberNumber);
+			preparedStatement.setInt(2, MemberNumber);
+			
+			resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				orders = new Orders();
+				orders.setOrdersNumber(resultSet.getInt("orders_no"));
+				orders.setBookNumber(resultSet.getInt("orders_no"));
+				orders.setMemberNumber(resultSet.getInt("member_no"));
+				orders.setOrdersPrice(resultSet.getInt("orders_price"));
+				orders.setOrdersAmount(resultSet.getInt("orders_amount"));
+				orders.setOrdersAddress(resultSet.getString("orders_addr"));
+				orders.setOrderState(resultSet.getString("orders_state"));
+				
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("예외발생");
+			e.printStackTrace();
+		} finally {
+			
+			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	
+			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	
+			
+		}
+	
+		return orders;
+		
+	}
+	
+	public void insertBookOrders (Orders orders) {
 		// orders테이블에 주문정보를 추가하는 메서드
 		// 매개변수 : Orders클래스와 연결할수 있는 참조값
 		// 리턴값 없음
 		
-		Connection conn = null;			
-		PreparedStatement pstmt = null;
+		Connection connection = null;			
+		PreparedStatement  preparedStatement= null;
 		
 		try{
 			
-			conn = DBconnection.getConnetion();
+			connection = DBconnection.getConnetion();
 			
-			pstmt = conn.prepareStatement("INSERT INTO orders (book_no, member_no, orders_price, orders_amount, orders_date, orders_addr, orders_state) VALUES (?, ?, ?, ?, NOW(), ?, '주문완료')");
-			pstmt.setInt(1, o.getBookNumber());
-			pstmt.setInt(2, o.getMemberNumber());
-			pstmt.setInt(3, o.getOrdersPrice());
-			pstmt.setInt(4, o.getOrdersAmount());
-			pstmt.setString(5, o.getOrdersAddress());
+			preparedStatement = connection.prepareStatement("INSERT INTO orders (book_no, member_no, orders_price, orders_amount, orders_date, orders_addr, orders_state) VALUES (?, ?, ?, ?, NOW(), ?, '주문완료')");
+			preparedStatement.setInt(1, orders.getBookNumber());
+			preparedStatement.setInt(2, orders.getMemberNumber());
+			preparedStatement.setInt(3, orders.getOrdersPrice());
+			preparedStatement.setInt(4, orders.getOrdersAmount());
+			preparedStatement.setString(5, orders.getOrdersAddress());
 			
-			System.out.println(o.getOrdersAddress());
+			System.out.println(orders.getOrdersAddress());
 			
-			pstmt.executeUpdate();
+			preparedStatement.executeUpdate();
 			
 		
 		} catch (SQLException e) {
@@ -38,8 +92,8 @@ public class BookOrdersDao {
 			e.printStackTrace();
 		}finally {
 			
-			if(pstmt!=null) try{ pstmt.close(); } catch (SQLException e) {}	
-			if(conn!=null) try{ conn.close(); } catch (SQLException e) {}	
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	
+			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	
 			
 		}
 	}
@@ -61,13 +115,13 @@ public class BookOrdersDao {
 			
 			if(resultSet.next()) {
 				orders = new Orders();
-				orders.setOrdersNumber(resultSet.getInt("orderNumber"));
-				orders.setBookNumber(resultSet.getInt("bookNumber"));
-				orders.setMemberNumber(resultSet.getInt("memberNumber"));
-				orders.setOrdersPrice(resultSet.getInt("ordersPrice"));
-				orders.setOrdersAmount(resultSet.getInt("ordersAmount"));
-				orders.setOrdersAddress(resultSet.getString("orderAddress"));
-				orders.setOrderState(resultSet.getString("orderState"));
+				orders.setOrdersNumber(resultSet.getInt("orders_no"));
+				orders.setBookNumber(resultSet.getInt("book_no"));
+				orders.setMemberNumber(resultSet.getInt("member_no"));
+				orders.setOrdersPrice(resultSet.getInt("orders_price"));
+				orders.setOrdersAmount(resultSet.getInt("orders_amount"));
+				orders.setOrdersAddress(resultSet.getString("orders_addr"));
+				orders.setOrderState(resultSet.getString("orders_state"));
 				
 			}
 			
@@ -104,13 +158,13 @@ public class BookOrdersDao {
 		while(resultSet.next()) {
 			Orders orders = new Orders();
 			
-			orders.setOrdersNumber(resultSet.getInt("orderNumber"));
-			orders.setBookNumber(resultSet.getInt("bookNumber"));
-			orders.setOrdersPrice(resultSet.getInt("ordersPrice"));
-			orders.setOrdersAmount(resultSet.getInt("ordersAmount"));
-			orders.setOrdersDate(resultSet.getString("ordersDate"));
-			orders.setOrdersAddress(resultSet.getString("ordersAddress"));
-			orders.setOrderState(resultSet.getString("ordersState"));
+			orders.setOrdersNumber(resultSet.getInt("orders_no"));
+			orders.setBookNumber(resultSet.getInt("book_no"));
+			orders.setOrdersPrice(resultSet.getInt("orders_price"));
+			orders.setOrdersAmount(resultSet.getInt("orders_amount"));
+			orders.setOrdersDate(resultSet.getString("orders_date"));
+			orders.setOrdersAddress(resultSet.getString("orders_addr"));
+			orders.setOrderState(resultSet.getString("orders_state"));
 			
 			ordersList.add(orders);
 			
@@ -184,12 +238,12 @@ public class BookOrdersDao {
 				
 				Orders orders = new Orders();
 				//Orders data type으로 orders 변수를 생성하고 new생성자메소드로  생성된 Orders객체의 주소 값을 orders 변수에 할당한다	
-				orders.setBookNumber(resultSet.getInt("bookNumber"));
-				orders.setOrdersPrice(resultSet.getInt("ordersPrice"));
-				orders.setOrdersAmount(resultSet.getInt("ordersAmount"));
-				orders.setOrdersDate(resultSet.getString("ordersDate"));
-				orders.setOrdersAddress(resultSet.getString("ordersAddress"));
-				orders.setOrderState(resultSet.getString("ordersState"));
+				orders.setBookNumber(resultSet.getInt("book_no"));
+				orders.setOrdersPrice(resultSet.getInt("orders_price"));
+				orders.setOrdersAmount(resultSet.getInt("orders_amount"));
+				orders.setOrdersDate(resultSet.getString("orders_date"));
+				orders.setOrdersAddress(resultSet.getString("orders_addr"));
+				orders.setOrderState(resultSet.getString("orders_state"));
 				
 				ordersList.add(orders);
 			}

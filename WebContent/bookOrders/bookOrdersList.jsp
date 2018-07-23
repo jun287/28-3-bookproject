@@ -47,14 +47,14 @@
 %>
 		
 		<tr>
-			<td><%= orders.getOrdersNumber() %></td>
-			<td><%= orders.getBookNumber() %></td>
-			<td><%= orders.getMemberNumber() %></td>
-			<td><%= orders.getOrdersPrice() %></td>
-			<td><%= orders.getOrdersAmount() %></td>
-			<td><%= orders.getOrdersDate() %></td>
-			<td><%= orders.getOrdersAddress() %></td>
-			<td><%= orders.getOrderState() %></td>
+			<td><%= orders.getOrdersNumber() %></td>	<!-- 쇼핑카트에서 주문번호 받아오기 -->
+			<td><%= orders.getBookNumber() %></td>		<!-- bookCode에서 bookNumbr 가져오기 -->
+			<td><%= orders.getMemberNumber() %></td>	<!-- member에서 memberNumber 가져오기 -->
+			<td><%= orders.getOrdersPrice() %></td>		<!-- book에서 OrdersPrice가져오기 -->
+			<td><%= orders.getOrdersAmount() %></td>	<!-- book에서 OrdersAmount가져오기 -->
+			<td><%= orders.getOrdersDate() %></td>		<!-- 주문날짜 -->
+			<td><%= orders.getOrdersAddress() %></td>	<!-- 주문주소 -->
+			<td><%= orders.getOrderState() %></td>		<!-- 진행상태  -->
 		</tr>
 <% 		
 	}		
@@ -65,13 +65,13 @@
 	</form>
 <%
 	int totalRow = bookOrdersDao.selectCount();			// 총 개수
-	int lastPage = 0;							// 마지막 페이지
+	int lastPage = 0;									// 마지막 페이지
 	
 	if(totalRow % rowPerPage == 0) {
-	    lastPage = totalRow / rowPerPage;		// 마지막 페이지 = 총 개수 나누기 한 페이지에 보이는 개수
+	    lastPage = totalRow / rowPerPage;				// 마지막 페이지 = 총 개수 나누기 한 페이지에 보이는 개수
 	    
 	}else{
-	    lastPage = totalRow / rowPerPage + 1;	// 마지막 페이지 = 총 개수 나누기 한 페이지에 보이는 개수 + 1
+	    lastPage = totalRow / rowPerPage + 1;			// 마지막 페이지 = 총 개수 나누기 한 페이지에 보이는 개수 + 1
 	            
 	}
 	
