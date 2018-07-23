@@ -30,7 +30,6 @@
 						<a href="<%= request.getContextPath() %>/member/memberLogout.jsp">로그아웃</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 						<a href="<%= request.getContextPath() %>/bookCategory/bookCategoryView.jsp">도서 목록</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 						<a href="<%= request.getContextPath() %>/shoppingCart/shoppingCartList.jsp?memberNo=<%= sessionNo %>">카트</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-						<a href="<%= request.getContextPath() %>/bookOrders/bookOrdersList.jsp?memberNo=<%= sessionNo %>">도서 구매</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 						<a href="<%= request.getContextPath() %>/boardQnA/boardList.jsp">질문게시판</a>
 						
 				<%		

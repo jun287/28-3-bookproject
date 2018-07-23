@@ -25,9 +25,9 @@
 				Publisher publisher=result.get(i);
 			%>
 				<tr>
-					<td><%=publisher.getPublischerNo() %></td>
-					<td><%=publisher.getPublischerName() %></td>
-					<td><%=publisher.getPublischerWebsite() %></td>
+					<td><%=publisher.getPublisherNo() %></td>
+					<td><%=publisher.getPublisherName() %></td>
+					<td><%=publisher.getPublisherWebsite() %></td>
 					<td><a href="#">수정</a></td>
 					<td><a href="#">삭제</a></td>
 				</tr>

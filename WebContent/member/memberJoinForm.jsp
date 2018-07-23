@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="dao.bookshop.project.BookCategoryDao" %>
+<%@ page import="dto.bookshop.project.BookCode" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -7,6 +10,10 @@
 		<title>memberJoinForm</title>
 	</head>
 	<body>
+		<%
+			BookCategoryDao bookCategoryDao = new BookCategoryDao();
+			ArrayList<BookCode> arrayList = bookCategoryDao.selectBookCategory();
+		%>
 		<div align="center">
 			<h1>회원 가입</h1>
 			<form method="post" action="<%= request.getContextPath() %>/member/memberJoinAction.jsp">
@@ -26,6 +33,19 @@
 					<tr>
 						<td align="right">주소 :</td>
 						<td><input type="text" name="memberAddr" required></td>
+					</tr>
+					<tr>
+						<td align="right">카테고리 : </td>
+						<td>
+						<%
+							for(int j=0; j<arrayList.size(); j++){
+								BookCode bookCode = arrayList.get(j);
+						%>		
+								<input type="checkbox" name="memberInter" value="<%=bookCode.getBookCodeNo()%>" ><%=bookCode.getBookCodeName()%>
+						<%
+							}
+						%>
+						</td>
 					</tr>
 					<tr>
 						<td></td>
