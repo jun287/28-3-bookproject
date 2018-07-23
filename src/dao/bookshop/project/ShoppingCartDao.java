@@ -141,9 +141,9 @@ public class ShoppingCartDao {
 				member.setMemberId(resultSet.getString(7));
 				member.setMemberName(resultSet.getString(8));
 				member.setMemberAddr(resultSet.getString(9));
-				book.setBook_name(resultSet.getString(10));
-				book.setBook_author(resultSet.getString(11));
-				book.setBook_price(resultSet.getInt(12));
+				book.setBookName(resultSet.getString(10));
+				book.setBookAuthor(resultSet.getString(11));
+				book.setBookPrice(resultSet.getInt(12));
 				memberAndBookAndShoppingCart.setShoppingCart(shoppingCart);
 				memberAndBookAndShoppingCart.setMember(member);
 				memberAndBookAndShoppingCart.setBook(book);

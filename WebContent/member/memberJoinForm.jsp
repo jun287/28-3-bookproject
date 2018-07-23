@@ -36,17 +36,20 @@
 					</tr>
 					<tr>
 						<td align="right">카테고리 : </td>
-						<td>
+					</tr>	
 						<%
 							for(int j=0; j<arrayList.size(); j++){
 								BookCode bookCode = arrayList.get(j);
 						%>		
-								<input type="checkbox" name="memberInter" value="<%=bookCode.getBookCodeNo()%>" ><%=bookCode.getBookCodeName()%>
+							<tr>
+								<td></td>
+								<td>
+									<input type="checkbox" name="memberInter" value="<%=bookCode.getBookCodeNo()%>" ><%=bookCode.getBookCodeName()%>
+								</td>
+							</tr>
 						<%
 							}
-						%>
-						</td>
-					</tr>
+						%>			
 					<tr>
 						<td></td>
 						<td>

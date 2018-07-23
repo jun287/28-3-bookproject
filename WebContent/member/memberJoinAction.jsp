@@ -26,7 +26,7 @@
 				
 			}
 			
-			/* Member member = new Member();
+			Member member = new Member();
 			member.setMemberId(memberId);
 			member.setMemberPw(memberPw);
 			member.setMemberName(memberName);
@@ -36,7 +36,7 @@
 			
 			serviceMember.insertMember(member);
 			
-			response.sendRedirect(request.getContextPath()+"/index.jsp"); */
+			response.sendRedirect(request.getContextPath()+"/index.jsp"); 
 		%>
 	</body>
 </html>
