@@ -19,7 +19,7 @@ public class BookOrdersDao {
 		
 	}*/
 	
-	public static Orders selectOrdersRecentAddress(int MemberNumber) {
+	public Orders selectOrdersRecentAddress(int MemberNumber) {
 		// 주문정보를 조회하여 가장 최신의 정보를 조회하는 메서드
 		// Orders클래스 리턴하여 조회된값 세팅및 불러오기
 		// 매개변수는 회원번호를 받아서 주문정보를 조회한다
