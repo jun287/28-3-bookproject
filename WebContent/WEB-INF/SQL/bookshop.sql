@@ -25,16 +25,14 @@ CREATE TABLE IF NOT EXISTS `admin` (
   PRIMARY KEY (`admin_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table bookshop.admin: ~0 rows (대략적)
-/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
+-- 내보낼 데이터가 선택되어 있지 않습니다.
 
 
 -- 테이블 bookshop의 구조를 덤프합니다. book
 CREATE TABLE IF NOT EXISTS `book` (
   `book_no` int(10) NOT NULL AUTO_INCREMENT,
   `bookcode_no` int(10) NOT NULL,
-  `publischer_no` int(10) NOT NULL,
+  `publisher_no` int(10) NOT NULL,
   `book_name` varchar(50) NOT NULL,
   `book_author` varchar(50) NOT NULL,
   `book_price` int(10) NOT NULL,
@@ -44,14 +42,12 @@ CREATE TABLE IF NOT EXISTS `book` (
   `book_date` datetime NOT NULL,
   PRIMARY KEY (`book_no`),
   KEY `FK_book_bookcode` (`bookcode_no`),
-  KEY `FK_book_publisher` (`publischer_no`),
-  CONSTRAINT `FK_book_bookcode` FOREIGN KEY (`bookcode_no`) REFERENCES `bookcode` (`bookcode_no`),
-  CONSTRAINT `FK_book_publisher` FOREIGN KEY (`publischer_no`) REFERENCES `publisher` (`publischer_no`)
+  KEY `FK_book_publisher` (`publisher_no`),
+  CONSTRAINT `FK_book_publisher` FOREIGN KEY (`publisher_no`) REFERENCES `publisher` (`publisher_no`),
+  CONSTRAINT `FK_book_bookcode` FOREIGN KEY (`bookcode_no`) REFERENCES `bookcode` (`bookcode_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table bookshop.book: ~0 rows (대략적)
-/*!40000 ALTER TABLE `book` DISABLE KEYS */;
-/*!40000 ALTER TABLE `book` ENABLE KEYS */;
+-- 내보낼 데이터가 선택되어 있지 않습니다.
 
 
 -- 테이블 bookshop의 구조를 덤프합니다. bookcode
@@ -61,9 +57,7 @@ CREATE TABLE IF NOT EXISTS `bookcode` (
   PRIMARY KEY (`bookcode_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table bookshop.bookcode: ~0 rows (대략적)
-/*!40000 ALTER TABLE `bookcode` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bookcode` ENABLE KEYS */;
+-- 내보낼 데이터가 선택되어 있지 않습니다.
 
 
 -- 테이블 bookshop의 구조를 덤프합니다. bookintro
@@ -77,9 +71,7 @@ CREATE TABLE IF NOT EXISTS `bookintro` (
   CONSTRAINT `FK__bookintro_book` FOREIGN KEY (`book_no`) REFERENCES `book` (`book_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table bookshop.bookintro: ~0 rows (대략적)
-/*!40000 ALTER TABLE `bookintro` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bookintro` ENABLE KEYS */;
+-- 내보낼 데이터가 선택되어 있지 않습니다.
 
 
 -- 테이블 bookshop의 구조를 덤프합니다. bookreview
@@ -95,9 +87,7 @@ CREATE TABLE IF NOT EXISTS `bookreview` (
   CONSTRAINT `FK_bookreview_member` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table bookshop.bookreview: ~0 rows (대략적)
-/*!40000 ALTER TABLE `bookreview` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bookreview` ENABLE KEYS */;
+-- 내보낼 데이터가 선택되어 있지 않습니다.
 
 
 -- 테이블 bookshop의 구조를 덤프합니다. member
@@ -112,9 +102,7 @@ CREATE TABLE IF NOT EXISTS `member` (
   PRIMARY KEY (`member_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table bookshop.member: ~0 rows (대략적)
-/*!40000 ALTER TABLE `member` DISABLE KEYS */;
-/*!40000 ALTER TABLE `member` ENABLE KEYS */;
+-- 내보낼 데이터가 선택되어 있지 않습니다.
 
 
 -- 테이블 bookshop의 구조를 덤프합니다. memberinter
@@ -129,9 +117,7 @@ CREATE TABLE IF NOT EXISTS `memberinter` (
   CONSTRAINT `FK_memberinter_member` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table bookshop.memberinter: ~0 rows (대략적)
-/*!40000 ALTER TABLE `memberinter` DISABLE KEYS */;
-/*!40000 ALTER TABLE `memberinter` ENABLE KEYS */;
+-- 내보낼 데이터가 선택되어 있지 않습니다.
 
 
 -- 테이블 bookshop의 구조를 덤프합니다. orders
@@ -151,22 +137,18 @@ CREATE TABLE IF NOT EXISTS `orders` (
   CONSTRAINT `FK_orders_member` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table bookshop.orders: ~0 rows (대략적)
-/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
+-- 내보낼 데이터가 선택되어 있지 않습니다.
 
 
 -- 테이블 bookshop의 구조를 덤프합니다. publisher
 CREATE TABLE IF NOT EXISTS `publisher` (
-  `publischer_no` int(10) NOT NULL AUTO_INCREMENT,
-  `publischer_name` varchar(50) NOT NULL,
-  `publischer_website` varchar(50) NOT NULL,
-  PRIMARY KEY (`publischer_no`)
+  `publisher_no` int(10) NOT NULL AUTO_INCREMENT,
+  `publisher_name` varchar(50) NOT NULL,
+  `publisher_website` varchar(50) NOT NULL,
+  PRIMARY KEY (`publisher_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table bookshop.publisher: ~0 rows (대략적)
-/*!40000 ALTER TABLE `publisher` DISABLE KEYS */;
-/*!40000 ALTER TABLE `publisher` ENABLE KEYS */;
+-- 내보낼 데이터가 선택되어 있지 않습니다.
 
 
 -- 테이블 bookshop의 구조를 덤프합니다. qna
@@ -181,13 +163,11 @@ CREATE TABLE IF NOT EXISTS `qna` (
   CONSTRAINT `FK_qna_member` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table bookshop.qna: ~0 rows (대략적)
-/*!40000 ALTER TABLE `qna` DISABLE KEYS */;
-/*!40000 ALTER TABLE `qna` ENABLE KEYS */;
+-- 내보낼 데이터가 선택되어 있지 않습니다.
 
 
--- 테이블 bookshop의 구조를 덤프합니다. qnacomment
-CREATE TABLE IF NOT EXISTS `qnacomment` (
+-- 테이블 bookshop의 구조를 덤프합니다. qna_comment
+CREATE TABLE IF NOT EXISTS `qna_comment` (
   `qna_comment_no` int(10) NOT NULL AUTO_INCREMENT,
   `qna_no` int(10) NOT NULL,
   `admin_no` int(10) NOT NULL,
@@ -200,9 +180,7 @@ CREATE TABLE IF NOT EXISTS `qnacomment` (
   CONSTRAINT `FK_qnacomment_qna` FOREIGN KEY (`qna_no`) REFERENCES `qna` (`qna_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table bookshop.qnacomment: ~0 rows (대략적)
-/*!40000 ALTER TABLE `qnacomment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `qnacomment` ENABLE KEYS */;
+-- 내보낼 데이터가 선택되어 있지 않습니다.
 
 
 -- 테이블 bookshop의 구조를 덤프합니다. shopingcart
@@ -220,9 +198,7 @@ CREATE TABLE IF NOT EXISTS `shopingcart` (
   CONSTRAINT `FK_shopingcart_member` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table bookshop.shopingcart: ~0 rows (대략적)
-/*!40000 ALTER TABLE `shopingcart` DISABLE KEYS */;
-/*!40000 ALTER TABLE `shopingcart` ENABLE KEYS */;
+-- 내보낼 데이터가 선택되어 있지 않습니다.
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
