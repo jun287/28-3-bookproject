@@ -39,6 +39,9 @@
 		 
 		BookDao BookDao = new BookDao();
 		BookDao.insertBook(book);  
+		
+		response.sendRedirect(request.getContextPath()+"/book/bookList.jsp");
+		
 	%>
 </body>
 </html>
