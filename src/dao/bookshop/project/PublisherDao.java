@@ -2,8 +2,11 @@ package dao.bookshop.project;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import dto.bookshop.project.Publisher;
 import util.connetion.db.DBconnection;
 
 public class PublisherDao {
@@ -34,20 +37,36 @@ public class PublisherDao {
 	}
 
 	//출판사 리스트를 보여주는메서드
-	public void selectPublisher() {
+	public ArrayList<Publisher> selectPublisher() {
 		System.out.println("selectPublisher");
 		
 		Connection connection=null;
 		PreparedStatement statement=null;
-		
+		ResultSet resultSet=null;
+		String sql="select publisher_no,publisher_name,publisher_website from publisher";
+		ArrayList<Publisher> list=new ArrayList<Publisher>();
 		try {
 			connection=DBconnection.getConnetion();
+			statement=connection.prepareStatement(sql);
 			
-			
+			resultSet=statement.executeQuery();
+			while(resultSet.next()) {
+				Publisher publisher=new Publisher();
+				
+				publisher.setPublischerNo(resultSet.getInt("publisher_no"));
+				publisher.setPublischerName(resultSet.getString("publisher_name"));
+				publisher.setPublischerWebsite(resultSet.getString("publisher_website"));
+				
+				list.add(publisher);
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally {
-			
+			try {resultSet.close();} catch (SQLException e) {e.printStackTrace();}
+			try {statement.close();} catch (SQLException e) {e.printStackTrace();}
+			try {connection.close();} catch (SQLException e) {e.printStackTrace();}
 		}
+		
+		return list;
 	}
 }

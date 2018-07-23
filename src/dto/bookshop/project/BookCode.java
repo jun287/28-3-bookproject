@@ -2,20 +2,19 @@ package dto.bookshop.project;
 
 public class BookCode {
 	//카테고리에서 사용되는 데이터들의 저장할 공간을 캡슐화로 생성한다.
-	private int bookcode_no;
-	private String bookcode_name;
+	private int bookCodeNo;
+	private String bookCodeName;
 	
-	public int getBookcode_no() {
-		return bookcode_no;
+	public int getBookCodeNo() {
+		return bookCodeNo;
 	}
-	public void setBookcode_no(int bookcode_no) {
-		this.bookcode_no = bookcode_no;
+	public void setBookCodeNo(int bookCodeNo) {
+		this.bookCodeNo = bookCodeNo;
 	}
-	public String getBookcode_name() {
-		return bookcode_name;
+	public String getBookCodeName() {
+		return bookCodeName;
 	}
-	public void setBookcode_name(String bookcode_name) {
-		this.bookcode_name = bookcode_name;
+	public void setBookCodeName(String bookCodeName) {
+		this.bookCodeName = bookCodeName;
 	}
-	
 }

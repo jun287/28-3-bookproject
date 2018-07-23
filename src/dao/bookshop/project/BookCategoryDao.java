@@ -5,8 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.sun.org.apache.regexp.internal.RE;
-
 import dto.bookshop.project.BookCode;
 
 import java.sql.PreparedStatement;
@@ -59,8 +57,8 @@ public class BookCategoryDao {
 			
 			while(resultSet.next()) {
 				BookCode bookCode=new BookCode();
-				bookCode.setBookcode_no(resultSet.getInt("bookcode_no"));
-				bookCode.setBookcode_name(resultSet.getString("bookcode_name"));
+				bookCode.setBookCodeNo(resultSet.getInt("bookcode_no"));
+				bookCode.setBookCodeName(resultSet.getString("bookcode_name"));
 				
 				list.add(bookCode);
 			}
@@ -96,8 +94,8 @@ public class BookCategoryDao {
 			
 			if(resultSet.next()) {
 			
-				bookCode.setBookcode_no(resultSet.getInt("bookcode_no"));
-				bookCode.setBookcode_name(resultSet.getString("bookcode_name"));
+				bookCode.setBookCodeNo(resultSet.getInt("bookcode_no"));
+				bookCode.setBookCodeName(resultSet.getString("bookcode_name"));
 			
 			
 			}
