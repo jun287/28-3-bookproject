@@ -9,14 +9,21 @@ public class ShoppingCart {						// 접근제한자 private 캡슐화
 	private int shoppingCartPrice;				// 쇼핑카트 가격
 	private String shoppingCartDate;			// 쇼핑카트 생성일
 	
-	public ShoppingCart() {						// 인수없는 생성자 메소드 생성
+	public ShoppingCart() {						// 인수없는 default 생성자 메소드 생성
 		this.shoppingCartNumber = 0;			// 인스턴스 변수 초기화
 		this.bookNumber = 0;					
 		this.memberNumber = 0;
 		this.shoppingCartAmount = 0;
 		this.shoppingCartPrice = 0;
 		this.shoppingCartDate = null;
+	// 생성자 오버로딩	
+	}public ShoppingCart(int bookNumber,int memberNumber, int shoppingCartAmount,int shoppingCartPrice){
+		this.bookNumber = bookNumber;					
+		this.memberNumber = memberNumber;
+		this.shoppingCartAmount = shoppingCartAmount;
+		this.shoppingCartPrice = shoppingCartPrice;
 	}
+
 	
 	// 간접 접근 방법 get, set 메소드 setting
 	public int getShoppingCartNumber() {

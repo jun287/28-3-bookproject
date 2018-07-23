@@ -10,61 +10,68 @@ public class Book {
 	private int bookPoint;
 	private int bookAmount;
 	private String bookOut;
+	private String bookDate;
 	
 	public int getBookNo() {
-		return bookNo;
+		return this.bookNo;
 	}
 	public void setBookNo(int bookNo) {
 		this.bookNo = bookNo;
 	}
 	public int getBookCodeNo() {
-		return bookCodeNo;
+		return this.bookCodeNo;
 	}
 	public void setBookCodeNo(int bookCodeNo) {
 		this.bookCodeNo = bookCodeNo;
 	}
 	public int getPublisherNo() {
-		return publisherNo;
+		return this.publisherNo;
 	}
 	public void setPublisherNo(int publisherNo) {
 		this.publisherNo = publisherNo;
 	}
 	public String getBookName() {
-		return bookName;
+		return this.bookName;
 	}
 	public void setBookName(String bookName) {
 		this.bookName = bookName;
 	}
 	public String getBookAuthor() {
-		return bookAuthor;
+		return this.bookAuthor;
 	}
 	public void setBookAuthor(String bookAuthor) {
 		this.bookAuthor = bookAuthor;
 	}
 	public int getBookPrice() {
-		return bookPrice;
+		return this.bookPrice;
 	}
 	public void setBookPrice(int bookPrice) {
 		this.bookPrice = bookPrice;
 	}
 	public int getBookPoint() {
-		return bookPoint;
+		return this.bookPoint;
 	}
 	public void setBookPoint(int bookPoint) {
 		this.bookPoint = bookPoint;
 	}
 	public int getBookAmount() {
-		return bookAmount;
+		return this.bookAmount;
 	}
 	public void setBookAmount(int bookAmount) {
 		this.bookAmount = bookAmount;
 	}
 	public String getBookOut() {
-		return bookOut;
+		return this.bookOut;
 	}
 	public void setBookOut(String bookOut) {
 		this.bookOut = bookOut;
 	}
+	public String getBookDate() {
+		return this.bookDate;
+	}
+	public void setBookDate(String bookDate) {
+		this.bookDate = bookDate;
+	}
 	
-
+	
 }

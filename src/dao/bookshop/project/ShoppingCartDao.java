@@ -76,32 +76,6 @@ public class ShoppingCartDao {
 			} catch (SQLException e) {e.printStackTrace();}
 		}
 	}
-	
-/*	 3번 메소드(2번 메소드 오버로딩)
-	 * 기능 : 장바구니리스트에 구매할 책의 정보를 삭제시키는 메소드 (DB shoppingcart 테이블에 1개 행 삭제)
-	 *  회원이 주문을 완료했을때 장바구니 리스트에서 삭제시키는 메소드
-	 * 매개변수 : ShoppingCart클래스의 인스턴스 참조값
-	 * 리턴값 : 없음
-	
-	public void deleteShoppingCart(ShoppingCart shoppingCart) {
-		connection = DBconnection.getConnetion();				// DBconnection클래스의 클래스 메소드, import로 패키지명 생략
-		try {
-			sql1 = "DELETE FROM shoppingcart WHERE shoppingcart_no=?";
-			preparedStatement = connection.prepareStatement(sql1); 			
-			connection.setAutoCommit(false);		// 쿼리실행 결과가 자동으로 DB에 입력(수정)되는 것(commit)을 수동으로 지정
-			preparedStatement.setInt(1, shoppingCart.getShoppingCartNumber());
-			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {if(resultSet != null) {resultSet.close();}
-				if(preparedStatement != null) {preparedStatement.close();}
-				if(connection != null) {connection.close();}
-			} catch (SQLException e) {e.printStackTrace();}
-		}
-	}*/
-	
-	
 	/* 4번 메소드
 	 * 기능 : 한명의 회원의 장바구니를 조회하는 메소드 (DB shoppingcart,member,book 테이블에 특정 member_no의 inner join 결과 행 조회)
 	 * 매개변수 : int memberNumber(bookView.jsp에서 넘겨받을 값, DB shoppingcart 테이블의 참조키)currentPage(시작페이지), pagePerRow(페이지당 볼 행의 수)
@@ -115,18 +89,19 @@ public class ShoppingCartDao {
 		ArrayList<MemberAndBookAndShoppingCart> shoppingCartList = new ArrayList<MemberAndBookAndShoppingCart>();
 		try {
 			int startRow = (currentPage-1)*pagePerRow;
-			preparedStatement = connection.prepareStatement(sql1);
 			sql1 = "select sc.shoppingcart_no,sc.book_no,sc.member_no,sc.shoppingcart_amount,"
 					+ "sc.shoppingcart_price,sc.shoppingcart_date,m.member_id,m.member_name,"
 					+ "m.member_addr,m.member_point,b.book_name,b.book_author,b.book_price,b.book_point "
 					+ "from shoppingcart sc inner join member m on sc.member_no = m.member_no "
 					+ "inner join book b on sc.book_no = b.book_no where sc.member_no = ? order by sc.shoppingcart_date desc limit ?,?";
-			
+			preparedStatement = connection.prepareStatement(sql1);
 			// connection.setAutoCommit(false);		// 쿼리실행 결과가 자동으로 DB에 입력(수정)되는 것(commit)을 수동으로 지정
 			preparedStatement.setInt(1, memberNumber);
 			preparedStatement.setInt(2, startRow);
 			preparedStatement.setInt(3, pagePerRow);
+			System.out.println(preparedStatement+"<--preparedStatement");
 			resultSet = preparedStatement.executeQuery();
+			
 			while(resultSet.next()) {
 				MemberAndBookAndShoppingCart memberAndBookAndShoppingCart = new MemberAndBookAndShoppingCart();
 				Member member = new Member();
@@ -141,9 +116,11 @@ public class ShoppingCartDao {
 				member.setMemberId(resultSet.getString(7));
 				member.setMemberName(resultSet.getString(8));
 				member.setMemberAddr(resultSet.getString(9));
-				book.setBookName(resultSet.getString(10));
-				book.setBookAuthor(resultSet.getString(11));
-				book.setBookPrice(resultSet.getInt(12));
+				member.setMemberPoint(resultSet.getInt(10));
+				book.setBookName(resultSet.getString(11));
+				book.setBookAuthor(resultSet.getString(12));
+				book.setBookPrice(resultSet.getInt(13));
+				book.setBookPoint(resultSet.getInt(14));
 				memberAndBookAndShoppingCart.setShoppingCart(shoppingCart);
 				memberAndBookAndShoppingCart.setMember(member);
 				memberAndBookAndShoppingCart.setBook(book);
@@ -172,10 +149,11 @@ public class ShoppingCartDao {
 		connection = DBconnection.getConnetion();				// DBconnection클래스의 클래스 메소드, import로 패키지명 생략
 		int latsPage = 0;
 		try {
-			preparedStatement = connection.prepareStatement(sql1);
 			sql1 = "select count(member_no) as totalRow from shoppingcart where member_no=?";
+			preparedStatement = connection.prepareStatement(sql1);
 			preparedStatement.setInt(1, memberNumber);
 			resultSet = preparedStatement.executeQuery();
+			resultSet.next();
 			int totalRow = resultSet.getInt(1);
 			latsPage = totalRow/pagePerRow;
 			if(totalRow%pagePerRow!=0) {
