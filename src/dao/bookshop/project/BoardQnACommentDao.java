@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import dto.bookshop.project.BoardQnA;
 import dto.bookshop.project.BoardQnAComment;
 
 public class BoardQnACommentDao {

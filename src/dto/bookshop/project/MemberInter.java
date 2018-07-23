@@ -4,7 +4,7 @@ public class MemberInter {
 	
 	private int memberinterNo;
 	private int memberNo;
-	private int[] bookcodeNo;
+	private int bookcodeNo;
 	
 	public int getMemberinterNo() {
 		return memberinterNo;
@@ -18,10 +18,10 @@ public class MemberInter {
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
-	public int[] getBookcodeNo() {
+	public int getBookcodeNo() {
 		return bookcodeNo;
 	}
-	public void setBookcodeNo(int[] bookcodeNo) {
+	public void setBookcodeNo(int bookcodeNo) {
 		this.bookcodeNo = bookcodeNo;
 	}
 	

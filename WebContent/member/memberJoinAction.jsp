@@ -2,6 +2,7 @@
 
 <%@ page import = "dto.bookshop.project.Member" %>
 <%@ page import = "dto.bookshop.project.MemberInter" %>
+<%@ page import = "java.util.ArrayList" %>
 <%@ page import = "service.bookshop.project.ServiceMember" %>
 
 <!DOCTYPE html>
@@ -19,14 +20,18 @@
 			String memberAddr = request.getParameter("memberAddr");
 			String[] memberInter = request.getParameterValues("memberInter");
 			int[] memberinterNo = new int[memberInter.length];
-			MemberInter memberInterInstance = new MemberInter();
+			ArrayList<MemberInter> arrayList = new ArrayList<MemberInter>();
+			
 			for(int i = 0; i<memberInter.length; i++){
 				memberinterNo[i] = Integer.parseInt(memberInter[i]);
 				System.out.println(memberinterNo[i]);
+				MemberInter memberInters = new MemberInter();
+				memberInters.setBookcodeNo(memberinterNo[i]);
 				
-			}
+				arrayList.add(memberInters);
+			}	
 			
-			Member member = new Member();
+			/* Member member = new Member();
 			member.setMemberId(memberId);
 			member.setMemberPw(memberPw);
 			member.setMemberName(memberName);
@@ -36,7 +41,7 @@
 			
 			serviceMember.insertMember(member);
 			
-			response.sendRedirect(request.getContextPath()+"/index.jsp"); 
+			response.sendRedirect(request.getContextPath()+"/index.jsp");  */
 		%>
 	</body>
 </html>

@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dto.bookshop.project.BoardQnA;
-import dto.bookshop.project.BoardQnAComment;
 import dto.bookshop.project.BoardQnAandMember;
 import dto.bookshop.project.Member;
 
