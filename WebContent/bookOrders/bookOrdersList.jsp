@@ -1,9 +1,9 @@
-<!-- 2018-07-18 김소희 / bookOrderList.jsp -->
-<%@page import="dto.bookshop.project.MemberAndBookAndShoppingCart"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import = "dao.bookshop.project.BookOrdersDao" %>	<!-- dao.bookshop.project패키지 안에 BookOrdersDo클래스 import -->
-<%@ page import = "dto.bookshop.project.Orders" %>			<!-- dto.bookshop.project패키지 안에 Orders클래스 import  -->
-<%@ page import = "java.util.ArrayList" %>					<!-- ArrayList는 java.util.ArrayList에 포함 import -->
+<!-- 2018-07-18 김소희 / bookOrderList.jsp 주문 페이지-->
+<%@ page language = "java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import = "dto.bookshop.project.MemberAndBookAndShoppingCart"%>		<!-- dto.bookshop.project패키지 안에 MemberAndBookAndShoppingCart클래스 import  -->
+<%@ page import = "dao.bookshop.project.BookOrdersDao" %>					<!-- dao.bookshop.project패키지 안에 BookOrdersDo클래스 import -->
+<%@ page import = "dto.bookshop.project.Orders" %>							<!-- dto.bookshop.project패키지 안에 Orders클래스 import  -->
+<%@ page import = "java.util.ArrayList" %>									<!-- ArrayList는 java.util.ArrayList에 포함 import -->
 <!DOCTYPE html>
 <html>
 	<head>
@@ -45,7 +45,7 @@
 		
 			<tr>
 				<td><%=orders.getOrdersNumber()%></td>	<!-- 주문번호-->
-				<td><a href="<%=request.getContextPath()%>/bookOrders/bookOrdersDetail.jsp?ordersNumber=<%=orders.getOrdersNumber()%>"><%=orders.getBookNumber()%></a></td>		<!-- <a href="orders.getBookNumber()"></a> -> 임의로 넣어둔 것 bookDao 완성 되면 수정 -->
+				<td><a href="<%=request.getContextPath()%>/bookOrders/bookOrdersDetail.jsp?ordersNumber=<%=orders.getOrdersNumber()%>"><%=orders.getBookNumber()%></a></td>	
 				<td><%= orders.getOrdersPrice() %></td>		<!-- book에서 OrdersPrice가져오기 -->
 				<td><%= orders.getOrdersAmount() %></td>	<!-- book에서 OrdersAmount가져오기 -->
 			</tr>
@@ -68,20 +68,18 @@
 	}
 	
 	
-	if(currentPage > 1){
+	if(currentPage > 1){								// currentPage(시작페이지)가 1보다 크면
 %>
 	 <a href="<%=request.getContextPath()%>/bookOrders/bookOrdersList.jsp?currentPage=<%=currentPage-1%>">이전</a>
 <%
 	
 	}
-	if(currentPage < lastPage){
+	if(currentPage < lastPage){							// currentPage(시작페이지)가 lastPage(마지막페이지)보다 작으면
 %>
 	  <a href="<%=request.getContextPath()%>/bookOrders/bookOrdersList.jsp?currentPage=<%=currentPage+1%>">다음</a>
 <%
 	}
 %>
-
-
 
 	</body>
 </html>

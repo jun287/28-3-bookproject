@@ -1,26 +1,25 @@
-<!-- 2018-07-23 김소희 / adminStateApproval.jsp (관리자 진행상태 승인) -->
-<%@ page import="dao.bookshop.project.BookOrdersDao"%>
-<%@ page import="dao.bookshop.project.MemberDao"%>
-<%@ page import="dto.bookshop.project.Orders"  %>	
-<%@ page import="dto.bookshop.project.Member"  %>
-<%@ page import="service.bookshop.project.ServiceMember" %>
+<!-- 2018-07-23 김소희 / adminStateApproval.jsp 관리자 주문 진행상태 승인 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ page import="dao.bookshop.project.BookOrdersDao"%>			<!-- dao.bookshop.project패키지 안에 BookOrdersDo클래스 import -->
+<%@ page import="dao.bookshop.project.MemberDao"%>				<!-- dao.bookshop.project패키지 안에 MemberDao클래스 import -->
+<%@ page import="dto.bookshop.project.Orders"  %>				<!-- dto.bookshop.project패키지 안에 Orders클래스 import -->
+<%@ page import="dto.bookshop.project.Member"  %>				<!-- dto.bookshop.project패키지 안에 Member클래스 import -->
+<%@ page import="service.bookshop.project.ServiceMember" %>		<!-- service.bookshop.project패키지 안에  ServiceMember클래스 import-->
+
 <%
+	request.setCharacterEncoding("UTF-8");
+
 	int ordersNumber = Integer.parseInt(request.getParameter("ordersNumber"));
 
 	BookOrdersDao bookOrdersDao = new BookOrdersDao();
-	MemberDao memberDao = new MemberDao();			
-	
 	bookOrdersDao.updateStateApproval(ordersNumber);
 	Orders orders = bookOrdersDao.selectOrders(ordersNumber);
-	
-	
+
 	int memberNumber = orders.getMemberNumber();
-	
+	MemberDao memberDao = new MemberDao();		
 	Member member = memberDao.selectMemberPoint(memberNumber);
 	
-	//북 테이블 받아와서 가격 원가 받아오기 그리고 수량조회해서 원가 * 수량 * 5/100 = 적립 포인트
+	// book 테이블에서 book_point * order_price  = 적립 포인트
 	int buyPoint = 0;
 	int memberPoint = member.getMemberPoint()+buyPoint;
 	
