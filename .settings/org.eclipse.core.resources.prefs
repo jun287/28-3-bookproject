@@ -1,3 +1,5 @@
 eclipse.preferences.version=1
 encoding//src/dao/bookshop/project/BookOrdersDao.java=UTF-8
+encoding//src/dao/bookshop/project/MemberDao.java=UTF-8
+encoding//src/dto/bookshop/project/Orders.java=UTF-8
 encoding/<project>=UTF-8

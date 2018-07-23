@@ -1,8 +1,8 @@
-// 2018-07-18 김소희 Orders.java
+// 2018-07-18 源����� Orders.java
 package dto.bookshop.project;
 
 public class Orders {
-	private int ordersNumber;			// 접근지정자 private 같은클래스 내에서만 사용가능, int data type으로 ordersNumber변수 선언
+	private int ordersNumber;			// ��洹쇱����� private 媛����대���� �댁����留� �ъ�⑷���, int data type�쇰� ordersNumber蹂��� ����
 	private int bookNumber;
 	private int memberNumber;
 	private int ordersPrice;

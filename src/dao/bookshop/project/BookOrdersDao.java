@@ -7,18 +7,77 @@ import java.util.ArrayList;
 import dto.bookshop.project.Orders;
 
 public class BookOrdersDao {
-
-	/*public void deleteBookOrders (int bookOrdersNumber) {
-		// orders 테이블 주문정보 삭제하는 메소드
-		// 리턴값 없고 int data type으로 bookOrdersNumber 매개변수 생성
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		
-		conn = DBconnection.getConnetion();
-		
-		
-	}*/
 	
+	public  void updateStateApproval (int ordersNumber) {
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			connection = DBconnection.getConnetion();
+			preparedStatement = connection.prepareStatement("UPDATE orders SET	orders_state='배송완료' WHERE orders_no=?");
+			preparedStatement.setInt(1, ordersNumber);
+			
+			preparedStatement.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 객체 종료
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// DB연결종료
+		}
+		
+		
+	}
+	public ArrayList<Orders> selectOrdersState (int currentPage, int pagePerRow){
+		// 관리자 상품 진행상태 승인 메소드
+		// return data type ArrayList<Orders>, selectOrdersState 메소드 (int data type currentPage 매개변수, int data type memberNumber 매개변수 )
+		ArrayList<Orders> selectOrdersList = new ArrayList<>();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			connection = DBconnection.getConnetion();
+			preparedStatement = connection.prepareStatement("SELECT orders_no, book_no, member_no, orders_price, orders_amount, orders_date, orders_addr ,orders_state FROM orders ORDER BY orders_no DESC LIMIT ?,?");
+			preparedStatement.setInt(1, (currentPage-1)*pagePerRow);
+			preparedStatement.setInt(2, pagePerRow);
+			
+			resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				
+				Orders orders = new Orders();
+				//Orders data type으로 orders 변수를 생성하고 new생성자메소드로  생성된 Orders객체의 주소 값을 orders 변수에 할당한다	
+				orders.setOrdersNumber(resultSet.getInt("orders_no"));
+				orders.setBookNumber(resultSet.getInt("book_no"));
+				orders.setOrdersPrice(resultSet.getInt("orders_price"));
+				orders.setOrdersAmount(resultSet.getInt("orders_amount"));
+				orders.setOrdersDate(resultSet.getString("orders_date"));
+				orders.setOrdersAddress(resultSet.getString("orders_addr"));
+				orders.setOrderState(resultSet.getString("orders_state"));
+				
+				selectOrdersList.add(orders);
+			}
+			
+					
+		} catch (SQLException e) {
+			System.out.println("예외발생");
+			e.printStackTrace();
+		} finally {
+			
+			// 객체 종료 (닫는 순서 중요)
+			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 객체 종료
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// DB연결종료
+			
+		}
+		
+		
+		return selectOrdersList;
+		
+	}
 	public Orders selectOrdersRecentAddress(int MemberNumber) {
 		// 주문정보를 조회하여 가장 최신의 정보를 조회하는 메서드
 		// Orders클래스 리턴하여 조회된값 세팅및 불러오기
@@ -52,10 +111,10 @@ public class BookOrdersDao {
 			System.out.println("예외발생");
 			e.printStackTrace();
 		} finally {
-			
+			// 객체 종료 (닫는 순서 중요)
 			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
-			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	
-			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 객체 종료
+			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DB연결종료
 			
 		}
 	
@@ -65,9 +124,7 @@ public class BookOrdersDao {
 	
 	public void insertBookOrders (Orders orders) {
 		// orders테이블에 주문정보를 추가하는 메서드
-		// 매개변수 : Orders클래스와 연결할수 있는 참조값
-		// 리턴값 없음
-		
+		// 리턴값 없는 insertBookOrders 메소드 (Orders data type orders 매개변수 생성)
 		Connection connection = null;			
 		PreparedStatement  preparedStatement= null;
 		
@@ -91,9 +148,9 @@ public class BookOrdersDao {
 			System.out.println("예외발생");
 			e.printStackTrace();
 		}finally {
-			
-			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	
-			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	
+			// 객체 종료 (닫는 순서 중요)
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 객체 종료
+			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DB연결종료
 			
 		}
 	}
@@ -122,6 +179,7 @@ public class BookOrdersDao {
 				orders.setOrdersAmount(resultSet.getInt("orders_amount"));
 				orders.setOrdersAddress(resultSet.getString("orders_addr"));
 				orders.setOrderState(resultSet.getString("orders_state"));
+				orders.setOrdersDate(resultSet.getString("orders_date"));
 				
 			}
 			
@@ -141,50 +199,7 @@ public class BookOrdersDao {
 		
 	}
 	
-	public ArrayList<Orders> selectBookOrders (int memberNumber){
-		// return data type ArrayList<Orders>, selectBookOrders 메소드 (int data type으로 매개변수 bookNumber 생성 )
-		ArrayList<Orders> ordersList = new ArrayList<>();
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		
-		try {
-			connection = DBconnection.getConnetion();
-			preparedStatement = connection.prepareStatement("SELECT orders_no, book_no, member_no, orders_price, orders_amount, orders_date, orders_addr, orders_state FROM orders  WHERE member_no=?");
-			preparedStatement.setInt(1, memberNumber);
-			
-			resultSet = preparedStatement.executeQuery();
-			
-		while(resultSet.next()) {
-			Orders orders = new Orders();
-			
-			orders.setOrdersNumber(resultSet.getInt("orders_no"));
-			orders.setBookNumber(resultSet.getInt("book_no"));
-			orders.setOrdersPrice(resultSet.getInt("orders_price"));
-			orders.setOrdersAmount(resultSet.getInt("orders_amount"));
-			orders.setOrdersDate(resultSet.getString("orders_date"));
-			orders.setOrdersAddress(resultSet.getString("orders_addr"));
-			orders.setOrderState(resultSet.getString("orders_state"));
-			
-			ordersList.add(orders);
-			
-		}
-		} catch (SQLException e) {
-			System.out.println("예외발생");
-			e.printStackTrace();
-		} finally {
-			
-			// 객체종료 (닫는 순서 중요)
-			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
-			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 객체종료
-			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DB연결종료
-			
-		}
-		
-			
-		return ordersList;
-		
-	}
+	
 	
 	public int selectCount() {
 		// 페이징하는 메소드
@@ -219,8 +234,9 @@ public class BookOrdersDao {
 		
 	}
 	
-	public ArrayList<Orders> selectOrderByPage (int currentPage, int rowPerPage){
-		// return data type ArrayList<Orders>, selectOrderBypage 메솧드 (int data type currentPage 매개변수, int data type�쇰� pagePerRow 留ㅺ�蹂��� ���� )
+	public ArrayList<Orders> selectOrderByPage (int currentPage, int pagePerRow, int memberNumber){
+		// 상품 주문 정보 리스트로 받는 메소드
+		// return data type ArrayList<Orders>, selectOrderBypage 메솧드 (int data type currentPage 매개변수, int data type memberNumber)
 		ArrayList<Orders> ordersList = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -228,9 +244,10 @@ public class BookOrdersDao {
 		
 		try {
 			connection = DBconnection.getConnetion();
-			preparedStatement = connection.prepareStatement("SELECT orders_no, book_no, member_no, orders_price, orders_amount, orders_date, orders_addr ,orders_state FROM orders ORDER BY orders_no DESC LIMIT ?,?");
-			preparedStatement.setInt(1, (currentPage-1)*rowPerPage);
-			preparedStatement.setInt(2, rowPerPage);
+			preparedStatement = connection.prepareStatement("SELECT orders_no, book_no, member_no, orders_price, orders_amount, orders_date, orders_addr ,orders_state FROM orders WHERE member_no=? ORDER BY orders_no DESC LIMIT ?,?");
+			preparedStatement.setInt(1, memberNumber);
+			preparedStatement.setInt(2, (currentPage-1)*pagePerRow);
+			preparedStatement.setInt(3, pagePerRow);
 			
 			resultSet = preparedStatement.executeQuery();
 			
@@ -238,6 +255,7 @@ public class BookOrdersDao {
 				
 				Orders orders = new Orders();
 				//Orders data type으로 orders 변수를 생성하고 new생성자메소드로  생성된 Orders객체의 주소 값을 orders 변수에 할당한다	
+				orders.setOrdersNumber(resultSet.getInt("orders_no"));
 				orders.setBookNumber(resultSet.getInt("book_no"));
 				orders.setOrdersPrice(resultSet.getInt("orders_price"));
 				orders.setOrdersAmount(resultSet.getInt("orders_amount"));
