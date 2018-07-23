@@ -2,6 +2,9 @@
 
 <%@ page import = "service.bookshop.project.ServiceMember" %>
 <%@ page import = "dto.bookshop.project.Member" %>
+<%@ page import = "java.util.ArrayList"%>
+<%@ page import = "dao.bookshop.project.BookCategoryDao" %>
+<%@ page import = "dto.bookshop.project.BookCode" %>
 
 <!DOCTYPE html>
 <html>
@@ -16,6 +19,9 @@
 			
 			ServiceMember serviceMember = new ServiceMember();
 			Member member = serviceMember.selectMember(memberId);
+			
+			BookCategoryDao bookCategoryDao = new BookCategoryDao();
+			ArrayList<BookCode> arrayList = bookCategoryDao.selectBookCategory();
 		%>
 		<div align="center">
 			<h1>회원 정보 수정</h1>
@@ -38,8 +44,26 @@
 						<td><input type="text" name="memberAddr" value="<%= member.getMemberAddr() %>"required></td>
 					</tr>
 					<tr>
+						<td align="right">관심 도서 : </td>
+						<td>도서 카테고리를 선택하세요</td>
+					</tr>	
+						<%
+							for(int j=0; j<arrayList.size(); j++){
+								BookCode bookCode = arrayList.get(j);
+						%>		
+								<tr>
+									<td></td>
+									<td>
+										<input type="checkbox" name="memberInter" value="<%=bookCode.getBookCodeNo()%>" ><%=bookCode.getBookCodeName()%>
+									</td>
+								</tr>
+						<%
+							}
+						%>			
+					<tr>
 						<td></td>
 						<td>
+							<input type ="hidden" name = "memberNum" value="<%=member.getMemberNum()%>">
 							<input type ="submit" value="수정">
 							<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button>
 						</td>

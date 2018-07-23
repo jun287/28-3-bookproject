@@ -18,6 +18,7 @@
 			String memberPw = request.getParameter("memberPw");
 			String memberName = request.getParameter("memberName");
 			String memberAddr = request.getParameter("memberAddr");
+			
 			String[] memberInter = request.getParameterValues("memberInter");
 			int[] memberinterNo = new int[memberInter.length];
 			ArrayList<MemberInter> arrayList = new ArrayList<MemberInter>();
@@ -27,11 +28,10 @@
 				System.out.println(memberinterNo[i]);
 				MemberInter memberInters = new MemberInter();
 				memberInters.setBookcodeNo(memberinterNo[i]);
-				
 				arrayList.add(memberInters);
-			}	
+			}
 			
-			/* Member member = new Member();
+			Member member = new Member();
 			member.setMemberId(memberId);
 			member.setMemberPw(memberPw);
 			member.setMemberName(memberName);
@@ -39,9 +39,9 @@
 			
 			ServiceMember serviceMember = new ServiceMember();
 			
-			serviceMember.insertMember(member);
+			serviceMember.insertMemberAll(member, arrayList);
 			
-			response.sendRedirect(request.getContextPath()+"/index.jsp");  */
+			response.sendRedirect(request.getContextPath()+"/index.jsp");
 		%>
 	</body>
 </html>

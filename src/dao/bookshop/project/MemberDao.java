@@ -6,11 +6,44 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import dto.bookshop.project.Member;
+import dto.bookshop.project.MemberInter;
 import util.connetion.db.DBconnection;
 
 public class MemberDao {
+	
+	// 설명 : 회원가입시 혹은 회원정보수정시 선택된 관심 분야를 데이터베이스에 저장하는 메서드 입니다.
+	// 매개변수 : Connection 클래스타입으로  드라이버로딩 및 DB연결하는 정보를 담은 객체의 참조값과 회원의 관심분야가 담긴 MemberInter 객체의 배열을 ArrayList 클래스타입으로 받습니다.  
+	// 리턴 : void로 없습니다.
+	public void insertMemberInter(Connection connection, ArrayList<MemberInter> arrayList) {
+		
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			
+			for(int i=0; i<arrayList.size(); i++){
+				
+				preparedStatement = connection.prepareStatement("INSERT INTO memberinter(member_no,bookcode_no) VALUES (?,?)");
+				preparedStatement.setInt(1, arrayList.get(i).getMemberNo());
+				preparedStatement.setInt(2, arrayList.get(i).getBookcodeNo());
+				preparedStatement.executeUpdate();
+			
+			}
+			
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}finally {
+			if(preparedStatement != null)try{
+				preparedStatement.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+
+		}
+		
+	}
 	
 	public Member selectMemberPoint(int memberNumber) {
 		
@@ -77,7 +110,52 @@ public class MemberDao {
 	}
 	
 	// 설명 : id 를 받아서 데이터베이스에 일치하는 id 가 있으면 그 정보를 가져오는 메서드 입니다.
-	// 매개변수 : String 타입으로 memberId를 받습니다.
+	// 매개변수 : Connection 클래스타입으로  드라이버로딩 및 DB연결하는 정보를 담은 객체의 참조값과 String 타입으로 memberId를 받습니다.
+	// 리턴 : 회원정보가 담긴 Member 클래스 객체의 참조값을 리턴 합니다.
+	public ArrayList<MemberInter> selectMemberInter(int sessionNo) {
+		
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<MemberInter> arrayList = new ArrayList<MemberInter>();
+		Connection connection = null;
+		
+		try {
+			
+			connection = DBconnection.getConnetion();
+			
+			preparedStatement = connection.prepareStatement("SELECT bc.bookcode_no,mi.member_no,bc.bookcode_name FROM memberinter mi INNER JOIN bookcode bc ON mi.bookcode_no = bc.bookcode_no WHERE mi.member_no=?");
+			preparedStatement.setInt(1, sessionNo);
+			resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				MemberInter memberInter = new MemberInter();
+				memberInter.setBookCodeName(resultSet.getString("bc.bookcode_name"));
+				memberInter.setBookcodeNo(resultSet.getInt("bc.bookcode_no"));
+				memberInter.setMemberNo(resultSet.getInt("mi.member_no"));
+				arrayList.add(memberInter);
+			}
+			
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}finally {
+			if(preparedStatement != null)try{
+				preparedStatement.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+			if(resultSet != null)try{
+				resultSet.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+		}
+		
+		
+		return arrayList;
+	}
+	
+	// 설명 : id 를 받아서 데이터베이스에 일치하는 id 가 있으면 그 정보를 가져오는 메서드 입니다.
+	// 매개변수 : Connection 클래스타입으로  드라이버로딩 및 DB연결하는 정보를 담은 객체의 참조값과 String 타입으로 memberId를 받습니다.
 	// 리턴 : 회원정보가 담긴 Member 클래스 객체의 참조값을 리턴 합니다.
 	public Member selectMemberInfor(Connection connection, String memberId) {
 		
@@ -121,7 +199,7 @@ public class MemberDao {
 	}
 	
 	// 설명 : id와 pw를 받아서 데이터베이스에 있는 정보를 검색하여 로그인체크 하는 메서드 입니다.
-	// 매개변수 : String 참조타입으로 memberId, memberPw 를 받습니다.
+	// 매개변수 : Connection 클래스타입으로  드라이버로딩 및 DB연결하는 정보를 담은 객체의 참조값과 String 참조타입으로 memberId, memberPw 를 받습니다.
 	// 리턴 : String 참조타입으로 조건문에 결과값인 "로그인성공" 또는 "로그인실패" 를 result에 대입후 리턴합니다. 
 	public String loginCheckMember(Connection connection ,String memberId, String memberPw) {
 	
@@ -160,6 +238,9 @@ public class MemberDao {
 		return result;
 	}
 	
+	// 설명 : 회원가입시 아이디를 받아서 데이터베이스에 존재 여부를 체크하는 메서드 입니다.
+	// 매개변수 : Connection 클래스타입으로  드라이버로딩 및 DB연결하는 정보를 담은 객체의 참조값과 String 참조타입으로 memberId 를 받습니다.
+	// 리턴 : String 참조타입으로 아이디 존재 여부를 받습니다.
 	public String selectCheckMemberId(Connection connection , String memberId) {
 		
 		PreparedStatement preparedStatement = null;
@@ -197,7 +278,7 @@ public class MemberDao {
 	}
 	
 	// 설명 : 회원정보를 받아서 데이터베이스에 업데이트 하는 메서드 입니다.
-	// 매개변수 : Member 클래스 타입으로 객체의 참조값을 받습니다.
+	// 매개변수 : Connection 클래스타입으로  드라이버로딩 및 DB연결하는 정보를 담은 객체의 참조값과 Member 클래스 타입으로 객체의 참조값을 받습니다.
 	// 리턴 : void로 없습니다.
 	public void updateMember(Connection connection, Member member) {
 		
@@ -224,7 +305,7 @@ public class MemberDao {
 	}
 	
 	// 설명 : 회원정보를 담은 Member 객체의 참조값을 받아 insert쿼리문을 실행시켜 데이터베이스에 저장 하는 메서드 입니다.
-	// 매개변수 : Member 클래스 타입으로 객체의 참조값을 받습니다.
+	// 매개변수 : Connection 클래스타입으로  드라이버로딩 및 DB연결하는 정보를 담은 객체의 참조값과 Member 클래스 타입으로 객체의 참조값을 받습니다.
 	// 리턴 : void로 없습니다.
 	public void insertMember(Connection connection, Member member) {
 		

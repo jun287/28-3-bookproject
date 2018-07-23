@@ -4,9 +4,12 @@ package service.bookshop.project;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import dao.bookshop.project.MemberDao;
 import dto.bookshop.project.Member;
+
+import dto.bookshop.project.MemberInter;
 import util.connetion.db.DBconnection;
 
 public class ServiceMember {
@@ -14,7 +17,7 @@ public class ServiceMember {
 	// 설명 : 회원정보 변경후 데이터 값을 받아 데이터베이스에 업데이트 하는 메서드 입니다.
 	// 매개변수 : Member 클래스타입으로 member 객체의 참조값을 받습니다.
 	// 리턴 : void로 없습니다.
-	public void updateMember(Member member) {
+	public void updateMemberAll(Member member, ArrayList<MemberInter> arrayList) {
 		
 		MemberDao memberDao = new MemberDao();
 		Connection connection = null;
@@ -24,6 +27,7 @@ public class ServiceMember {
 			connection.setAutoCommit(false);
 			
 			memberDao.updateMember(connection, member);
+			memberDao.insertMemberInter(connection, arrayList);
 			
 			connection.commit();
 		}catch(Exception e) {
@@ -121,7 +125,7 @@ public class ServiceMember {
 	// 설명 : 회원정보를 받아 데이터베이스에 아이디가 존재하는지 확인후 회원가입 시키는 메서드 입니다.
 	// 매개변수 : 회원정보를 담은  Member 클래스 타입의 member 객체의 참조값을 받습니다.
 	// 리턴 : void 로 없습니다.
-	public void insertMember(Member member) {
+	public void insertMemberAll(Member member, ArrayList<MemberInter> arrayList) {
 		
 		MemberDao memberDao = new MemberDao();
 		Connection connection = null;
@@ -135,9 +139,16 @@ public class ServiceMember {
 			
 			if(result.equals("가입가능")) {
 				memberDao.insertMember(connection , member);
+				Member memberinfor = memberDao.selectMemberInfor(connection, member.getMemberId());
+				
+				for(int i=0; i<arrayList.size(); i++) {
+					arrayList.get(i).setMemberNo(memberinfor.getMemberNum());
+				}
+				memberDao.insertMemberInter(connection, arrayList);
 			}else if(result.equals("아이디존재")) {
 				System.out.println("아이디가 존재 합니다");
 			}
+			
 			connection.commit();
 		}catch(Exception e) {
 			try {
@@ -153,7 +164,6 @@ public class ServiceMember {
 				ex.printStackTrace();
 			}
 		}
-
 	}
 	
 }

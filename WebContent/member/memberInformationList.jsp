@@ -2,6 +2,9 @@
 
 <%@ page import = "service.bookshop.project.ServiceMember" %>
 <%@ page import = "dto.bookshop.project.Member" %>
+<%@ page import = "dao.bookshop.project.MemberDao" %>
+<%@ page import = "java.util.ArrayList"%>
+<%@ page import = "dto.bookshop.project.MemberInter" %>
 
 <!DOCTYPE html>
 <html>
@@ -14,8 +17,16 @@
 			request.setCharacterEncoding("UTF-8");
 			String sessionId = (String)session.getAttribute("sessionId");
 			
+			int sessionNo = 0;
+			if(session.getAttribute("sessionNo") != null){
+				sessionNo = (int)session.getAttribute("sessionNo");
+			}
+			
 			ServiceMember serviceMember = new ServiceMember();
 			Member member = serviceMember.selectMember(sessionId);
+			
+			MemberDao memberDao = new MemberDao();
+			ArrayList<MemberInter> arrayList = memberDao.selectMemberInter(sessionNo);
 			
 		%>
 		
@@ -40,9 +51,16 @@
 						<td><%= member.getMemberAddr() %></td>
 					</tr>
 					<tr>
-						<td align="right">내 카테고리 : </td>
-						<td></td>
-					</tr>
+						<td align="right">관심 도서 : </td>
+						<%
+							for(int i=0; i<arrayList.size(); i++){
+								MemberInter memberInter = arrayList.get(i);
+						%>	
+								<td><%=memberInter.getBookCodeName()%></td>
+						<%
+							}
+						%>	
+					</tr>	
 				</table><br>
 					<input type ="submit" value="정보수정">
 					<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button>

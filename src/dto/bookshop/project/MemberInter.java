@@ -5,7 +5,14 @@ public class MemberInter {
 	private int memberinterNo;
 	private int memberNo;
 	private int bookcodeNo;
+	private String bookCodeName;
 	
+	public String getBookCodeName() {
+		return bookCodeName;
+	}
+	public void setBookCodeName(String bookCodeName) {
+		this.bookCodeName = bookCodeName;
+	}
 	public int getMemberinterNo() {
 		return memberinterNo;
 	}
