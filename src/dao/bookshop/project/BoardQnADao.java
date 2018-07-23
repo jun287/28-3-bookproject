@@ -9,11 +9,39 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dto.bookshop.project.BoardQnA;
+import dto.bookshop.project.BoardQnAComment;
 import dto.bookshop.project.BoardQnAandMember;
 import dto.bookshop.project.Member;
 
 public class BoardQnADao {
 	
+	// 설명 : 질문게시판에 게시글을 삭제하는 메서드 입니다.
+	// 매개변수 : Connection 클래스 타입으로 드라이버로딩, DB연결정보를 담은 connection 객체참조값과 게시글의 정보를 담은 BoardQnA 클래스객체의 참조값을 받습니다.
+	// 리턴 : void 로 없습니다.
+	public void deleteBoardQnaContent(Connection connection, BoardQnA boardQna ) {
+		
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			
+			preparedStatement = connection.prepareStatement("DELETE FROM qna WHERE qna_no=? and member_no=?");
+			preparedStatement.setInt(1, boardQna.getBoardQnaNo());
+			preparedStatement.setInt(2, boardQna.getMemberNo());
+			preparedStatement.executeUpdate();
+			
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}finally {
+			if(preparedStatement != null)try{
+				preparedStatement.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+
+		}
+		
+	}
+
 	// 설명 : 질문게시판에서 게시글의 상세정보를 조회후 가져오는 메서드 입니다.
 	// 매개변수 : Connection 클래스 타입으로 드라이버로딩, DB연결정보를 담은 connection 객체참조값과 글번호와 회원번호가 담긴 BoardQnA 객체참조값을 받습니다.
 	// 리턴 : BoardQnA 클래스타입으로 게시글의 정보를 담으 객체의 참조값을 리턴합니다.

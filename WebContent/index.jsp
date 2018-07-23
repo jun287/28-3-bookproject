@@ -1,3 +1,5 @@
+<!-- 2018. 07. 23 공세준  -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -36,7 +38,7 @@
 				%>
 						<a href="<%= request.getContextPath() %>/member/memberLogout.jsp">로그아웃</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 						<a href="<%= request.getContextPath() %>/book/bookInsertForm.jsp">도서 등록</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-						<a href="">출판사 등록</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+						<a href="<%= request.getContextPath() %>/publisher/publisherInsertForm.jsp">출판사 등록</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 						<a href="<%= request.getContextPath() %>/book/bookList.jsp">도서 목록</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 						<a href="<%= request.getContextPath() %>/boardQnA/boardList.jsp">질문게시판</a>
 				<%	

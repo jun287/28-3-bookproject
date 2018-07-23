@@ -85,24 +85,16 @@
 					if(sessionAdminId != null){
 				%>
 						<button type="button" onclick="location.href='<%= request.getContextPath() %>/boardQnA/boardCommentForm.jsp?bqNo=<%=boardQnaNo%>'">답변등록</button>&nbsp;&nbsp;
-						<button type="button" onclick="location.href='<%= request.getContextPath() %>/boardQnA/boardList.jsp'">목록</button>&nbsp;&nbsp;
-						<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button>
+						<button type="button" onclick="location.href='<%= request.getContextPath() %>/boardQnA/boardContentDeleteForm.jsp?bqNo=<%=boardQnaNo%>&mNo=<%=memberNo%>'">글삭제</button>&nbsp;&nbsp;
 				<%
 					}else if(sessionNo == memberNo && (sessionNo != 0 && memberNo != 0)){
 				%>
-						<button type="button" onclick="location.href='<%= request.getContextPath() %>/boardQnA/boardList.jsp'">글수정</button>&nbsp;&nbsp;
-						<button type="button" onclick="location.href='<%= request.getContextPath() %>/boardQnA/boardList.jsp'">글삭제</button>&nbsp;&nbsp;
-						<button type="button" onclick="location.href='<%= request.getContextPath() %>/boardQnA/boardList.jsp'">목록</button>&nbsp;&nbsp;
-						<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button>
-				<%
-					}else{
-				%>
-						<button type="button" onclick="location.href='<%= request.getContextPath() %>/boardQnA/boardList.jsp'">목록</button>&nbsp;&nbsp;
-						<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button>
+						<button type="button" onclick="location.href='<%= request.getContextPath() %>/boardQnA/boardContentUpdateForm.jsp?bqNo=<%=boardQnaNo%>&mNo=<%=memberNo%>'">글수정</button>&nbsp;&nbsp;	
 				<%
 					}
 				%>
-
+						<button type="button" onclick="location.href='<%= request.getContextPath() %>/boardQnA/boardList.jsp'">목록</button>&nbsp;&nbsp;
+						<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button>
 		</div>
 	</body>
 </html>

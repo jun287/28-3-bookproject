@@ -1,3 +1,5 @@
+// 2018. 07. 23 공세준
+
 package service.bookshop.project;
 
 import java.sql.Connection;
@@ -13,6 +15,41 @@ import dto.bookshop.project.BoardQnAandMember;
 import util.connetion.db.DBconnection;
 
 public class ServiceBoardQnA {
+	
+	// 설명 : 질문게시판에 게시글을 삭제 하는 메서드입니다.
+	// 매개변수 : BoardQnA 클래스타입으로 게시글의 정보를 담은 객체의 참조값과, BoardQnAComment 클래스타입으로 답변의 정보를 담은 객체의 참조값을 받습니다.
+	// 리턴 : void 로 없습니다.
+	public void deleteBoardQnaContentAll(BoardQnA boardQna , BoardQnAComment boardQnAComment) {
+		
+		BoardQnADao boardQnaDao = new BoardQnADao();
+		BoardQnACommentDao boardQnACommentDao = new BoardQnACommentDao(); 
+		
+		Connection connection = null;
+		
+		try {
+			
+			connection = DBconnection.getConnetion();
+			connection.setAutoCommit(false);
+			
+			boardQnACommentDao.deleteBoardQnaComment(connection, boardQnAComment);
+			boardQnaDao.deleteBoardQnaContent(connection, boardQna);
+			
+			connection.commit();
+		}catch(Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally {
+			if(connection != null)try{
+				connection.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+		}	
+	}
 	
 	// 설명 : 질문게시판에서 게시글 및 답변의 상세정보를 조회후 가져오는 메서드 입니다.
 	// 매개변수 : 글번호와 회원번호, 관리자번호가 담긴 BoardQnA, BoardQnAComment 객체참조값을 받습니다.
