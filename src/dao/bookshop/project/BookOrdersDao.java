@@ -87,8 +87,7 @@ public class BookOrdersDao {
 		
 	}
 	
-	public ArrayList<Orders> selectBookOrders (int bookNumber){
-		// 상품 클릭시 상세정보 나오게
+	public ArrayList<Orders> selectBookOrders (int memberNumber){
 		// return data type ArrayList<Orders>, selectBookOrders 메소드 (int data type으로 매개변수 bookNumber 생성 )
 		ArrayList<Orders> ordersList = new ArrayList<>();
 		Connection connection = null;
@@ -97,8 +96,8 @@ public class BookOrdersDao {
 		
 		try {
 			connection = DBconnection.getConnetion();
-			preparedStatement = connection.prepareStatement("SELECT orders_no, book_no, member_no, orders_price, orders_amount, orders_date, orders_addr, orders_state FROM orders  WHERE book_no=?");
-			preparedStatement.setInt(1, bookNumber);
+			preparedStatement = connection.prepareStatement("SELECT orders_no, book_no, member_no, orders_price, orders_amount, orders_date, orders_addr, orders_state FROM orders  WHERE member_no=?");
+			preparedStatement.setInt(1, memberNumber);
 			
 			resultSet = preparedStatement.executeQuery();
 			
