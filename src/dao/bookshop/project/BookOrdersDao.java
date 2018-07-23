@@ -1,4 +1,4 @@
-/* 2018-07-18 源����� / BookOrdersDao.java */
+/* 2018-07-18 김소희 / BookOrdersDao.java */
 package dao.bookshop.project;
 import util.connetion.db.DBconnection;
 import java.sql.*;
@@ -34,7 +34,7 @@ public class BookOrdersDao {
 			
 		
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("예외발생");
 			e.printStackTrace();
 		}finally {
 			
@@ -44,9 +44,9 @@ public class BookOrdersDao {
 		}
 	}
 	
-	public Orders orederSelectUpdate(int ordersNumber) {
-		// �� 媛��� 二쇰Ц 議고������ 硫�����
-		// return data type Orders, orederSelectUpdate 硫����� (int data type�쇰�  ordersNumber 留ㅺ�蹂��� ����)
+	public Orders selectOrders(int ordersNumber) {
+		// 한 개의 주문 조회하는 메소드
+		// return data type Orders, orederSelectUpdate 메소드 (int data type으로  ordersNumber 매개변수 생성
 		Orders orders = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -72,14 +72,14 @@ public class BookOrdersDao {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("예외발생");
 			e.printStackTrace();
 		} finally {
 			
-			// 媛�泥� 醫�猷�(�ル�� ���� 以���)
+			// 객체 종료(닫는 순서 중요)
 			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
-			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 荑쇰━�곌껐醫�猷�
-			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DB�곌껐醫�猷�
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 객체 종료
+			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DB연결종료
 			
 		}
 	
@@ -88,8 +88,8 @@ public class BookOrdersDao {
 	}
 	
 	public ArrayList<Orders> selectBookOrders (int bookNumber){
-		// ���� �대┃�� ���몄��蹂� ���ㅺ�
-		// return data type ArrayList<Orders>, selectBookOrders 硫����� (int data type�쇰� 留ㅺ�蹂��� bookNumber ���� )
+		// 상품 클릭시 상세정보 나오게
+		// return data type ArrayList<Orders>, selectBookOrders 메소드 (int data type으로 매개변수 bookNumber 생성 )
 		ArrayList<Orders> ordersList = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -117,14 +117,14 @@ public class BookOrdersDao {
 			
 		}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("예외발생");
 			e.printStackTrace();
 		} finally {
 			
-			// 媛�泥� 醫�猷�(�ル�� ���� 以���)
+			// 객체종료 (닫는 순서 중요)
 			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
-			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 荑쇰━�곌껐醫�猷�
-			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DB�곌껐醫�猷�
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 객체종료
+			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DB연결종료
 			
 		}
 		
@@ -134,8 +134,8 @@ public class BookOrdersDao {
 	}
 	
 	public int selectCount() {
-		// ���댁� ���� 硫�����
-		// return data type int, selectCount 硫����� (留ㅺ�蹂��� ����)
+		// 페이징하는 메소드
+		// return data type int, selectCount 메소드 (매개변수 없음)
 		int totalRow = 0;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -150,14 +150,14 @@ public class BookOrdersDao {
 			}
 					
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("예외발생");
 			e.printStackTrace();
 		} finally {
 			
-			// 媛�泥� 醫�猷�(�ル�� ���� 以���)
+			// 객체종료 (닫는 순서 중요)
 			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
-			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 荑쇰━�곌껐醫�猷�
-			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DB�곌껐醫�猷�
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 객체종료
+			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DB연결종료
 			
 		}
 		
@@ -167,7 +167,7 @@ public class BookOrdersDao {
 	}
 	
 	public ArrayList<Orders> selectOrderByPage (int currentPage, int rowPerPage){
-		// return data type ArrayList<Orders>, selectOrderBypage 硫����� (int data type�쇰� currentPage 留ㅺ�蹂��� ����, int data type�쇰� pagePerRow 留ㅺ�蹂��� ���� )
+		// return data type ArrayList<Orders>, selectOrderBypage 메솧드 (int data type currentPage 매개변수, int data type�쇰� pagePerRow 留ㅺ�蹂��� ���� )
 		ArrayList<Orders> ordersList = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -184,7 +184,7 @@ public class BookOrdersDao {
 			while(resultSet.next()) {
 				
 				Orders orders = new Orders();
-				//Orders data type�쇰� o 蹂���瑜� ���깊��怨� new���깆��硫�����濡�  ���깅�� Orders媛�泥댁�� 二쇱�� 媛��� o 蹂����� ���뱁����	
+				//Orders data type으로 orders 변수를 생성하고 new생성자메소드로  생성된 Orders객체의 주소 값을 orders 변수에 할당한다	
 				orders.setBookNumber(resultSet.getInt("bookNumber"));
 				orders.setOrdersPrice(resultSet.getInt("ordersPrice"));
 				orders.setOrdersAmount(resultSet.getInt("ordersAmount"));
@@ -197,14 +197,14 @@ public class BookOrdersDao {
 			
 					
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("예외발생");
 			e.printStackTrace();
 		} finally {
 			
-			// 媛�泥� 醫�猷�(�ル�� ���� 以���)
+			// 객체 종료 (닫는 순서 중요)
 			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
-			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 荑쇰━�곌껐醫�猷�
-			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// DB�곌껐醫�猷�
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 객체 종료
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// DB연결종료
 			
 		}
 		
