@@ -1,69 +1,69 @@
 package dto.bookshop.project;
 
 public class Book {
-	private int book_no;
-	private int bookcode_no;
-	private int publisher_no;
-	private String book_name;
-	private String book_author;
-	private int book_price;
-	private int book_point;
-	private int book_amount;
-	private String book_out;
+	private int bookNo;
+	private int bookCodeNo;
+	private int publisherNo;
+	private String bookName;
+	private String bookAuthor;
+	private int bookPrice;
+	private int bookPoint;
+	private int bookAmount;
+	private String bookOut;
+	public int getBookNo() {
+		return bookNo;
+	}
+	public void setBookNo(int bookNo) {
+		this.bookNo = bookNo;
+	}
+	public int getBookCodeNo() {
+		return bookCodeNo;
+	}
+	public void setBookCodeNo(int bookCodeNo) {
+		this.bookCodeNo = bookCodeNo;
+	}
+	public int getPublisherNo() {
+		return publisherNo;
+	}
+	public void setPublisherNo(int publisherNo) {
+		this.publisherNo = publisherNo;
+	}
+	public String getBookName() {
+		return bookName;
+	}
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
+	}
+	public String getBookAuthor() {
+		return bookAuthor;
+	}
+	public void setBookAuthor(String bookAuthor) {
+		this.bookAuthor = bookAuthor;
+	}
+	public int getBookPrice() {
+		return bookPrice;
+	}
+	public void setBookPrice(int bookPrice) {
+		this.bookPrice = bookPrice;
+	}
+	public int getBookPoint() {
+		return bookPoint;
+	}
+	public void setBookPoint(int bookPoint) {
+		this.bookPoint = bookPoint;
+	}
+	public int getBookAmount() {
+		return bookAmount;
+	}
+	public void setBookAmount(int bookAmount) {
+		this.bookAmount = bookAmount;
+	}
+	public String getBookOut() {
+		return bookOut;
+	}
+	public void setBookOut(String bookOut) {
+		this.bookOut = bookOut;
+	}
 	
-	public int getBook_no() {
-		return book_no;
-	}
-	public void setBook_no(int book_no) {
-		this.book_no = book_no;
-	}
-	public int getBookcode_no() {
-		return bookcode_no;
-	}
-	public void setBookcode_no(int bookcode_no) {
-		this.bookcode_no = bookcode_no;
-	}
-	public int getPublisher_no() {
-		return publisher_no;
-	}
-	public void setPublisher_no(int publisher_no) {
-		this.publisher_no = publisher_no;
-	}
-	public String getBook_name() {
-		return book_name;
-	}
-	public void setBook_name(String book_name) {
-		this.book_name = book_name;
-	}
-	public String getBook_author() {
-		return book_author;
-	}
-	public void setBook_author(String book_author) {
-		this.book_author = book_author;
-	}
-	public int getBook_price() {
-		return book_price;
-	}
-	public void setBook_price(int book_price) {
-		this.book_price = book_price;
-	}
-	public int getBook_point() {
-		return book_point;
-	}
-	public void setBook_point(int book_point) {
-		this.book_point = book_point;
-	}
-	public int getBook_amount() {
-		return book_amount;
-	}
-	public void setBook_amount(int book_amount) {
-		this.book_amount = book_amount;
-	}
-	public String getBook_out() {
-		return book_out;
-	}
-	public void setBook_out(String book_out) {
-		this.book_out = book_out;
-	}
-		
+
 }

@@ -11,19 +11,23 @@
 <body>
 	<%
 		request.setCharacterEncoding("UTF-8");
-		String book_name = request.getParameter("book_name");
-		String book_author = request.getParameter("book_author");
-		int book_price = Integer.parseInt(request.getParameter("book_price"));
-		int book_point = Integer.parseInt(request.getParameter("book_point"));
-		int book_amount = Integer.parseInt(request.getParameter("book_amount"));
+		
+		String bookName = request.getParameter("book_name");
+		String bookAuthor = request.getParameter("book_author");
+		String publisher = request.getParameter("publisher");
+		String category = request.getParameter("category");
+		
+		int bookPrice = Integer.parseInt(request.getParameter("book_price"));
+		int bookPoint = Integer.parseInt(request.getParameter("book_point"));
+		int bookAmount = Integer.parseInt(request.getParameter("book_amount"));
 		
 		
 		Book book=new Book();
-		book.setBook_name(book_name);
-		book.setBook_author(book_author);
-		book.setBook_price(book_price);
-		book.setBook_point(book_point);
-		book.setBook_amount(book_amount);
+		book.setBookName(bookName);
+		book.setBookAuthor(bookAuthor);
+		book.setBookPrice(bookPrice);
+		book.setBookPoint(bookPoint);
+		book.setBookAmount(bookAmount);
 	
 		
 		BookDao BookDao = new BookDao();

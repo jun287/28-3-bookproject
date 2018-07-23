@@ -9,42 +9,42 @@ public class BookDao {
 	PreparedStatement preparedStatement;
 	ResultSet resultSet;
 	String sql1;
-	String sql2;
+	
 	
 {
 	}
 
-public void insertBook(Book book ) {
+public void insertBook(Book book) {
 	DBconnection.getConnetion();				
-	if(book.getBook_amount()>0) {
-		book.setBook_out("재고있음");
+	if(book.getBookAmount()>0) {
+		book.setBookOut("재고있음");
 	}else {
-		book.setBook_out("재고없음");
+		book.setBookOut("재고없음");
 	}
 	
 	try {
 		sql1 = "INSERT INTO book (bookcode_no, publisher_no, book_name, book_author, book_price, book_point, book_amount, book_out, book_date) VALUES (?,?,?,?,?,?,?,?, NOW())";
 		
-		connection.prepareStatement(sql1);
+		preparedStatement = connection.prepareStatement(sql1);
 				 			
 		
-		preparedStatement.setInt(1, book.getBook_no());		
-		preparedStatement.setInt(2, book.getPublisher_no());
-		preparedStatement.setString(3, book.getBook_name());
-		preparedStatement.setString(4, book.getBook_author());
-		preparedStatement.setInt(5, book.getBook_price());
-		preparedStatement.setInt(6, book.getBook_point());
-		preparedStatement.setInt(7, book.getBook_amount());
-		preparedStatement.setString(8, book.getBook_out());
-		resultSet = preparedStatement.executeQuery();
+		preparedStatement.setInt(1, book.getBookCodeNo());		
+		preparedStatement.setInt(2, book.getPublisherNo());
+		preparedStatement.setString(3, book.getBookName());
+		preparedStatement.setString(4, book.getBookAuthor());
+		preparedStatement.setInt(5, book.getBookPrice());
+		preparedStatement.setInt(6, book.getBookPoint());
+		preparedStatement.setInt(7, book.getBookAmount());
+		preparedStatement.setString(8, book.getBookOut());
+		
 		preparedStatement.executeUpdate();
+		
 	} catch (SQLException e) {
 		e.printStackTrace();
 	} finally {
-		try {if(resultSet != null) {resultSet.close();}
-			if(preparedStatement != null) {preparedStatement.close();}
-			if(connection != null) {connection.close();}
-		} catch (SQLException e) {e.printStackTrace();}
+		try {preparedStatement.close();} catch (SQLException e) {e.printStackTrace();}
+		try {connection.close();} catch (SQLException e) {e.printStackTrace();}
+		
 	}
 }
 }
