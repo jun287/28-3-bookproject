@@ -49,7 +49,7 @@
 				<input type="hidden" name="boardQnaNo" value="<%=boardQnaNo%>">
 				작성자 : <%= sessionId %>(<%= sessionName %>)<br><br>
 				제목 : <input type="text" name="boardQnaTitle" value="<%=boardQnA.getBoardQnaTitle()%>" required><br><br>
-				<textarea name="boardQnaContent" cols="30" rows="30" required><%=boardQnA.getBoardQnaContent()%></textarea><br>
+				<textarea name="boardQnaContent" cols="30" rows="30" required><%=boardQnA.getBoardQnaContent().replaceAll("<br>", "\r\n")%></textarea><br>
 				<input type="submit" value="수정">&nbsp;&nbsp;
 				<button type="button" onclick="location.href='<%= request.getContextPath() %>/boardQnA/boardList.jsp'">목록</button>&nbsp;&nbsp;
 				<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button>
