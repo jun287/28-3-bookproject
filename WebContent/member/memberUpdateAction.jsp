@@ -20,32 +20,33 @@
 			String memberAddr = request.getParameter("memberAddr");
 			int memberNum = Integer.parseInt(request.getParameter("memberNum"));
 			
-			String[] memberInter = request.getParameterValues("memberInter");
-			int[] memberinterNo = new int[memberInter.length];
-			ArrayList<MemberInter> arrayList = new ArrayList<MemberInter>();
-			
-			for(int i = 0; i<memberInter.length; i++){
-				memberinterNo[i] = Integer.parseInt(memberInter[i]);
-				System.out.println(memberinterNo[i]);
-				MemberInter memberInters = new MemberInter();
-				memberInters.setBookcodeNo(memberinterNo[i]);
-				memberInters.setMemberNo(memberNum);
-				arrayList.add(memberInters);
-			}	
-			
-			System.out.println(memberId);
-			System.out.println(memberPw);
-			System.out.println(memberName);
-			System.out.println(memberAddr);
-
 			Member member = new Member();
+			member.setMemberNum(memberNum);
 			member.setMemberId(memberId);
 			member.setMemberPw(memberPw);
 			member.setMemberName(memberName);
 			member.setMemberAddr(memberAddr);
 			
 			ServiceMember serviceMember = new ServiceMember();
-			serviceMember.updateMemberAll(member, arrayList);
+			
+			if(request.getParameterValues("memberInter") != null){
+			
+				String[] memberInter = request.getParameterValues("memberInter");
+				int[] memberinterNo = new int[memberInter.length];
+				ArrayList<MemberInter> arrayList = new ArrayList<MemberInter>();
+				
+				for(int i = 0; i<memberInter.length; i++){
+					memberinterNo[i] = Integer.parseInt(memberInter[i]);
+					MemberInter memberInters = new MemberInter();
+					memberInters.setBookcodeNo(memberinterNo[i]);
+					memberInters.setMemberNo(memberNum);
+					arrayList.add(memberInters);
+				}	
+				
+				serviceMember.updateMemberAll(member, arrayList);
+			}else{
+				serviceMember.updateMember(member);
+			}
 			
 			response.sendRedirect(request.getContextPath()+"/member/memberInformationList.jsp");
 		%>

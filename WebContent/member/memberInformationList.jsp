@@ -52,15 +52,19 @@
 					</tr>
 					<tr>
 						<td align="right">관심 도서 : </td>
+						<td>선택하신 목록입니다.</td>
+					</tr>						
 						<%
 							for(int i=0; i<arrayList.size(); i++){
 								MemberInter memberInter = arrayList.get(i);
 						%>	
-								<td><%=memberInter.getBookCodeName()%></td>
+								<tr>
+									<td></td>	
+									<td><%=i+1%>. <%=memberInter.getBookCodeName()%></td>
+								</tr>
 						<%
 							}
 						%>	
-					</tr>	
 				</table><br>
 					<input type ="submit" value="정보수정">
 					<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button>

@@ -17,7 +17,7 @@ public class ServiceMember {
 	// 설명 : 회원정보 변경후 데이터 값을 받아 데이터베이스에 업데이트 하는 메서드 입니다.
 	// 매개변수 : Member 클래스타입으로 member 객체의 참조값을 받습니다.
 	// 리턴 : void로 없습니다.
-	public void updateMemberAll(Member member, ArrayList<MemberInter> arrayList) {
+	public void updateMember(Member member) {
 		
 		MemberDao memberDao = new MemberDao();
 		Connection connection = null;
@@ -27,8 +27,53 @@ public class ServiceMember {
 			connection.setAutoCommit(false);
 			
 			memberDao.updateMember(connection, member);
-			memberDao.insertMemberInter(connection, arrayList);
 			
+			connection.commit();
+		}catch(Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally {
+			if(connection != null)try{
+				connection.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+		}	
+		
+	}
+	
+	// 설명 : 회원정보 변경후 데이터 값을 받아 데이터베이스에 업데이트 하는 메서드 입니다.
+	// 매개변수 : Member 클래스타입으로 member 객체의 참조값을 받습니다.
+	// 리턴 : void로 없습니다.
+	public void updateMemberAll(Member member, ArrayList<MemberInter> arrayList) {
+		
+		MemberDao memberDao = new MemberDao();
+		Connection connection = null;
+		int result = 0;
+		
+		try {
+			connection = DBconnection.getConnetion();
+			connection.setAutoCommit(false);
+			
+			memberDao.updateMember(connection, member);
+			
+			for(int i=0; i<arrayList.size(); i++) {
+				MemberInter memberInter = arrayList.get(i);
+				System.out.println(memberInter.getBookcodeNo());
+				System.out.println(memberInter.getMemberNo());
+				result = memberDao.searchMemberInter(connection, memberInter);
+				System.out.println(result);
+				
+				if(result == 1) {
+					System.out.println("이미 선택 하셨습니다.");
+				}else if(result == 0){
+					memberDao.updateMemberInter(connection, memberInter);
+				}
+			}
 			connection.commit();
 		}catch(Exception e) {
 			try {
@@ -166,4 +211,41 @@ public class ServiceMember {
 		}
 	}
 	
+	// 설명 : 회원정보를 받아 데이터베이스에 아이디가 존재하는지 확인후 회원가입 시키는 메서드 입니다.
+	// 매개변수 : 회원정보를 담은  Member 클래스 타입의 member 객체의 참조값을 받습니다.
+	// 리턴 : void 로 없습니다.
+	public void insertMember(Member member) {
+		
+		MemberDao memberDao = new MemberDao();
+		Connection connection = null;
+		
+		try {
+			
+			connection = DBconnection.getConnetion();
+			connection.setAutoCommit(false);
+			
+			String result = memberDao.selectCheckMemberId(connection , member.getMemberId());
+			
+			if(result.equals("가입가능")) {
+				memberDao.insertMember(connection , member);
+			}else if(result.equals("아이디존재")) {
+				System.out.println("아이디가 존재 합니다");
+			}
+			
+			connection.commit();
+		}catch(Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally {
+			if(connection != null)try{
+				connection.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+		}
+	}
 }
