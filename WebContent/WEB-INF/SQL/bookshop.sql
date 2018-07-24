@@ -43,8 +43,8 @@ CREATE TABLE IF NOT EXISTS `book` (
   PRIMARY KEY (`book_no`),
   KEY `FK_book_bookcode` (`bookcode_no`),
   KEY `FK_book_publisher` (`publisher_no`),
-  CONSTRAINT `FK_book_publisher` FOREIGN KEY (`publisher_no`) REFERENCES `publisher` (`publisher_no`),
-  CONSTRAINT `FK_book_bookcode` FOREIGN KEY (`bookcode_no`) REFERENCES `bookcode` (`bookcode_no`)
+  CONSTRAINT `FK_book_bookcode` FOREIGN KEY (`bookcode_no`) REFERENCES `bookcode` (`bookcode_no`),
+  CONSTRAINT `FK_book_publisher` FOREIGN KEY (`publisher_no`) REFERENCES `publisher` (`publisher_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `bookreview` (
   `bookreview_no` int(10) NOT NULL AUTO_INCREMENT,
   `book_no` int(10) NOT NULL,
   `member_no` int(10) NOT NULL,
-  `bookreview_content` int(10) NOT NULL,
+  `bookreview_content` varchar(50) NOT NULL,
   PRIMARY KEY (`bookreview_no`),
   KEY `FK_bookreview_book` (`book_no`),
   KEY `FK_bookreview_member` (`member_no`),
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `member` (
   `member_pw` varchar(50) NOT NULL,
   `member_name` varchar(50) NOT NULL,
   `member_addr` varchar(50) NOT NULL,
-  `member_point` int(10) NOT NULL,
+  `member_point` int(10) NOT NULL DEFAULT '0',
   `member_date` datetime NOT NULL,
   PRIMARY KEY (`member_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -183,15 +183,15 @@ CREATE TABLE IF NOT EXISTS `qna_comment` (
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
 
--- 테이블 bookshop의 구조를 덤프합니다. shopingcart
-CREATE TABLE IF NOT EXISTS `shopingcart` (
-  `shopingcart_no` int(10) NOT NULL AUTO_INCREMENT,
+-- 테이블 bookshop의 구조를 덤프합니다. shoppingcart
+CREATE TABLE IF NOT EXISTS `shoppingcart` (
+  `shoppingcart_no` int(10) NOT NULL AUTO_INCREMENT,
   `book_no` int(10) NOT NULL,
   `member_no` int(10) NOT NULL,
-  `shopingcart_amount` int(10) NOT NULL,
-  `shopingcart_price` int(10) NOT NULL,
-  `shopingcart_date` datetime NOT NULL,
-  PRIMARY KEY (`shopingcart_no`),
+  `shoppingcart_amount` int(10) NOT NULL,
+  `shoppingcart_price` int(10) NOT NULL,
+  `shoppingcart_date` datetime NOT NULL,
+  PRIMARY KEY (`shoppingcart_no`),
   KEY `FK_shopingcart_book` (`book_no`),
   KEY `FK_shopingcart_member` (`member_no`),
   CONSTRAINT `FK_shopingcart_book` FOREIGN KEY (`book_no`) REFERENCES `book` (`book_no`),
