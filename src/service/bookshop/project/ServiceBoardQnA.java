@@ -16,6 +16,41 @@ import util.connetion.db.DBconnection;
 
 public class ServiceBoardQnA {
 	
+	// 설명 : 질문게시판 페이징시 다음페이지로 이동하기위한 lastPage를 리턴하는 메서드 입니다.
+	// 매개변수 : int 기본타입으로 페이지당 갯수를 받습니다.
+	// 리턴 : int 기본타입으로 다음페이지로 이동하기 위한 lastPage를 리턴합니다.
+	public int lastPageBoardQnA(int rowPerPage) {
+		
+		BoardQnADao boardQnaDao = new BoardQnADao();
+		Connection connection = null;
+		
+		int lastPage=0;
+		
+		try {
+			
+			connection = DBconnection.getConnetion();
+			connection.setAutoCommit(false);
+			
+			lastPage = boardQnaDao.lastPageBoardQnA(connection, rowPerPage);
+			
+			connection.commit();
+		}catch(Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally {
+			if(connection != null)try{
+				connection.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+		}	
+		return lastPage;
+	}
+	
 	// 설명 : 질문게시판에 게시글을 삭제 하는 메서드입니다.
 	// 매개변수 : BoardQnA 클래스타입으로 게시글의 정보를 담은 객체의 참조값과, BoardQnAComment 클래스타입으로 답변의 정보를 담은 객체의 참조값을 받습니다.
 	// 리턴 : void 로 없습니다.
@@ -95,7 +130,7 @@ public class ServiceBoardQnA {
 	// 설명 : 질문게시판 리스트에 데이터베이스 조회후 글 목록을 가져와 보여주는 메서드 입니다.
 	// 매개변수 : 없습니다.
 	// 리턴 : ArrayList<BoardQnAandMember> 클래스타입으로 게시글들의 정보가 담긴 객체의 참조값을 리턴합니다.
-	public ArrayList<BoardQnAandMember> selectBoardQnaList() {
+	public ArrayList<BoardQnAandMember> selectBoardQnaList(int currentPage, int pagePerRow) {
 		
 		BoardQnADao boardQnaDao = new BoardQnADao();
 		Connection connection = null;
@@ -106,7 +141,7 @@ public class ServiceBoardQnA {
 			connection = DBconnection.getConnetion();
 			connection.setAutoCommit(false);
 			
-			arrayList = boardQnaDao.selectBoardQnaList(connection);
+			arrayList = boardQnaDao.selectBoardQnaList(connection, currentPage, pagePerRow);
 			
 			connection.commit();
 		}catch(Exception e) {

@@ -14,6 +14,52 @@ import dto.bookshop.project.Member;
 
 public class BoardQnADao {
 	
+	// 설명 : 질문게시판 페이징시 다음페이지로 이동하기위한 lastPage를 리턴하는 메서드 입니다.
+	// 매개변수 : Connection 클래스 타입으로 드라이버로딩, DB연결정보를 담은 connection 객체참조값과 int 기본타입으로 페이지당 갯수를 받습니다.
+	// 리턴 : int 기본타입으로 다음페이지로 이동하기 위한 lastPage를 리턴합니다. 
+	public int lastPageBoardQnA(Connection connection, int rowPerPage) {
+		
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		int totalRow=0;
+		int lastPage=0;
+		
+		try {
+			
+			
+			preparedStatement = connection.prepareStatement("SELECT COUNT(qna_no) FROM qna ORDER BY qna_no DESC");
+			
+			resultSet = preparedStatement.executeQuery();
+			
+			if (resultSet.next()) {
+				totalRow=resultSet.getInt("COUNT(qna_no)");
+			}
+			
+			lastPage = (totalRow-1) / rowPerPage;
+			if((totalRow-1) % rowPerPage != 0) {
+				lastPage++;
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally{
+			if(preparedStatement != null)try{
+				preparedStatement.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+			if(resultSet != null)try{
+				resultSet.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+			
+		}
+		return lastPage;
+	}
+	
+	
 	// 설명 : 질문게시판에 게시글을 삭제하는 메서드 입니다.
 	// 매개변수 : Connection 클래스 타입으로 드라이버로딩, DB연결정보를 담은 connection 객체참조값과 게시글의 정보를 담은 BoardQnA 클래스객체의 참조값을 받습니다.
 	// 리턴 : void 로 없습니다.
@@ -83,7 +129,7 @@ public class BoardQnADao {
 	// 설명 : 질문게시판 리스트에 데이터베이스 조회후 글 목록을 가져와 보여주는 메서드 입니다.
 	// 매개변수 : Connection 클래스 타입으로 드라이버로딩, DB연결정보를 담은 connection 객체참조값을 받습니다.
 	// 리턴 : ArrayList<BoardQnAandMember> 클래스타입으로 게시글들의 정보가 담긴 객체의 참조값을 리턴합니다.
-	public ArrayList<BoardQnAandMember> selectBoardQnaList(Connection connection) {
+	public ArrayList<BoardQnAandMember> selectBoardQnaList(Connection connection, int currentPage, int pagePerRow) {
 		
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -91,7 +137,11 @@ public class BoardQnADao {
 		
 		try {
 			
-			preparedStatement = connection.prepareStatement("SELECT bq.qna_no, m.member_no, bq.qna_title, m.member_id, substring(bq.qna_date,1,10) as date FROM qna bq INNER JOIN member m ON bq.member_no = m.member_no ORDER By bq.qna_no DESC");
+			int startRow = (currentPage-1)*pagePerRow;
+			
+			preparedStatement = connection.prepareStatement("SELECT bq.qna_no, m.member_no, bq.qna_title, m.member_id, substring(bq.qna_date,1,10) as date FROM qna bq INNER JOIN member m ON bq.member_no = m.member_no ORDER By bq.qna_no DESC LIMIT ?,?");
+			preparedStatement.setInt(1, startRow);
+			preparedStatement.setInt(2, pagePerRow);
 			resultSet = preparedStatement.executeQuery();
 			
 			while(resultSet.next()){

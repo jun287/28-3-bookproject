@@ -14,6 +14,71 @@ import util.connetion.db.DBconnection;
 
 public class MemberDao {
 	
+	public int searchMemberInter(Connection connection, MemberInter memberInter) {
+		
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int result = 0;
+		
+		try {
+		
+			preparedStatement = connection.prepareStatement("SELECT * FROM memberinter WHERE member_no=? and bookcode_no=?");
+			preparedStatement.setInt(1, memberInter.getMemberNo());
+			preparedStatement.setInt(2, memberInter.getBookcodeNo());
+			resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				result = 1;
+			}else {
+				result = 0;
+			}
+
+			
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}finally {
+			if(preparedStatement != null)try{
+				preparedStatement.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+			if(resultSet != null)try{
+				resultSet.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	// 설명 : 회원가입시 혹은 회원정보수정시 선택된 관심 분야를 데이터베이스에 저장하는 메서드 입니다.
+	// 매개변수 : Connection 클래스타입으로  드라이버로딩 및 DB연결하는 정보를 담은 객체의 참조값과 회원의 관심분야가 담긴 MemberInter 객체의 배열을 ArrayList 클래스타입으로 받습니다.  
+	// 리턴 : void로 없습니다.
+	public void updateMemberInter(Connection connection, MemberInter memberInter) {
+		
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			
+			preparedStatement = connection.prepareStatement("INSERT INTO memberinter(member_no,bookcode_no) VALUES (?,?)");
+			preparedStatement.setInt(1, memberInter.getMemberNo());
+			preparedStatement.setInt(2, memberInter.getBookcodeNo());
+			preparedStatement.executeUpdate();
+
+			
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}finally {
+			if(preparedStatement != null)try{
+				preparedStatement.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+
+		}
+		
+	}
+	
 	// 설명 : 회원가입시 혹은 회원정보수정시 선택된 관심 분야를 데이터베이스에 저장하는 메서드 입니다.
 	// 매개변수 : Connection 클래스타입으로  드라이버로딩 및 DB연결하는 정보를 담은 객체의 참조값과 회원의 관심분야가 담긴 MemberInter 객체의 배열을 ArrayList 클래스타입으로 받습니다.  
 	// 리턴 : void로 없습니다.

@@ -46,7 +46,7 @@
 								<tr>
 									<td></td>
 									<td>
-										<input type="checkbox" name="memberInter" value="<%=bookCode.getBookCodeNo()%>" ><%=bookCode.getBookCodeName()%>
+										<input type="checkbox" name="memberInter" value="<%=bookCode.getBookCodeNo()%>"><%=bookCode.getBookCodeName()%>
 									</td>
 								</tr>
 						<%
