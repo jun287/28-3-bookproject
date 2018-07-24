@@ -6,6 +6,7 @@
 <%@ page import="dto.bookshop.project.Orders"  %>				<!-- dto.bookshop.project패키지 안에 Orders클래스 import -->
 <%@ page import="dto.bookshop.project.Member"  %>				<!-- dto.bookshop.project패키지 안에 Member클래스 import -->
 <%@ page import="service.bookshop.project.ServiceMember" %>		<!-- service.bookshop.project패키지 안에  ServiceMember클래스 import-->
+<%@ page import="dao.bookshop.project.BookDao" %>
 
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -20,9 +21,14 @@
 	MemberDao memberDao = new MemberDao();		
 	Member member = memberDao.selectMemberPoint(memberNumber);
 	
-	// book 테이블에서 book_point * order_price  = 적립 포인트
+	// book 테이블에서 book_point * orders 테이블에 orders_price  = 적립 포인트
 	int buyPoint = 0;
+	//int bookNo = 0;
 	int memberPoint = member.getMemberPoint()+buyPoint;
+	
+	//BookDao bookDao = new BookDao()
+	//bookDao.selectBook(bookNo);
+	
 	
 	memberDao.updateMemberPoint(memberNumber, memberPoint);
 %>
