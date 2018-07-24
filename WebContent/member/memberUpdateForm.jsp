@@ -1,3 +1,5 @@
+<!-- 2018. 07. 24. 공세준 -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ page import = "service.bookshop.project.ServiceMember" %>
@@ -14,6 +16,17 @@
 	</head>
 	<body>
 		<%
+			/*
+				회원 정보를 수정하는 페이지 입니다.
+				
+				회원 id를 매개변수로 selectMember 메서드를 호출하여
+				데이터베이스를 조회후 일치하는 회원정보의 참조값 리턴받아 Member 클래스타입의 member 객체참조변수에 대입하고
+				대입받은 참조값을 찾아가서 회원정보를 가져와서 화면에 나타냅니다.
+				selectBookCategory메서드를 호출하여
+				도서의 카테고리를 가져와서 화면에 나타냅니다.
+			
+			*/
+		
 			request.setCharacterEncoding("UTF-8");
 			String memberId = request.getParameter("memberId");
 			

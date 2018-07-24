@@ -169,12 +169,12 @@ public class ServiceMember {
 	
 	// 설명 : 회원정보를 받아 데이터베이스에 아이디가 존재하는지 확인후 회원가입 시키는 메서드 입니다.
 	// 매개변수 : 회원정보를 담은  Member 클래스 타입의 member 객체의 참조값을 받습니다.
-	// 리턴 : void 로 없습니다.
-	public void insertMemberAll(Member member, ArrayList<MemberInter> arrayList) {
+	// 리턴 : int 기본타입으로 회원가입 여부 판단하는 값을 리턴합니다.
+	public int insertMemberAll(Member member, ArrayList<MemberInter> arrayList) {
 		
 		MemberDao memberDao = new MemberDao();
 		Connection connection = null;
-		
+		int checkDB = 0;
 		try {
 			
 			connection = DBconnection.getConnetion();
@@ -183,6 +183,7 @@ public class ServiceMember {
 			String result = memberDao.selectCheckMemberId(connection , member.getMemberId());
 			
 			if(result.equals("가입가능")) {
+				checkDB = 1;
 				memberDao.insertMember(connection , member);
 				Member memberinfor = memberDao.selectMemberInfor(connection, member.getMemberId());
 				
@@ -192,6 +193,7 @@ public class ServiceMember {
 				memberDao.insertMemberInter(connection, arrayList);
 			}else if(result.equals("아이디존재")) {
 				System.out.println("아이디가 존재 합니다");
+				checkDB = 2;
 			}
 			
 			connection.commit();
@@ -209,15 +211,18 @@ public class ServiceMember {
 				ex.printStackTrace();
 			}
 		}
+		
+		return checkDB;
 	}
 	
 	// 설명 : 회원정보를 받아 데이터베이스에 아이디가 존재하는지 확인후 회원가입 시키는 메서드 입니다.
 	// 매개변수 : 회원정보를 담은  Member 클래스 타입의 member 객체의 참조값을 받습니다.
-	// 리턴 : void 로 없습니다.
-	public void insertMember(Member member) {
+	// 리턴 : int 기본타입으로 회원가입 여부를 판단하는 값을 리턴받습니다.
+	public int insertMember(Member member) {
 		
 		MemberDao memberDao = new MemberDao();
 		Connection connection = null;
+		int checkDB = 0;
 		
 		try {
 			
@@ -227,9 +232,11 @@ public class ServiceMember {
 			String result = memberDao.selectCheckMemberId(connection , member.getMemberId());
 			
 			if(result.equals("가입가능")) {
+				checkDB = 1;
 				memberDao.insertMember(connection , member);
 			}else if(result.equals("아이디존재")) {
 				System.out.println("아이디가 존재 합니다");
+				checkDB = 2;
 			}
 			
 			connection.commit();
@@ -247,5 +254,7 @@ public class ServiceMember {
 				ex.printStackTrace();
 			}
 		}
+		
+		return checkDB;
 	}
 }
