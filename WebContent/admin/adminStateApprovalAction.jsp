@@ -11,7 +11,7 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 
-	int ordersNumber = Integer.parseInt(request.getParameter("ordersNumber"));
+	/* int ordersNumber = Integer.parseInt(request.getParameter("ordersNumber"));
 
 	BookOrdersDao bookOrdersDao = new BookOrdersDao();
 	bookOrdersDao.updateStateApproval(ordersNumber);
@@ -29,6 +29,11 @@
 	//BookDao bookDao = new BookDao()
 	//bookDao.selectBook(bookNo);
 	
+	memberDao.updateMemberPoint(memberNumber, memberPoint); */
 	
-	memberDao.updateMemberPoint(memberNumber, memberPoint);
+	BookOrdersDao bookOrdersDao = new BookOrdersDao();
+	int ordersNumber = 0;
+	int bookNumber = 0;
+	bookOrdersDao.selectforUpdateBookPoint(bookNumber, ordersNumber);
+	
 %>

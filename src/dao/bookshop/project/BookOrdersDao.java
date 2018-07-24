@@ -8,6 +8,42 @@ import dto.bookshop.project.Orders;
 
 public class BookOrdersDao {
 	
+	public void selectforUpdateBookPoint (int bookNumber, int ordersNumber) {
+		// 책넘버 주문넘버 조회 후 포인트 업데이트
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		PreparedStatement preparedStatement2 = null;
+		ResultSet resultSet = null;
+		
+		try {
+			connection = DBconnection.getConnetion();
+			preparedStatement = connection.prepareStatement("SELECT book.book_amount, orders.orders_amount FROM orders INNER JOIN book ON orders.book_no=book.book_no WHERE orders.orders_no=? AND book.book_no=?");
+			preparedStatement.setInt(1, ordersNumber);
+			preparedStatement.setInt(2, bookNumber);
+			
+			resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				int bookAmount = resultSet.getInt("book_amount");
+				int ordersAmount = resultSet.getInt("orders_amount");
+				preparedStatement2 =connection.prepareStatement("UPDATE book SET book_amount=? WHERE book_no=?");
+				preparedStatement2.setInt(1, (bookAmount-ordersAmount));
+				preparedStatement2.setInt(2, bookNumber);
+				
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("예외발생");
+			e.printStackTrace();
+			
+		} finally {
+			// 객체 종료 (닫는 순서 중요)
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 객체 종료
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// DB연결종료
+		}
+		
+	}
+	
 	public  void updateStateApproval (int ordersNumber) {
 		// 상품 진행 상태 바꿔주는 메소드
 		// 리턴값 없는 updateStateApproval메소드 (int data type으로 orderNumber매개변수 생성)
