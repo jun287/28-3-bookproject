@@ -111,13 +111,13 @@ public class MemberDao {
 	}
 	
 	public Member selectMemberPoint(int memberNumber) {
-		
+		// memberPoint 조회하는 메소드
+		// return data type Member, selectMemberPoint 메소드 선언 (int data type으로 memberNumber 매개변수 생성)
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		Member member = null;
 		try {
-			
 			connection = DBconnection.getConnetion();
 			preparedStatement = connection.prepareStatement("SELECT member_no,member_id,member_pw,member_name,member_addr,member_point,member_date FROM member WHERE member_no=?");
 			preparedStatement.setInt(1, memberNumber);
@@ -130,13 +130,15 @@ public class MemberDao {
 				member.setMemberId(resultSet.getString("member_id"));
 				member.setMemberPw(resultSet.getString("member_pw"));
 				member.setMemberName(resultSet.getString("member_name"));
-				member.setMemberAddr(resultSet.getString("member_point"));
+				member.setMemberAddr(resultSet.getString("member_addr"));
+				member.setMemberPoint(resultSet.getInt("member_point"));
 				member.setMemberDate(resultSet.getString("member_date"));
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("예외발생");
 			e.printStackTrace();
+			//객체 종료 (닫는 순서 중요)
 		}finally {
 			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}	
 			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	

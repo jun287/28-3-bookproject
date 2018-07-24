@@ -1,8 +1,10 @@
-<!--2017.07.23 김소희 / adminStateList.jsp 관리자	 -->
-<!-- 관리자 주문 진행상태 승인 -->
+<!--2017.07.23 김소희 / adminStateApprovalList.jsp	 -->
+<!-- 관리자 주문 진행상태 승인 후 포인트 적립과 재고변경 -->
 <%@ page language = "java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ page import = "dao.bookshop.project.BookOrdersDao" %>	<!-- dao.bookshop.project패키지 안에 BookOrdersDo클래스 import -->
 <%@ page import = "dto.bookshop.project.Orders" %>			<!-- dto.bookshop.project패키지 안에 Orders클래스 import  -->
+<%@ page import = "dto.bookshop.project.Member" %>			<!-- dto.bookshop.project패키지 안에 Member클래스 import  -->
+<%@ page import = "dao.bookshop.project.MemberDao" %>		<!-- dao.bookshop.project패키지 안에 MemberDao클래스 import -->
 <%@ page import = "java.util.ArrayList" %>					<!-- ArrayList는 java.util.ArrayList에 포함 import -->
 <!DOCTYPE html>
 <html>
@@ -26,6 +28,7 @@
 				<td>주문날짜</td>
 				<td>배송주소</td>
 				<td>진행상태</td>
+				<td>포인트</td>
 			</tr>
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -38,18 +41,25 @@
 	}
 	int startRow = (currentPage - 1 ) * pagePerRow;		//시작 페이지 = (현재 페이지 번호  - 1) * 한 페이지에 보여주는 글 수
 	
-	BookOrdersDao bookOrdersDao = new BookOrdersDao();
+	BookOrdersDao bookOrdersDao = new BookOrdersDao();		// bookOrdersDao
 	ArrayList<Orders> selectOrdersList = bookOrdersDao.selectOrdersState(currentPage, pagePerRow);
 	
+	MemberDao memberDao = new MemberDao();		// memberDao 생성
+	Member member = new Member(); 				// member 생성
+	Orders orders = new Orders();				// orders 생성
+
+	int memberNumber = orders.getMemberNumber();
+	memberDao.selectMemberPoint(memberNumber);
+	
 	for(int i=0; i<selectOrdersList.size(); i++){
-		Orders orders = selectOrdersList.get(i);
+		orders = selectOrdersList.get(i);
 %>
 			<tr>
 				<td><%=orders.getOrdersNumber()%></td>
 				<td><%=orders.getBookNumber()%></td>
 				<td><%=orders.getMemberNumber() %></td>
-				<td><%=orders.getOrdersPrice() %></td>
-				<td><%=orders.getOrdersAmount() %></td>
+				<td><%=orders.getOrdersPrice() %></td>		
+				<td><%=orders.getOrdersAmount() %></td>			<!-- 주문완료 클릭 후 배송완료로 바뀌면 주문한 수량만큼 재고 감소 -->
 				<td><%=orders.getOrdersDate() %></td>
 				<td><%=orders.getOrdersAddress() %></td>
 				<%
@@ -59,10 +69,11 @@
 				<%		
 					}else{
 				%>
-					<td><%=orders.getOrderState() %></td>
+					<td><%=orders.getOrderState() %></td>		<!-- 주문완료 클릭 후 배송완료로 바뀌면 포인트 증가 -->
 				<%
 					}
 				%>
+				<td><%=member.getMemberPoint() %></td>
 			</tr>
 <% 	
 	}
