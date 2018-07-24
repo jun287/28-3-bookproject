@@ -27,28 +27,6 @@
 				border: 1px solid #000000;
 				border-radius: 6px;
 			}
-			#titleDate{
-				padding-top:10px;
-				width: 800px;
-				height: 30px;
-				border-bottom: 1px solid #000000;
-			}
-			#title{
-				margin-left: 10px;
-				font-size: 15px;
-			}
-			#date{
-				float:right;
-				margin-right: 10px;
-				font-size: 12px;
-			}
-			#name{
-				padding-left:10px;
-				padding-top:10px;
-				width: 790px;
-				height: 30px;
-				border-bottom: 1px solid #000000;
-			}
 			#info{
 				align-content:center;
 			
@@ -75,17 +53,7 @@
 				height: 400px;
 				
 			}
-			#goodsInfo{
-				clear:both;
-				
-				margin:0 0 10px 10px;
-				width: 780px;
-			}
-			#button{
-				
-				margin-left: 690px;
-				margin-bottom:10px;
-			}
+		
 		</style>
 	</head>
 	<body>
@@ -123,17 +91,17 @@
 			
 			System.out.println(member.getMemberNum()+"<--member.getMemberNum()");
 			System.out.println(session.getAttribute("sessionId")+"<--session.getAttribute(sessionId)");
-			
+
 		%>
 		
 		<div id="info">
-		
+			<!--책사진  -->
 			<div id="img">
 				<br>&nbsp;
 				<span>smart</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<span>tiger</span>
 			</div>
-			
+			<!--책정보  -->
 			<div id="userinfo">
 				<h1><%=book.getBookName() %></h1>
 				<span><%=book.getBookAuthor() %>&nbsp;|&nbsp;<%=publisher.getPublisherName()%>&nbsp;|&nbsp;<%=book.getBookDate() %></span><br>
@@ -152,21 +120,16 @@
 
 				<a href="<%=request.getContextPath()%>/book/bookView.jsp?bookNumber=<%=bookNo %>&num1=<%=num1+1%>"><input type="button" value="+" size="1" ></a>
 				<a href="<%=request.getContextPath()%>/book/bookView.jsp?bookNumber=<%=bookNo %>&num1=<%=num1-1%>"><input type="button" value="-" size="1"></a><br><br>
-				<a href="<%=request.getContextPath()%>/shoppingCart/shoppingCartAddAction.jsp?bookNumber=<%=bookNo %>&bookamount=<%=num1 %>&memberNumber=<%=member.getMemberNum() %>"><input type="button" value="장바구니" size="1"></a>
+				<a href="<%=request.getContextPath()%>/shoppingCart/shoppingCartAddAction.jsp?bookNumber=<%=bookNo %>&bookAmount=<%=num1 %>&memberNumber=<%=member.getMemberNum() %>&totalPrice=<%=book.getBookPrice()*num1 %>"><input type="button" value="장바구니" size="1"></a>
 				<a href="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp?bookNumber=<%=bookNo %>&amount=<%=num1 %>&memberNumber=<%=member.getMemberNum()%>&price=<%=book.getBookPrice() %>"><input type="button" value="바로구매" size="1"></a>
-			</div>
-			
-			<div id="goodsInfo">
-				
-			
-			</div>
-			
-			<div id="button">								
-				<a href="#"><input type="button" value="삭제"></a>
+		
+					<a href="#"><input type="button" value="삭제"></a>
 				<a href="#"><input type="button" value="수정"></a>
 				<a href="./goodsList.jsp"><input type="button" value="목록"></a>
 			</div>
-			
+		</div>
+		<div id="intro">
+			<p>----------------------------------------------------------------------------------------------<p>
 		</div>
 	</body>
 </html>
