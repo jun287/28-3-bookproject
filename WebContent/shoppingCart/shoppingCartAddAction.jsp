@@ -5,8 +5,10 @@
 <%@ page import="service.bookshop.project.ServiceShoppingCart" %>
 <%@ page import="dto.bookshop.project.ShoppingCart" %>
 <%
-
 	request.setCharacterEncoding("utf-8");
+	if(session.getAttribute("sessionId") == null){
+		response.sendRedirect(request.getContextPath()+"/member/memberLoginForm.jsp");
+	}
 	int bookNumber = Integer.parseInt(request.getParameter("bookNumber"));			// bookView.jsp에서 넘겨받은 책번호	
 	int memberNumber = Integer.parseInt(request.getParameter("memberNumber"));		// bookView.jsp에서 넘겨받은 멤버번호
 	int shoppingCartAmount = Integer.parseInt(request.getParameter("bookAmount"));	// bookView.jsp에서 넘겨받은 수량

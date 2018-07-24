@@ -22,6 +22,9 @@
 		<form action="<%=request.getContextPath() %>/shoppingCart/shoppingCartList.jsp" method="post" id="selectForm">
 <%
 	request.setCharacterEncoding("utf-8");
+	if(session.getAttribute("sessionId") == null){
+		response.sendRedirect(request.getContextPath()+"/member/memberLoginForm.jsp");
+	}
 	int currentPage = (request.getParameter("currentPage") == null) ? 1 : Integer.parseInt(request.getParameter("currentPage"));	// 삼항연산자 (조건식) ? 참일경우 : 거짓일 경우
 	// 현재 페이지		
 	int pagePerRow = (request.getParameter("pagePerRow") == null) ? 5 : Integer.parseInt(request.getParameter("pagePerRow"));		// 삼항연산자 (조건식) ? 참일경우 : 거짓일 경우
@@ -109,15 +112,15 @@
 <%
 	if(currentPage !=0 && currentPage != 1){
 %>
-			<a href="<%=request.getContextPath() %>/shoppingCart/shoppingCartList.jsp?currentPage=<%=currentPage-1 %>&pagePerRow=<%=pagePerRow%>">이전</a>
+			<a href="<%=request.getContextPath() %>/shoppingCart/shoppingCartList.jsp?currentPage=<%=currentPage-1 %>&pagePerRow=<%=pagePerRow%>&memberNumber=<%=memberNumber%>">이전</a>
 <%
 	}for(int p=1; p<=lastPage; p++){
 %>		
-			<a href="<%=request.getContextPath() %>/shoppingCart/shoppingCartList.jsp?currentPage=<%=p%>&pagePerRow=<%=pagePerRow%>"><%=p%></a>
+			<a href="<%=request.getContextPath() %>/shoppingCart/shoppingCartList.jsp?currentPage=<%=p%>&pagePerRow=<%=pagePerRow%>&memberNumber=<%=memberNumber%>"><%=p%></a>
 <%		
 	}if(currentPage < lastPage){
 %>	
-			<a href="<%=request.getContextPath() %>/shoppingCart/shoppingCartList.jsp?currentPage=<%=currentPage+1 %>&pagePerRow=<%=pagePerRow%>">다음</a>
+			<a href="<%=request.getContextPath() %>/shoppingCart/shoppingCartList.jsp?currentPage=<%=currentPage+1 %>&pagePerRow=<%=pagePerRow%>&memberNumber=<%=memberNumber%>">다음</a>
 <%
 	}
 %>		
