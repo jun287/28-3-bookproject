@@ -26,7 +26,7 @@
 	//int bookNo = 0;
 	int memberPoint = member.getMemberPoint()+buyPoint;
 	
-	//BookDao bookDao = new BookDao();
+	//BookDao bookDao = new BookDao()
 	//bookDao.selectBook(bookNo);
 	
 	

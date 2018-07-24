@@ -55,7 +55,7 @@
 				<%
 					if(orders.getOrderState().equals("주문완료")){			//getOrderState()에 담겨있는 값이 "주문완료"랑 같으면  if문 실행 주문완료 클릭시 배송완료로 변경
 				%>
-					<td><a href="<%=request.getContextPath()%>/admin/adminStateApproval.jsp?ordersNumber=<%=orders.getOrdersNumber()%>"><%=orders.getOrderState() %></a></td>
+					<td><a href="<%=request.getContextPath()%>/admin/adminStateApprovalAction.jsp?ordersNumber=<%=orders.getOrdersNumber()%>"><%=orders.getOrderState() %></a></td>
 				<%		
 					}else{
 				%>
@@ -82,12 +82,12 @@
 	
 	if(currentPage > 1){							// currentPage(시작페이지)가 1보다 크면
 %>
-	<a href="<%=request.getContextPath()%>/admin/adminStateList.jsp?currentPage=<%=currentPage-1%>">이전</a>
+	<a href="<%=request.getContextPath()%>/admin/adminStateApprovalList.jsp?currentPage=<%=currentPage-1%>">이전</a>
 <% 		
 	}
 	if(currentPage < lastPage){						// currentPage(시작페이지)가 lastPage(마지막페이지)보다 작으면
 %>
-	<a href="<%=request.getContextPath()%>/admin/adminStateList.jsp?currentPage=<%=currentPage+1%>">다음</a>
+	<a href="<%=request.getContextPath()%>/admin/adminStateApprovalList.jsp?currentPage=<%=currentPage+1%>">다음</a>
 <%
 	}
 %>
