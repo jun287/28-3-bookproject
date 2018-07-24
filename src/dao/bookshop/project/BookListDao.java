@@ -28,7 +28,7 @@ public class BookListDao {
 		int startRow = (currentPage-1)*pagePerRow;
 			try {
 				if(!beginDate.equals("") &&  !endDate.equals("") && !searchCategory.equals("") && !searchKeyword.equals("")) {
-					System.out.println("01조건 beginDate,endDate,searchCategory,sv 모두 값이 있다");
+					System.out.println("01조건 beginDate,endDate,searchCategory,sv 모두 값이 있다,oooo");
 					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
 							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
 							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
@@ -36,25 +36,25 @@ public class BookListDao {
 							+ "where b.book_date between ? and ? and "+searchCategory+" like ? order by book_date desc limit ?,?";
 					preparedStatement = connection.prepareStatement(sql1);
 					preparedStatement.setString(1, beginDate);
-					preparedStatement.setString(2, endDate);
+					preparedStatement.setString(2, endDate+" 23:59:59");
 					preparedStatement.setString(3, "%"+searchKeyword+"%");
 					preparedStatement.setInt(4, startRow);
 					preparedStatement.setInt(5, pagePerRow);
 					
 				}else if(!beginDate.equals("") &&  !endDate.equals("") && !searchCategory.equals("") && searchKeyword.equals("")) {
-					System.out.println("02조건 beginDate,endDate,searchCategory의 값이 있고 searchKeyword값이 없다");
+					System.out.println("02조건 beginDate,endDate,searchCategory의 값이 있고 searchKeyword값이 없다,ooox");
 					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
 							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
 							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no inner join bookcode bc "
 							+ "on b.bookcode_no = bc.bookcode_no where b.book_date between ? and ? order by book_date desc limit ?,?";
 					preparedStatement = connection.prepareStatement(sql1);
 					preparedStatement.setString(1, beginDate);
-					preparedStatement.setString(2, endDate);
+					preparedStatement.setString(2, endDate+" 23:59:59");
 					preparedStatement.setInt(3, startRow);
 					preparedStatement.setInt(4, pagePerRow);
 					
 				}else if(!beginDate.equals("") &&  endDate.equals("") && !searchCategory.equals("") && !searchKeyword.equals("")) {
-					System.out.println("03조건 beginDate값이 있고,endDate값이 없고,searchCategory의 값이 있고 searchKeyword값이 있다");
+					System.out.println("03조건 beginDate값이 있고,endDate값이 없고,searchCategory의 값이 있고 searchKeyword값이 있다,oxoo");
 					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
 							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
 							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
@@ -63,12 +63,12 @@ public class BookListDao {
 					preparedStatement = connection.prepareStatement(sql1);
 					preparedStatement.setString(1, beginDate);
 					preparedStatement.setString(2, "2099-12-31");
-					preparedStatement.setString(3, searchKeyword);
+					preparedStatement.setString(3, "%"+searchKeyword+"%");
 					preparedStatement.setInt(4, startRow);
 					preparedStatement.setInt(5, pagePerRow);
 					
 				}else if(!beginDate.equals("") &&  endDate.equals("") && !searchCategory.equals("") && searchKeyword.equals("")) {
-					System.out.println("04조건 beginDate값이 있고,endDate값이 없고,searchCategory의 값이 있고 searchKeyword값이 없다");
+					System.out.println("04조건 beginDate값이 있고,endDate값이 없고,searchCategory의 값이 있고 searchKeyword값이 없다,oxox");
 					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
 							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
 							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no inner join bookcode bc "
@@ -80,7 +80,7 @@ public class BookListDao {
 					preparedStatement.setInt(4, pagePerRow);
 					
 				}else if(beginDate.equals("") &&  !endDate.equals("") && !searchCategory.equals("") && !searchKeyword.equals("")) {
-					System.out.println("05조건 beginDate값이 없고,endDate값이 있고,searchCategory의 값이 있고 searchKeyword값이 있다");
+					System.out.println("05조건 beginDate값이 없고,endDate값이 있고,searchCategory의 값이 있고 searchKeyword값이 있다,xooo");
 					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
 							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
 							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
@@ -88,13 +88,13 @@ public class BookListDao {
 							+ "where b.book_date between ? and ? and "+searchCategory+" like ? order by book_date desc limit ?,?";
 					preparedStatement = connection.prepareStatement(sql1);
 					preparedStatement.setString(1, beginDate);
-					preparedStatement.setString(2, endDate);
-					preparedStatement.setString(3, searchKeyword);
+					preparedStatement.setString(2, endDate+" 23:59:59");
+					preparedStatement.setString(3, "%"+searchKeyword+"%");
 					preparedStatement.setInt(4, startRow);
 					preparedStatement.setInt(5, pagePerRow);
 					
 				}else if(beginDate.equals("") &&  !endDate.equals("") && !searchCategory.equals("") && searchKeyword.equals("")) {
-					System.out.println("06조건 beginDate값이 없고,endDate값이 있고,searchCategory의 값이 있고 searchKeyword값이 없다");
+					System.out.println("06조건 beginDate값이 없고,endDate값이 있고,searchCategory의 값이 있고 searchKeyword값이 없다,xoox");
 					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
 							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
 							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
@@ -102,35 +102,46 @@ public class BookListDao {
 							+ "where b.book_date between ? and ? order by book_date desc limit ?,?";
 					preparedStatement = connection.prepareStatement(sql1);
 					preparedStatement.setString(1, beginDate);
-					preparedStatement.setString(2, endDate);
+					preparedStatement.setString(2, endDate+" 23:59:59");
 					preparedStatement.setInt(3, startRow);
 					preparedStatement.setInt(4, pagePerRow);
 					
 				}else if(beginDate.equals("") &&  endDate.equals("") && !searchCategory.equals("") && !searchKeyword.equals("")){
-					System.out.println("07조건 beginDate값이 없고,endDate값이 없고,searchCategory의 값이 있고 searchKeyword값이 있다");
+					System.out.println("07조건 beginDate값이 없고,endDate값이 없고,searchCategory의 값이 있고 searchKeyword값이 있다,xxoo");
 					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
 							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
 							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
 							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no "
 							+ "where "+searchCategory+" like ? order by book_date desc limit ?,?";
 					preparedStatement = connection.prepareStatement(sql1);
-					preparedStatement.setString(1, searchKeyword);
+					preparedStatement.setString(1, "%"+searchKeyword+"%");
 					preparedStatement.setInt(2, startRow);
 					preparedStatement.setInt(3, pagePerRow);
 					
 				}else if(beginDate.equals("") &&  endDate.equals("") && !searchCategory.equals("") && searchKeyword.equals("")){
-					System.out.println("08조건 beginDate값이 없고,endDate값이 없고,searchCategory의 값이 있고 searchKeyword값이 없다");
+					System.out.println("08조건 beginDate값이 없고,endDate값이 없고,searchCategory의 값이 있고 searchKeyword값이 없다,xxox");
 					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
 							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
 							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
 							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no "
 							+ "order by book_date desc limit ?,?";
+					preparedStatement = connection.prepareStatement(sql1);
+					preparedStatement.setInt(1, startRow);
+					preparedStatement.setInt(2, pagePerRow);
+					
+				}else if(beginDate.equals("") &&  endDate.equals("") && searchCategory.equals("") && !searchKeyword.equals("")){
+					System.out.println("09조건 beginDate값이 없고,endDate값이 없고,searchCategory의 값이 없고 searchKeyword값이 있다,xxxo");
+					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
+							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
+							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
+							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no "
+							+ "order by book_date desc limit ?,?";	
 					preparedStatement = connection.prepareStatement(sql1);
 					preparedStatement.setInt(1, startRow);
 					preparedStatement.setInt(2, pagePerRow);
 					
 				}else if(beginDate.equals("") &&  endDate.equals("") && searchCategory.equals("") && searchKeyword.equals("")){
-					System.out.println("09조건 beginDate,endDate,searchCategory,searchKeyword모두 값이 없다");
+					System.out.println("10조건 beginDate,endDate,searchCategory,searchKeyword모두 값이 없다,xxxx");
 					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
 							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
 							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
@@ -139,8 +150,86 @@ public class BookListDao {
 					preparedStatement = connection.prepareStatement(sql1);
 					preparedStatement.setInt(1, startRow);
 					preparedStatement.setInt(2, pagePerRow);
-				}
-				resultSet = preparedStatement.executeQuery();
+					
+				}else if(!beginDate.equals("") &&  !endDate.equals("") && searchCategory.equals("") && !searchKeyword.equals("")){
+					System.out.println("11조건 beginDate,endDate값이 있고, searchCategory값이 없고 searchKeyword값이 있다.ooxo ");
+					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
+							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
+							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
+							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no "
+							+ "where b.book_date between ? and ? order by book_date desc limit ?,?";
+					preparedStatement = connection.prepareStatement(sql1);
+					preparedStatement.setString(1, beginDate);
+					preparedStatement.setString(2, endDate+" 23:59:59");
+					preparedStatement.setInt(3, startRow);
+					preparedStatement.setInt(4, pagePerRow);
+					
+				}else if(!beginDate.equals("") &&  !endDate.equals("") && searchCategory.equals("") && searchKeyword.equals("")){
+					System.out.println("12조건 beginDate,endDate값이 있고 searchCategory,searchKeyword값이 없다,ooxx");
+					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
+							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
+							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
+							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no "
+							+ "where b.book_date between ? and ? order by book_date desc limit ?,?";
+					preparedStatement = connection.prepareStatement(sql1);
+					preparedStatement.setString(1, beginDate);
+					preparedStatement.setString(2, endDate+" 23:59:59");
+					preparedStatement.setInt(3, startRow);
+					preparedStatement.setInt(4, pagePerRow);
+					
+				}else if(!beginDate.equals("") &&  endDate.equals("") && searchCategory.equals("") && !searchKeyword.equals("")){
+					System.out.println("13조건 beginDate값이 있고 endDate값이 없고 searchCategory값이 없고 searchKeyword값이 있다,oxxo");
+					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
+							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
+							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
+							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no "
+							+ "where b.book_date between ? and ? order by book_date desc limit ?,?";
+					preparedStatement = connection.prepareStatement(sql1);
+					preparedStatement.setString(1, beginDate);
+					preparedStatement.setString(2, "2099-12-31");
+					preparedStatement.setInt(3, startRow);
+					preparedStatement.setInt(4, pagePerRow);
+					
+				}else if(!beginDate.equals("") &&  endDate.equals("") && searchCategory.equals("") && searchKeyword.equals("")){
+					System.out.println("14조건 beginDate값이 있고endDate,searchCategory,searchKeyword값이 없다,oxxx");
+					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
+							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
+							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
+							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no "
+							+ "where b.book_date between ? and ? order by book_date desc limit ?,?";
+					preparedStatement = connection.prepareStatement(sql1);
+					preparedStatement.setString(1, beginDate);
+					preparedStatement.setString(2, "2099-12-31");
+					preparedStatement.setInt(3, startRow);
+					preparedStatement.setInt(4, pagePerRow);
+					
+				}else if(beginDate.equals("") &&  !endDate.equals("") && searchCategory.equals("") && !searchKeyword.equals("")){
+					System.out.println("15조건 beginDate값이 있고endDate값이 없고searchCategory값이 있고searchKeyword 값이 없다,xoxo");
+					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
+							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
+							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
+							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no "
+							+ "where b.book_date between ? and ? order by book_date desc limit ?,?";
+					preparedStatement = connection.prepareStatement(sql1);
+					preparedStatement.setString(1, beginDate);
+					preparedStatement.setString(2, "2099-12-31");
+					preparedStatement.setInt(3, startRow);
+					preparedStatement.setInt(4, pagePerRow);
+					
+				}else if(beginDate.equals("") &&  !endDate.equals("") && searchCategory.equals("") && searchKeyword.equals("")){
+					System.out.println("16조건 beginDate값이없고endDate값이 있고searchCategory값이없고searchKeyword모두 값이 없다,xoxx");
+					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
+							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
+							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
+							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no "
+							+ "where b.book_date between ? and ? order by book_date desc limit ?,?";
+					preparedStatement = connection.prepareStatement(sql1);
+					preparedStatement.setString(1, beginDate);
+					preparedStatement.setString(2, endDate+" 23:59:59");
+					preparedStatement.setInt(3, startRow);
+					preparedStatement.setInt(4, pagePerRow);
+					
+				}resultSet = preparedStatement.executeQuery();
 				while(resultSet.next()) {
 					Book book = new Book();
 					Publisher publisher = new Publisher();
@@ -192,99 +281,172 @@ public class BookListDao {
 		int lastPage = 0;
 			try {
 				if(!beginDate.equals("") &&  !endDate.equals("") && !searchCategory.equals("") && !searchKeyword.equals("")) {
-					System.out.println("01조건 beginDate,endDate,searchCategory,sv 모두 값이 있다");
+					System.out.println("01조건 beginDate,endDate,searchCategory,sv 모두 값이 있다,oooo");
 					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
 							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
 							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
 							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no "
-							+ "where b.book_date between ? and ? and "+searchCategory+" like ?";
+							+ "where b.book_date between ? and ? and "+searchCategory+" like ? order by book_date desc";
 					preparedStatement = connection.prepareStatement(sql1);
 					preparedStatement.setString(1, beginDate);
-					preparedStatement.setString(2, endDate);
+					preparedStatement.setString(2, endDate+" 23:59:59");
 					preparedStatement.setString(3, "%"+searchKeyword+"%");
 					
 				}else if(!beginDate.equals("") &&  !endDate.equals("") && !searchCategory.equals("") && searchKeyword.equals("")) {
-					System.out.println("02조건 beginDate,endDate,searchCategory의 값이 있고 searchKeyword값이 없다");
+					System.out.println("02조건 beginDate,endDate,searchCategory의 값이 있고 searchKeyword값이 없다,ooox");
 					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
 							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
 							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no inner join bookcode bc "
-							+ "on b.bookcode_no = bc.bookcode_no where b.book_date between ? and ?";
+							+ "on b.bookcode_no = bc.bookcode_no where b.book_date between ? and ? order by book_date desc";
 					preparedStatement = connection.prepareStatement(sql1);
 					preparedStatement.setString(1, beginDate);
-					preparedStatement.setString(2, endDate);
+					preparedStatement.setString(2, endDate+" 23:59:59");
 					
 				}else if(!beginDate.equals("") &&  endDate.equals("") && !searchCategory.equals("") && !searchKeyword.equals("")) {
-					System.out.println("03조건 beginDate값이 있고,endDate값이 없고,searchCategory의 값이 있고 searchKeyword값이 있다");
+					System.out.println("03조건 beginDate값이 있고,endDate값이 없고,searchCategory의 값이 있고 searchKeyword값이 있다,oxoo");
 					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
 							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
 							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
 							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no "
-							+ "where b.book_date between ? and ? and "+searchCategory+" like ?";
+							+ "where b.book_date between ? and ? and "+searchCategory+" like ? order by book_date desc";
 					preparedStatement = connection.prepareStatement(sql1);
 					preparedStatement.setString(1, beginDate);
 					preparedStatement.setString(2, "2099-12-31");
-					preparedStatement.setString(3, searchKeyword);
+					preparedStatement.setString(3, "%"+searchKeyword+"%");
 					
 				}else if(!beginDate.equals("") &&  endDate.equals("") && !searchCategory.equals("") && searchKeyword.equals("")) {
-					System.out.println("04조건 beginDate값이 있고,endDate값이 없고,searchCategory의 값이 있고 searchKeyword값이 없다");
+					System.out.println("04조건 beginDate값이 있고,endDate값이 없고,searchCategory의 값이 있고 searchKeyword값이 없다,oxox");
 					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
 							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
 							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no inner join bookcode bc "
-							+ "on b.bookcode_no = bc.bookcode_no where b.book_date between ? and ?";
+							+ "on b.bookcode_no = bc.bookcode_no where b.book_date between ? and ? order by book_date desc";
 					preparedStatement = connection.prepareStatement(sql1);
 					preparedStatement.setString(1, beginDate);
 					preparedStatement.setString(2, "2099-12-31");
 					
 				}else if(beginDate.equals("") &&  !endDate.equals("") && !searchCategory.equals("") && !searchKeyword.equals("")) {
-					System.out.println("05조건 beginDate값이 없고,endDate값이 있고,searchCategory의 값이 있고 searchKeyword값이 있다");
+					System.out.println("05조건 beginDate값이 없고,endDate값이 있고,searchCategory의 값이 있고 searchKeyword값이 있다,xooo");
 					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
 							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
 							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
 							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no "
-							+ "where b.book_date between ? and ? and "+searchCategory+" like ?";
+							+ "where b.book_date between ? and ? and "+searchCategory+" like ? order by book_date desc";
 					preparedStatement = connection.prepareStatement(sql1);
 					preparedStatement.setString(1, beginDate);
-					preparedStatement.setString(2, endDate);
-					preparedStatement.setString(3, searchKeyword);
+					preparedStatement.setString(2, endDate+" 23:59:59");
+					preparedStatement.setString(3, "%"+searchKeyword+"%");
 					
 				}else if(beginDate.equals("") &&  !endDate.equals("") && !searchCategory.equals("") && searchKeyword.equals("")) {
-					System.out.println("06조건 beginDate값이 없고,endDate값이 있고,searchCategory의 값이 있고 searchKeyword값이 없다");
+					System.out.println("06조건 beginDate값이 없고,endDate값이 있고,searchCategory의 값이 있고 searchKeyword값이 없다,xoox");
 					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
 							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
 							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
-							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no "
+							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no order by book_date desc "
 							+ "where b.book_date between ? and ?";
 					preparedStatement = connection.prepareStatement(sql1);
 					preparedStatement.setString(1, beginDate);
-					preparedStatement.setString(2, endDate);
+					preparedStatement.setString(2, endDate+" 23:59:59");
 					
 				}else if(beginDate.equals("") &&  endDate.equals("") && !searchCategory.equals("") && !searchKeyword.equals("")){
-					System.out.println("07조건 beginDate값이 없고,endDate값이 없고,searchCategory의 값이 있고 searchKeyword값이 있다");
+					System.out.println("07조건 beginDate값이 없고,endDate값이 없고,searchCategory의 값이 있고 searchKeyword값이 있다,xxoo");
+					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
+							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
+							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
+							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no order by book_date desc "
+							+ "where "+searchCategory+" like ?";
+					preparedStatement = connection.prepareStatement(sql1);
+					preparedStatement.setString(1, "%"+searchKeyword+"%");
+					
+				}else if(beginDate.equals("") &&  endDate.equals("") && !searchCategory.equals("") && searchKeyword.equals("")){
+					System.out.println("08조건 beginDate값이 없고,endDate값이 없고,searchCategory의 값이 있고 searchKeyword값이 없다,xxox");
+					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
+							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
+							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
+							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no order by book_date desc";
+					preparedStatement = connection.prepareStatement(sql1);
+					
+				}else if(beginDate.equals("") &&  endDate.equals("") && searchCategory.equals("") && !searchKeyword.equals("")){
+					System.out.println("09조건 beginDate값이 없고,endDate값이 없고,searchCategory의 값이 없고 searchKeyword값이 있다,xxxo");
+					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
+							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
+							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
+							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no order by book_date desc";	
+					preparedStatement = connection.prepareStatement(sql1);
+					
+				}else if(beginDate.equals("") &&  endDate.equals("") && searchCategory.equals("") && searchKeyword.equals("")){
+					System.out.println("10조건 beginDate,endDate,searchCategory,searchKeyword모두 값이 없다,xxxx");
+					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
+							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
+							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
+							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no order by book_date desc";
+					preparedStatement = connection.prepareStatement(sql1);
+				}else if(!beginDate.equals("") &&  !endDate.equals("") && searchCategory.equals("") && !searchKeyword.equals("")){
+					System.out.println("11조건 beginDate,endDate값이 있고, searchCategory값이 없고 searchKeyword값이 있다.ooxo ");
 					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
 							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
 							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
 							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no "
-							+ "where "+searchCategory+" like ?";
+							+ "where b.book_date between ? and ? order by book_date desc";
 					preparedStatement = connection.prepareStatement(sql1);
-					preparedStatement.setString(1, searchKeyword);
+					preparedStatement.setString(1, beginDate);
+					preparedStatement.setString(2, endDate+" 23:59:59");
 					
-				}else if(beginDate.equals("") &&  endDate.equals("") && !searchCategory.equals("") && searchKeyword.equals("")){
-					System.out.println("08조건 beginDate값이 없고,endDate값이 없고,searchCategory의 값이 있고 searchKeyword값이 없다");
+				}else if(!beginDate.equals("") &&  !endDate.equals("") && searchCategory.equals("") && searchKeyword.equals("")){
+					System.out.println("12조건 beginDate,endDate값이 있고 searchCategory,searchKeyword값이 없다,ooxx");
 					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
 							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
 							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
-							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no";
+							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no "
+							+ "where b.book_date between ? and ? order by book_date desc";
 					preparedStatement = connection.prepareStatement(sql1);
+					preparedStatement.setString(1, beginDate);
+					preparedStatement.setString(2, endDate+" 23:59:59");
 					
-				}else if(beginDate.equals("") &&  endDate.equals("") && searchCategory.equals("") && searchKeyword.equals("")){
-					System.out.println("09조건 beginDate,endDate,searchCategory,searchKeyword모두 값이 없다");
+				}else if(!beginDate.equals("") &&  endDate.equals("") && searchCategory.equals("") && !searchKeyword.equals("")){
+					System.out.println("13조건 beginDate값이 있고 endDate값이 없고 searchCategory값이 없고 searchKeyword값이 있다,oxxo");
 					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
 							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
 							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
-							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no";
+							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no "
+							+ "where b.book_date between ? and ? order by book_date desc";
 					preparedStatement = connection.prepareStatement(sql1);
-				}
-				resultSet = preparedStatement.executeQuery();
+					preparedStatement.setString(1, beginDate);
+					preparedStatement.setString(2, "2099-12-31");
+					
+				}else if(!beginDate.equals("") &&  endDate.equals("") && searchCategory.equals("") && searchKeyword.equals("")){
+					System.out.println("14조건 beginDate값이 있고endDate,searchCategory,searchKeyword값이 없다,oxxx");
+					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
+							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
+							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
+							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no "
+							+ "where b.book_date between ? and ? order by book_date desc";
+					preparedStatement = connection.prepareStatement(sql1);
+					preparedStatement.setString(1, beginDate);
+					preparedStatement.setString(2, "2099-12-31");
+					
+				}else if(beginDate.equals("") &&  !endDate.equals("") && searchCategory.equals("") && !searchKeyword.equals("")){
+					System.out.println("15조건 beginDate값이 있고endDate값이 없고searchCategory값이 있고searchKeyword 값이 없다,xoxo");
+					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
+							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
+							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
+							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no "
+							+ "where b.book_date between ? and ? order by book_date desc";
+					preparedStatement = connection.prepareStatement(sql1);
+					preparedStatement.setString(1, beginDate);
+					preparedStatement.setString(2, "2099-12-31");
+					
+				}else if(beginDate.equals("") &&  !endDate.equals("") && searchCategory.equals("") && searchKeyword.equals("")){
+					System.out.println("16조건 beginDate값이없고endDate값이 있고searchCategory값이없고searchKeyword모두 값이 없다,xoxx");
+					sql1 = "select b.book_no,b.bookcode_no,b.publisher_no,b.book_name,b.book_author,b.book_price,b.book_point,"
+							+ "b.book_amount,b.book_out,b.book_date,p.publisher_name,bc.bookcode_name "
+							+ "from book b inner join publisher p on b.publisher_no = p.publisher_no "
+							+ "inner join bookcode bc on b.bookcode_no = bc.bookcode_no "
+							+ "where b.book_date between ? and ? order by book_date desc";
+					preparedStatement = connection.prepareStatement(sql1);
+					preparedStatement.setString(1, beginDate);
+					preparedStatement.setString(2, endDate+" 23:59:59");
+					
+				}resultSet = preparedStatement.executeQuery();
 				while(resultSet.next()) {
 					Book book = new Book();
 					Publisher publisher = new Publisher();

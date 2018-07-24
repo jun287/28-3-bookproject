@@ -9,6 +9,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<style>
+			tr, td, th{
+				border:1px solid #353535;
+			}
+		</style>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>장바구니 리스트</title>
 	</head>
@@ -52,7 +57,7 @@
 		<table>
 			<thead>
 				<tr>
-					<th>장바구니 번호</th><th>책 번호</th><th>책이름</th><th>저자</th><th>구매수량</th><th>가격</th><th>담은날짜</th>
+					<th>장바구니 번호</th><th>책 번호</th><th>책이름</th><th>저자</th><th>구매수량</th><th>가격</th><th>담은날짜</th><th>구매버튼</th>
 				</tr>	
 			</thead>
 			<tbody>	
@@ -73,14 +78,16 @@
 					<td><%=memberAndBookAndShoppingCart.getShoppingCart().getBookNumber() %></td>
 					<td><%=memberAndBookAndShoppingCart.getBook().getBookName() %></td>
 					<td><%=memberAndBookAndShoppingCart.getBook().getBookAuthor() %></td>
+					<td><%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartAmount() %>
 					<td><%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartPrice()%></td>
 					<td><%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartDate() %></td>
 					<td>
 					<form action="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp" method="post">	
-<%-- 					<input type="hidden" name="" value="<%=%>" readonly>
-						<input type="hidden" name="" value="<%=%>" readonly>
-						<input type="hidden" name="" value="<%=%>" readonly>
-						<input type="hidden" name="" value="<%=%>" readonly> --%>
+	 					<input type="hidden" name="bookNumber" value="<%=memberAndBookAndShoppingCart.getBook().getBookNo()%>" readonly>
+						<input type="hidden" name="shoppingCartNumber" value="<%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartNumber()%>" readonly>
+						<input type="hidden" name="shoppingCartAmount" value="<%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartAmount()%>" readonly>
+						<input type="hidden" name="shoppingCartPrice" value="<%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartPrice()%>" readonly>
+						<input type="hidden" name="memberNumber" value="<%=memberAndBookAndShoppingCart.getMember().getMemberNum()%>" readonly>
 						<input type="submit" value="구매하기">			
 					</form>
 					</td>

@@ -124,11 +124,28 @@
 		<!-- 검색폼 시작 -->
 		<form action="<%=request.getContextPath() %>/book/bookList.jsp" method="post" id="searchForm">
 			<label for="beginDate">검색시작날짜</label>
-			<input type="date" name="beginDate" id="beginDate">
-			<label for="beginDate">검색종료날짜</label>
-			<input type="date" name="endDate" id="endDate"><br>
 <%
-	if(searchCategory.equals("")){
+	if(beginDate.equals("")){
+%>
+			<input type="date" name="beginDate" id="beginDate">
+<%		
+	}else{
+%>
+			<input type="date" name="beginDate" id="beginDate" value="<%=beginDate%>">
+<%		
+	}
+%>		
+			<label for="beginDate">검색종료날짜</label>
+<%
+	if(beginDate.equals("")){
+%>			
+			<input type="date" name="endDate" id="endDate"><br>
+<%		
+	}else{
+%>
+			<input type="date" name="endDate" id="endDate" value="<%=endDate%>"><br>			
+<%		
+	}if(searchCategory.equals("")){
 %>						
 			<label for="searchCategory">검색구분</label> 
 			<select name="searchCategory" id="searchCategory">
@@ -239,10 +256,19 @@
 				<option value="b.book_price">가격</option>
 				<option value="b.book_out" selected>상태</option>
 			</select>
+			<label for="searchKeyword">검색단어</label> 
 <%
-	}
-%>			<label for="searchKeyword">검색단어</label> 
+	}if(searchKeyword.equals("")){
+%>
 			<input type="text" id="searchKeyword" name="searchKeyword">
+<%
+	}else{
+%>
+			<input type="text" id="searchKeyword" name="searchKeyword" value="<%=searchKeyword%>">
+<%		
+	}
+%>			
+
 			<input type="hidden" name="pageRow" value="<%=pagePerRow%>">
 			<input type="submit" value="검색">		
 		</form>
