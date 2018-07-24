@@ -87,13 +87,13 @@
 						// 페이징 함으로서 검색키워드와 나이차순정렬 키워드를 get 방식으로 값을 넘겨줍니다.
 					if(currentPage>1){
 						%>
-						<a href = "./boardList.jsp?currentPage=<%=currentPage-1%>">◀ 이전</a>
+						<a href = "./boardList.jsp?currentPage=<%=currentPage-1%>&searchWord=<%=searchWord%>">◀ 이전</a>
 						<%
 					}
 		
 					if(currentPage<lastPage){
 						%>
-						<a href = "./boardList.jsp?currentPage=<%=currentPage+1%>">다음 ▶</a>
+						<a href = "./boardList.jsp?currentPage=<%=currentPage+1%>&searchWord=<%=searchWord%>">다음 ▶</a>
 						<%
 					}
 				%>
