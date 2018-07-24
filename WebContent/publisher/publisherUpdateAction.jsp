@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="dao.bookshop.project.PublisherDao" %>
+<%@ page import="dto.bookshop.project.Publisher" %>
+<%request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -6,18 +9,15 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-	<%
-	
-	%>
-		<div align="center">
-			<h1>출판사 등록</h1>
-			<form action="<%=request.getContextPath()%>/publisher/publisherInsertAction.jsp" method="post">
-				<label>출판사이름</label>
-				<input type="text" name="publisherName" required><br>
-				<label>출판사홈페이지</label>
-				<input type="text" name="publisherSite" required><br>
-				<input type="submit" value="등록">
-			</form>
-		</div>
+		<%
+			Publisher publisher = new Publisher();
+			publisher.setPublisherNo(Integer.parseInt(request.getParameter("PublisherNo")));
+			publisher.setPublisherName(request.getParameter("publisherName"));
+			publisher.setPublisherWebsite(request.getParameter("publisherSite"));
+			
+			PublisherDao publisherDao = new PublisherDao();
+			publisherDao.updatePublisher(publisher.getPublisherNo(), publisher.getPublisherName(),publisher.getPublisherWebsite());
+			response.sendRedirect(request.getContextPath()+"/publisher/publisherList.jsp");
+		%>
 	</body>
 </html>

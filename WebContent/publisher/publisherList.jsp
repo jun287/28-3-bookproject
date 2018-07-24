@@ -28,8 +28,8 @@
 					<td><%=publisher.getPublisherNo() %></td>
 					<td><%=publisher.getPublisherName() %></td>
 					<td><%=publisher.getPublisherWebsite() %></td>
-					<td><a href="#">수정</a></td>
-					<td><a href="#">삭제</a></td>
+					<td><a href="<%=request.getContextPath()%>/publisher/publisherUpdateForm.jsp?publisherNO=<%=publisher.getPublisherNo() %>">수정</a></td>
+					<td><a href="<%=request.getContextPath()%>/publisher/publisherDelete.jsp?publisherNo=<%=publisher.getPublisherNo() %>">삭제</a></td>
 				</tr>
 			<%
 				}
