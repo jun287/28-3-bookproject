@@ -115,12 +115,13 @@
 			System.out.println(publisher.getPublisherNo()+"<--publisher.getPublisherNo()");
 			System.out.println(publisher.getPublisherName()+"<--publisher.getPublisherName()");
 			System.out.println(publisher.getPublisherWebsite()+"<--publisher.getPublisherWebsite()");
-		
+		    
 			String sessionId=(String)session.getAttribute("sessionId");
 			
 			ServiceMember serviceMember=new ServiceMember();
 			Member member=serviceMember.selectMember(sessionId);
 			
+			System.out.println(member.getMemberNum()+"<--member.getMemberNum()");
 			System.out.println(session.getAttribute("sessionId")+"<--session.getAttribute(sessionId)");
 			
 		%>
@@ -151,8 +152,8 @@
 
 				<a href="<%=request.getContextPath()%>/book/bookView.jsp?bookNumber=<%=bookNo %>&num1=<%=num1+1%>"><input type="button" value="+" size="1" ></a>
 				<a href="<%=request.getContextPath()%>/book/bookView.jsp?bookNumber=<%=bookNo %>&num1=<%=num1-1%>"><input type="button" value="-" size="1"></a><br><br>
-				<a href="<%=request.getContextPath()%>/book/bookAddCartForm.jsp?bookNumber=<%=bookNo %>&bookamount=<%=num1 %>&memberId=<%=member.getMemberNum() %>>"><input type="button" value="장바구니" size="1"></a>
-				<a href="<%=request.getContextPath()%>/book/bookOrdersForm.jsp?bookNumber=<%=bookNo %>&bookamount=<%=num1 %>&memberId=<%=member.getMemberNum() %>>"><input type="button" value="바로구매" size="1"></a>
+				<a href="<%=request.getContextPath()%>/shoppingCart/shoppingCartAddAction.jsp?bookNumber=<%=bookNo %>&bookamount=<%=num1 %>&memberNumber=<%=member.getMemberNum() %>"><input type="button" value="장바구니" size="1"></a>
+				<a href="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp?bookNumber=<%=bookNo %>&amount=<%=num1 %>&memberNumber=<%=member.getMemberNum()%>&price=<%=book.getBookPrice() %>"><input type="button" value="바로구매" size="1"></a>
 			</div>
 			
 			<div id="goodsInfo">
