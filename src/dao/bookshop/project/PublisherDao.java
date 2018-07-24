@@ -105,4 +105,52 @@ public class PublisherDao {
 		
 		return publisher;
 	}
-}
+	public void updatePublisher(int no,String publishername, String publisherwebsite) {
+		System.out.println("updatePublisher");
+		
+		Connection connection=null;
+		PreparedStatement statement=null;
+		
+		String sql="Update publisher set publisher_name=? ,publisher_website=? where publisher_no=?";
+		
+		try {
+			connection=DBconnection.getConnetion();
+			
+			statement=connection.prepareStatement(sql);
+			statement.setString(1, publishername);
+			statement.setString(2, publisherwebsite);
+			statement.setInt(3, no);
+		
+			statement.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {connection.close();} catch (SQLException e) {e.printStackTrace();}
+			try {statement.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+	}
+	public void deletePublisher(int no) {
+		
+		Connection connection=null;
+		PreparedStatement statement=null;
+		
+		String sql="delete from publisher where publisher_no=?";
+		try {
+			connection=DBconnection.getConnetion();
+			
+			statement=connection.prepareStatement(sql);
+			statement.setInt(1, no);
+			
+		
+			statement.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {connection.close();} catch (SQLException e) {e.printStackTrace();}
+			try {statement.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+	}
+	}
+
