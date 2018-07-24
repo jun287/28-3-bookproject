@@ -17,31 +17,43 @@
 
 <%
 	request.setCharacterEncoding("utf-8");
+	// post방식오르 parameter받을시 Character설정
 	int currentPage = (request.getParameter("currentPage") == null) ? 1 : Integer.parseInt(request.getParameter("currentPage"));	// 삼항연산자 (조건식) ? 참일경우 : 거짓일 경우
+	// 현재 페이지("초기값 1")		
 	int pagePerRow = (request.getParameter("pagePerRow") == null) ? 5 : Integer.parseInt(request.getParameter("pagePerRow"));		// 삼항연산자 (조건식) ? 참일경우 : 거짓일 경우
+	// 페이지당 볼 행의 수("초기값 5")		
 	String searchCategory = (request.getParameter("searchCategory") == null) ? "" : request.getParameter("searchCategory");			// 삼항연산자 (조건식) ? 참일경우 : 거짓일 경우
+	// 검색카테고리(미지정시 "")
 	String searchKeyword = (request.getParameter("searchKeyword") == null) ? "" : request.getParameter("searchKeyword");			// 삼항연산자 (조건식) ? 참일경우 : 거짓일 경우	
+	// 검색키워드(미지정시 "")
 	String beginDate  = (request.getParameter("beginDate") == null) ? "" : request.getParameter("beginDate");						// 삼항연산자 (조건식) ? 참일경우 : 거짓일 경우
+	// 검색시작일(미지정시 "")			
 	String endDate  = (request.getParameter("endDate") == null) ? "" : request.getParameter("endDate");								// 삼항연산자 (조건식) ? 참일경우 : 거짓일 경우
+	// 검색종료일(미지정시 "")					
 	System.out.println(searchCategory+"<--searchCategory");
 	System.out.println(searchKeyword+"<--searchKeyword");
 	System.out.println(beginDate+"<--beginDate");
 	System.out.println(endDate+"<--endDate");
 	
-	BookListDao bookListDao = new BookListDao();
+	BookDao bookDao = new BookDao();
 	BookAndPublisherAndBookCode bookAndPublisherAndBookCode = new BookAndPublisherAndBookCode();
+	// DB테이블 3개 join결과를 담기 위한 클래스타입 멤버변수를 가진 bookAndPublisherAndBookCode 객체 생성
 	ArrayList<BookAndPublisherAndBookCode> bookAndPublisherAndBookCodeList =new ArrayList<BookAndPublisherAndBookCode>();
-	bookAndPublisherAndBookCodeList = bookListDao.selectBookListSearchByPage(beginDate, endDate, searchKeyword, searchCategory, currentPage, pagePerRow);
-	int lastPage = bookListDao.checkBookListLastPage(beginDate, endDate, searchKeyword, searchCategory, currentPage, pagePerRow);
+	// DB테이블 3개 join select결과를 받을 ArrayList 객체 생성
+	bookAndPublisherAndBookCodeList = bookDao.selectBookListSearchByPage(beginDate, endDate, searchKeyword, searchCategory, currentPage, pagePerRow);
+	// List select 메소드
+	int lastPage = bookDao.checkBookListLastPage(beginDate, endDate, searchKeyword, searchCategory, currentPage, pagePerRow);
+	// select된 행의 수를 구해 lastPage를 구하는 메소드
 	System.out.println(lastPage+"<--lastPage");
 	int bookAndPublisherAndBookCodeListSize = bookAndPublisherAndBookCodeList.size();
+	// List의 길이를 변수에 대입하였음.
 %>
 	<body>
 	<!-- 페이지당 볼 행 설정 폼 시작 -->
 		<form action="<%=request.getContextPath() %>/book/bookList.jsp" method="post" id="pagePerRowSelectForm">
 		
 <%		
-	if(pagePerRow == 3){
+	if(pagePerRow == 3){											// 보기설정시 선택되어있게하는 조건문
 %>
 			<select id="pagePerRow" name="pagePerRow">
 				<option value="3" selected>3개씩 보기</option>
@@ -50,7 +62,7 @@
 				<option value="10">10개씩 보기</option>
 			</select>
 <%		
-	}else if(pagePerRow == 5){
+	}else if(pagePerRow == 5){										// 보기설정시 선택되어있게하는 조건문
 %>
 			<select id="pagePerRow" name="pagePerRow">
 				<option value="3">3개씩 보기</option>
@@ -59,7 +71,7 @@
 				<option value="10">10개씩 보기</option>
 			</select>
 <%		
-	}else if(pagePerRow == 7){
+	}else if(pagePerRow == 7){										// 보기설정시 선택되어있게하는 조건문
 %>
 			<select id="pagePerRow" name="pagePerRow">
 				<option value="3">3개씩 보기</option>
@@ -68,7 +80,7 @@
 				<option value="10">10개씩 보기</option>
 			</select>
 <%		
-	}else if(pagePerRow == 10){
+	}else if(pagePerRow == 10){										// 보기설정시 선택되어있게하는 조건문
 %>
 			<select id="pagePerRow" name="pagePerRow">
 				<option value="3">3개씩 보기</option>
@@ -77,8 +89,8 @@
 				<option value="10" selected>10개씩 보기</option>
 			</select>
 <%
-	}
-%>	
+	}																// 보기설정시 검색조건값을 유지하기 위한 hidden tag
+%>
 			<input type="hidden" name="searchCategory" value="<%=searchCategory%>">	
 			<input type="hidden" name="searchKeyword" value="<%=searchKeyword%>">	
 			<input type="hidden" name="beginDate" value="<%=beginDate%>">	
@@ -125,7 +137,7 @@
 		<form action="<%=request.getContextPath() %>/book/bookList.jsp" method="post" id="searchForm">
 			<label for="beginDate">검색시작날짜</label>
 <%
-	if(beginDate.equals("")){
+	if(beginDate.equals("")){										// 검색시작날짜 유지를 위한 조건문
 %>
 			<input type="date" name="beginDate" id="beginDate">
 <%		
@@ -137,7 +149,7 @@
 %>		
 			<label for="beginDate">검색종료날짜</label>
 <%
-	if(beginDate.equals("")){
+	if(beginDate.equals("")){										// 검색종료날짜 유지를 위한 조건문
 %>			
 			<input type="date" name="endDate" id="endDate"><br>
 <%		
@@ -145,7 +157,7 @@
 %>
 			<input type="date" name="endDate" id="endDate" value="<%=endDate%>"><br>			
 <%		
-	}if(searchCategory.equals("")){
+	}if(searchCategory.equals("")){									// 검색카테고리 조건값을 유지를 위한 조건문
 %>						
 			<label for="searchCategory">검색구분</label> 
 			<select name="searchCategory" id="searchCategory">
@@ -159,7 +171,7 @@
 				<option value="b.book_out">상태</option>
 			</select>
 <%		
-	}else if(searchCategory.equals("b.book_no")){		
+	}else if(searchCategory.equals("b.book_no")){					// 검색카테고리 조건값을 유지를 위한 조건문
 %>			
 			<label for="searchCategory">검색구분</label> 
 			<select name="searchCategory" id="searchCategory">
@@ -173,7 +185,7 @@
 				<option value="b.book_out">상태</option>
 			</select>
 <%
-	}else if(searchCategory.equals("bc.bookcode_name")){		
+	}else if(searchCategory.equals("bc.bookcode_name")){			// 검색카테고리 조건값을 유지를 위한 조건문
 		%>			
 			<label for="searchCategory">검색구분</label> 
 			<select name="searchCategory" id="searchCategory">
@@ -187,7 +199,7 @@
 				<option value="b.book_out">상태</option>
 			</select>
 <%
-	}else if(searchCategory.equals("p.publisher_name")){		
+	}else if(searchCategory.equals("p.publisher_name")){			// 검색카테고리 조건값을 유지를 위한 조건문
 		%>			
 			<label for="searchCategory">검색구분</label> 
 			<select name="searchCategory" id="searchCategory">
@@ -201,7 +213,7 @@
 				<option value="b.book_out">상태</option>
 			</select>
 <%
-	}else if(searchCategory.equals("b.book_name")){		
+	}else if(searchCategory.equals("b.book_name")){					// 검색카테고리 조건값을 유지를 위한 조건문
 		%>			
 			<label for="searchCategory">검색구분</label> 
 			<select name="searchCategory" id="searchCategory">
@@ -215,7 +227,7 @@
 				<option value="b.book_out">상태</option>
 			</select>
 <%
-	}else if(searchCategory.equals("b.book_author")){		
+	}else if(searchCategory.equals("b.book_author")){				// 검색카테고리 조건값을 유지를 위한 조건문
 		%>			
 			<label for="searchCategory">검색구분</label> 
 			<select name="searchCategory" id="searchCategory">
@@ -229,7 +241,7 @@
 				<option value="b.book_out">상태</option>
 			</select>
 <%
-	}else if(searchCategory.equals("b.book_price")){		
+	}else if(searchCategory.equals("b.book_price")){				// 검색카테고리 조건값을 유지를 위한 조건문
 		%>			
 			<label for="searchCategory">검색구분</label> 
 			<select name="searchCategory" id="searchCategory">
@@ -243,7 +255,7 @@
 				<option value="b.book_out">상태</option>
 			</select>
 <%
-	}else if(searchCategory.equals("b.book_out")){		
+	}else if(searchCategory.equals("b.book_out")){					// 검색카테고리 조건값을 유지를 위한 조건문
 		%>			
 			<label for="searchCategory">검색구분</label> 
 			<select name="searchCategory" id="searchCategory">
@@ -258,16 +270,16 @@
 			</select>
 			<label for="searchKeyword">검색단어</label> 
 <%
-	}if(searchKeyword.equals("")){
+	}if(searchKeyword.equals("")){									// 검색키워드 조건값을 유지를 위한 조건문
 %>
 			<input type="text" id="searchKeyword" name="searchKeyword">
 <%
-	}else{
+	}else{															// 검색키워드 조건값을 유지를 위한 조건문
 %>
 			<input type="text" id="searchKeyword" name="searchKeyword" value="<%=searchKeyword%>">
 <%		
 	}
-%>			
+%>				
 
 			<input type="hidden" name="pageRow" value="<%=pagePerRow%>">
 			<input type="submit" value="검색">		

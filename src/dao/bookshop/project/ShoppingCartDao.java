@@ -36,7 +36,8 @@ public class ShoppingCartDao {
 		try {
 			sql1 = "INSERT INTO shoppingcart (book_no, member_no, shoppingcart_amount, shoppingcart_price, shoppingcart_date) VALUES (?, ?, ?, ?, NOW())";
 			preparedStatement = connection.prepareStatement(sql1);
-			connection.setAutoCommit(false);		// 쿼리실행 결과가 자동으로 DB에 입력(수정)되는 것(commit)을 수동으로 지정 			
+			// connection.setAutoCommit(false);	
+			// 쿼리실행 결과가 자동으로 DB에 입력(수정)되는 것(commit)을 수동으로 지정 			
 			preparedStatement.setInt(1, shoppingCart.getBookNumber());		
 			preparedStatement.setInt(2, shoppingCart.getMemberNumber());
 			preparedStatement.setInt(3, shoppingCart.getShoppingCartAmount());
@@ -53,7 +54,6 @@ public class ShoppingCartDao {
 	
 	/* 2번 메소드
 	 * 기능 : 장바구니리스트에 구매할 책의 정보를 삭제시키는 메소드 (DB shoppingcart 테이블에 1개 행 삭제)
-	 *  회원이 장바구니 리스트에서 삭제버튼을 눌렀을때 삭제되는 메소드임.
 	 * 매개변수 : int shoppingCartNumber(shoppingCartList에서 넘겨받을 값, DB shoppingcart 테이블의 기본키)
 	 * 리턴값 : 없음
 	 * ShoppingCart클래스 인스턴스 변수(멤버변수) 접근제한자 private
@@ -77,7 +77,7 @@ public class ShoppingCartDao {
 			} catch (SQLException e) {e.printStackTrace();}
 		}
 	}
-	/* 4번 메소드
+	/* 3번 메소드
 	 * 기능 : 한명의 회원의 장바구니를 조회하는 메소드 (DB shoppingcart,member,book 테이블에 특정 member_no의 inner join 결과 행 조회)
 	 * 매개변수 : int memberNumber(bookView.jsp에서 넘겨받을 값, DB shoppingcart 테이블의 참조키)currentPage(시작페이지), pagePerRow(페이지당 볼 행의 수)
 	 * 리턴값 : ShoppingCart,Member,Book클래스의 인스턴스를 가리키는 참조변수를 담은  ArrayList쿨래스의 인스턴스를 가르키는 참조변수를 리턴
@@ -114,10 +114,12 @@ public class ShoppingCartDao {
 				shoppingCart.setShoppingCartAmount(resultSet.getInt(4));
 				shoppingCart.setShoppingCartPrice(resultSet.getInt(5));
 				shoppingCart.setShoppingCartDate(resultSet.getString(6));
+				member.setMemberNum(resultSet.getInt(3));
 				member.setMemberId(resultSet.getString(7));
 				member.setMemberName(resultSet.getString(8));
 				member.setMemberAddr(resultSet.getString(9));
 				member.setMemberPoint(resultSet.getInt(10));
+				book.setBookNo(resultSet.getInt(2));
 				book.setBookName(resultSet.getString(11));
 				book.setBookAuthor(resultSet.getString(12));
 				book.setBookPrice(resultSet.getInt(13));
@@ -138,7 +140,7 @@ public class ShoppingCartDao {
 		return shoppingCartList;
 	}
 	
-	/* 5번 메소드
+	/* 4번 메소드
 	 * 기능 : 한명의 회원의 장바구니를 담긴 행을 조회하는 메소드 (shoppingcart테이블에 특정 member_no의 행의 수를 조회)
 	 * 매개변수 : int memberNumber(조회할 회원의 기본키), pagePerRow(페이지당 볼 행의 수)
 	 * 리턴값 : lastPage(장바구니 Page의 마지막 페이지를 알기위해 쿼리실행 결과값(총행)/페이지당 볼행)를 구해 정수형태로 리턴
@@ -173,4 +175,31 @@ public class ShoppingCartDao {
 		
 	}
 	
+	/* 5번 메소드
+	 * 기능 : 장바구니리스트에 구매할 책의 정보를 수정시키는 메소드 (DB shoppingcart 테이블에 1개 행 수정)
+	 * 매개변수 : shoppingCartNumber,updateShoppingCartAmount,updateShoppingCartPrice(수정될 쇼핑카트 번호, 수량, 가격)
+	 * 리턴값 : 없음
+	 * ShoppingCart클래스 인스턴스 변수(멤버변수) 접근제한자 private
+	 * int shoppingCartNumber, int bookNumber, int memberNumber, int shoppingCartAmount, 
+	 * int shoppingCartPrice, String shoppingCartDate
+	*/
+	public void updateShoppingCart(int shoppingCartNumber, int updateShoppingCartAmount, int updateShoppingCartPrice) {
+		connection = DBconnection.getConnetion();				// DBconnection클래스의 클래스 메소드, import로 패키지명 생략
+		try {
+			sql1 = "UPDATE shoppingcart SET shoppingcart_amount=?, shoppingcart_price=? WHERE shoppingcart_no=?";
+			preparedStatement = connection.prepareStatement(sql1);
+			// connection.setAutoCommit(false);		
+			// 쿼리실행 결과가 자동으로 DB에 입력(수정)되는 것(commit)을 수동으로 지정
+			preparedStatement.setInt(1, updateShoppingCartAmount);
+			preparedStatement.setInt(2, updateShoppingCartPrice);
+			preparedStatement.setInt(3, shoppingCartNumber);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {if(preparedStatement != null) {preparedStatement.close();}
+				if(connection != null) {connection.close();}
+			} catch (SQLException e) {e.printStackTrace();}
+		}
+	}	
 }

@@ -1,4 +1,4 @@
-<!-- 28기 이원상 2018. 7. 18(수) shoppingCartList.jsp -->
+<!-- 28기 이원상 2018. 7. 24(화) shoppingCartUpdateForm.jsp -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="dao.bookshop.project.ShoppingCartDao"%>
 <%@ page import="dto.bookshop.project.MemberAndBookAndShoppingCart"%>
@@ -15,7 +15,7 @@
 			}
 		</style>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>장바구니 리스트</title>
+		<title>장바구니 수정화면 리스트</title>
 	</head>
 	<body>
 		<h1>장바구니</h1>
@@ -27,7 +27,6 @@
 	int pagePerRow = (request.getParameter("pagePerRow") == null) ? 5 : Integer.parseInt(request.getParameter("pagePerRow"));		// 삼항연산자 (조건식) ? 참일경우 : 거짓일 경우
 	// 페이지당 볼 행의 수		
 	int memberNumber = Integer.parseInt(request.getParameter("memberNumber"));
-	// 장바구니 리스트를 조회할 회원 넘버
 	if(pagePerRow == 3){
 %>
 			<select id="pagePerRow" name="pagePerRow">
@@ -59,7 +58,7 @@
 		<table>
 			<thead>
 				<tr>
-					<th>장바구니 번호</th><th>책 번호</th><th>책이름</th><th>저자</th><th>구매수량</th><th>가격</th><th>담은날짜</th><th>구매버튼</th><th>수정</th><th>삭제</th>
+					<th>장바구니 번호</th><th>책 번호</th><th>책이름</th><th>저자</th><th>구매수량</th><th>가격</th><th>담은날짜</th><th>수정</th>
 				</tr>	
 			</thead>
 			<tbody>	
@@ -74,32 +73,24 @@
 	int i = 0, selectShoppingCartListSize = selectShoppingCartList.size();
 	for(i=0; i<selectShoppingCartListSize; i++){
 		memberAndBookAndShoppingCart=selectShoppingCartList.get(i); 
-%>			
-				<tr>
-					<td><%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartNumber()%></td>
-					<td><%=memberAndBookAndShoppingCart.getShoppingCart().getBookNumber() %></td>
-					<td><%=memberAndBookAndShoppingCart.getBook().getBookName() %></td>
-					<td><%=memberAndBookAndShoppingCart.getBook().getBookAuthor() %></td>
-					<td><%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartAmount() %>
-					<td><%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartPrice()%></td>
-					<td><%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartDate() %></td>
-					<td>
-					<form action="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp" method="post">	
-	 					<input type="hidden" name="bookNumber" value="<%=memberAndBookAndShoppingCart.getShoppingCart().getBookNumber()%>" readonly>
-						<input type="hidden" name="shoppingCartNumber" value="<%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartNumber()%>" readonly>
-						<input type="hidden" name="shoppingCartAmount" value="<%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartAmount()%>" readonly>
-						<input type="hidden" name="shoppingCartPrice" value="<%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartPrice()%>" readonly>
-						<input type="hidden" name="memberNumber" value="<%=memberAndBookAndShoppingCart.getShoppingCart().getMemberNumber()%>" readonly>
-						<input type="submit" value="구매하기">			
-					</form>
-					</td>
-					<td>
-						<a href="<%=request.getContextPath()%>/shoppingCart/shoppingCartUpdateForm.jsp?memberNumber=<%=memberNumber%>">수정</a>
-					</td>
-					<td>
-						<a href="<%=request.getContextPath()%>/shoppingCart/shoppingCartDeleteAction.jsp?shoppingCartNumber=<%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartNumber()%>&memberNumber=<%=memberNumber%>">삭제</a>
-					</td>
-				</tr>	
+%>										
+				<form action="<%=request.getContextPath()%>/shoppingCart/shoppingCartUpdateAction.jsp" method="post">	
+					<tr>
+						<td><%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartNumber()%></td>
+						<td><%=memberAndBookAndShoppingCart.getShoppingCart().getBookNumber() %></td>
+						<td><%=memberAndBookAndShoppingCart.getBook().getBookName() %></td>
+						<td><%=memberAndBookAndShoppingCart.getBook().getBookAuthor() %></td>
+						<td><input type="number" style="text-align:center;" name="updateShoppingCartAmount" value="<%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartAmount() %>"></td>
+						<td><%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartPrice()%></td>
+						<td><%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartDate() %></td>
+						<td>
+		 					<input type="hidden" name="shoppingCartNumber" value="<%=memberAndBookAndShoppingCart.getShoppingCart().getShoppingCartNumber()%>" readonly>
+							<input type="hidden" name="memberNumber" value="<%=memberAndBookAndShoppingCart.getMember().getMemberNum()%>" readonly>
+							<input type="hidden" name="bookPrice" value="<%=memberAndBookAndShoppingCart.getBook().getBookPrice()%>" readonly>
+							<input type="submit" value="수정하기">						
+						</td>
+					</tr>
+				</form>		
 <%			
 	}
 %>				
@@ -121,7 +112,6 @@
 <%
 	}
 %>		
-		</div>
-		<div><a href="<%=request.getContextPath()%>/book/bookList.jsp">목록으로</a></div>	
+		</div>	
 	</body>
 </html>

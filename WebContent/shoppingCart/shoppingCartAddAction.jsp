@@ -7,20 +7,17 @@
 <%
 
 	request.setCharacterEncoding("utf-8");
-	int bookNumber = Integer.parseInt(request.getParameter("bookNumber"));		// bookView.jsp에서 넘겨받은 책번호	
-	int memberNumber = Integer.parseInt(request.getParameter("memberNumber"));	// bookView.jsp에서 넘겨받은 멤버번호
-	int shoppingCartAmount = Integer.parseInt(request.getParameter(""));		// bookView.jsp에서 넘겨받은 수량
-	int shoppingCartPrice = 0;
-	// book select 조회 메소드	
+	int bookNumber = Integer.parseInt(request.getParameter("bookNumber"));			// bookView.jsp에서 넘겨받은 책번호	
+	int memberNumber = Integer.parseInt(request.getParameter("memberNumber"));		// bookView.jsp에서 넘겨받은 멤버번호
+	int shoppingCartAmount = Integer.parseInt(request.getParameter("bookAmount"));	// bookView.jsp에서 넘겨받은 수량
+	int shoppingCartPrice = Integer.parseInt(request.getParameter("totalPrice"));	// bookView.jsp에서 넘겨받은 금액
+	System.out.println(memberNumber+"<--memberNumber");
 	
-	ShoppingCart shoppingCart = new ShoppingCart(bookNumber,memberNumber,shoppingCartAmount,shoppingCartPrice);	
-	shoppingCart.setBookNumber(0);
-	shoppingCart.setMemberNumber(0);
-	shoppingCart.setShoppingCartAmount(0);
-	shoppingCart.setShoppingCartPrice(0);
-	shoppingCart.setShoppingCartDate("");
+	ShoppingCart shoppingCart = new ShoppingCart(bookNumber,memberNumber,shoppingCartAmount,shoppingCartPrice);
+																					// 객체 생성시 매개변수로 값 대입하여 객체 생성시 초기값 setting
 	ShoppingCartDao shoppingCartDao= new ShoppingCartDao();
-	response.sendRedirect(request.getContextPath()+"./shoppingCartList.jsp?");	// 삭제 후 해당 member의 shoppingCartList로 이동
+	shoppingCartDao.insertShoppingCart(shoppingCart);
+	response.sendRedirect(request.getContextPath()+"/shoppingCart/shoppingCartList.jsp?memberNumber="+memberNumber);	// 입력 후 해당 member의 shoppingCartList로 이동
 %>
 <!DOCTYPE html>
 <html>
