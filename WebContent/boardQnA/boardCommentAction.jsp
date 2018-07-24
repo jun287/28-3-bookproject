@@ -27,6 +27,7 @@
 			*/
 			request.setCharacterEncoding("UTF-8");
 			String boardQnaCommentContent = request.getParameter("boardQnaCommentContent");
+			boardQnaCommentContent = boardQnaCommentContent.replace("\r\n","<br>");
 		
 			int sessionAdminNo = 0;
 			if(session.getAttribute("sessionAdminNo") != null){

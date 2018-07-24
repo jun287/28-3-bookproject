@@ -24,7 +24,8 @@
 						<td><button type="button" onclick="location.href='<%= request.getContextPath() %>/admin/adminLoginForm.jsp'">관리자</button></td>
 					</tr>
 				</table>
-			</form>
+			</form><br>
+			<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button>
 		</div>
 	</body>
 </html>
