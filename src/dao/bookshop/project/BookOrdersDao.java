@@ -167,7 +167,7 @@ public class BookOrdersDao {
 		
 		try {
 			connection = DBconnection.getConnetion();
-			preparedStatement = connection.prepareStatement("SELECT orders_no,book_no,member_no,orders_price,orders_amount, orders_date,orders_addr,orders_state FROM orders WHERE orders_no=?");
+			preparedStatement = connection.prepareStatement("SELECT orders_no, book_no, member_no, orders_price, orders_amount, orders_date, orders_addr, orders_state FROM orders WHERE orders_no=?");
 			preparedStatement.setInt(1, ordersNumber);
 			
 			resultSet = preparedStatement.executeQuery();
