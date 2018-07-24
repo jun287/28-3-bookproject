@@ -235,7 +235,7 @@ public class BookOrdersDao {
 	
 	public ArrayList<Orders> selectOrderByPage (int currentPage, int pagePerRow, int memberNumber){
 		// 상품 주문 정보 리스트로 받는 메소드
-		// return data type ArrayList<Orders>, selectOrderBypage 메솧드 (int data type currentPage 매개변수, int data type memberNumber)
+		// return data type ArrayList<Orders>, selectOrderBypage 메소드 (int data type currentPage 매개변수, int data type memberNumber)
 		ArrayList<Orders> ordersList = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

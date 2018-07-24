@@ -1,4 +1,5 @@
-<!-- 2018-07-18 김소희 / bookOrderList.jsp 주문 페이지-->
+<!-- 2018-07-18 김소희 / bookOrderList.jsp-->
+<!-- 주문 페이지 -->
 <%@ page language = "java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "dto.bookshop.project.MemberAndBookAndShoppingCart"%>		<!-- dto.bookshop.project패키지 안에 MemberAndBookAndShoppingCart클래스 import  -->
 <%@ page import = "dao.bookshop.project.BookOrdersDao" %>					<!-- dao.bookshop.project패키지 안에 BookOrdersDo클래스 import -->
