@@ -16,6 +16,77 @@ import util.connetion.db.DBconnection;
 
 public class ServiceBoardQnA {
 	
+	// 설명 : 질문 게시글을 수정하는 메서드 입니다.
+	// 매개변수 : 작성자의 정보와 수정된 게시글의 정보를 담는 BoardQnA 클래스객체 참조값을 받습니다.
+	// 리턴 : void 로 없습니다.
+	public void updateBoardQnaContent(BoardQnA boardQnA) {
+		
+		BoardQnADao boardQnaDao = new BoardQnADao();
+		Connection connection = null;
+		
+		try {
+			
+			connection = DBconnection.getConnetion();
+			connection.setAutoCommit(false);
+			
+			boardQnaDao.updateBoardQnaContent(connection, boardQnA);
+			
+			connection.commit();
+		}catch(Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally {
+			if(connection != null)try{
+				connection.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+		}		
+
+	}
+	
+	
+	// 설명 : 작성자의 질문 게시글의 정보를 가져오는 메서드 입니다.
+	// 매개변수 : 작성자의 정보가 담긴 BoardQnA 클래스 객체의 참조값을 받습니다.
+	// 리턴 : 게시글의 정보가 담긴 BoardQnA 클래스 객체의 참조값을 리턴합니다.
+	public BoardQnA selectBoardQnA(BoardQnA boardQnA) {
+		
+		BoardQnADao boardQnaDao = new BoardQnADao();
+		Connection connection = null;
+		BoardQnA boardQnAResult = new BoardQnA();
+		
+		
+		try {
+			
+			connection = DBconnection.getConnetion();
+			connection.setAutoCommit(false);
+			
+			boardQnAResult = boardQnaDao.selectBoardQnaView(connection, boardQnA);
+			
+			connection.commit();
+		}catch(Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally {
+			if(connection != null)try{
+				connection.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+		}	
+		
+		
+		return boardQnAResult;
+		
+	}
 	// 설명 : 질문게시판 페이징시 다음페이지로 이동하기위한 lastPage를 리턴하는 메서드 입니다.
 	// 매개변수 : int 기본타입으로 페이지당 갯수와 String 참조타입으로 검색키워드를 받습니다.
 	// 리턴 : int 기본타입으로 다음페이지로 이동하기 위한 lastPage를 리턴합니다.
