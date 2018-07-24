@@ -1,6 +1,6 @@
 package dto.bookshop.project;
 
-public class Bookreview {
+public class BookReview {
 	
 	private int bookReviewNo;
 	private int bookNo;

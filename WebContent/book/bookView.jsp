@@ -1,3 +1,5 @@
+<%@page import="dao.bookshop.project.BookReviewDao"%>
+<%@page import="dto.bookshop.project.BookReview"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dto.bookshop.project.BookIntro"%>
 <%@page import="dto.bookshop.project.Member"%>
@@ -58,6 +60,12 @@
 			#button{
 			 float:right;
 			}
+			#review{
+				clear:both;
+				align-content:center;
+				width: 800px;
+				height: auto;
+			}
 		</style>
 	</head>
 	<body>
@@ -96,19 +104,11 @@
 			System.out.println(member.getMemberNum()+"<--member.getMemberNum()");
 			System.out.println(session.getAttribute("sessionId")+"<--session.getAttribute(sessionId)");
 			
-			String write=request.getParameter("write");
-			String content=request.getParameter("content").replace("\r\n","<br>");
-			System.out.println(write+"<--write");
-			System.out.println(content+"<--content");
-			
-			BookIntro bookIntro=new BookIntro();
-			bookIntro.setBookIntroWrite(write); 
-			bookIntro.setBookIntroContent(content);
-			bookIntro.setBookNo(bookNo);
-			
-			bookDao.insertBookIntro(bookIntro);
-			
 			ArrayList<BookIntro> result=bookDao.selectBookIntro();
+			
+			BookReviewDao bookReviewDao=new BookReviewDao();
+			ArrayList<BookReview> result1=bookReviewDao.selectBookReview();
+		
 			
 		%>
 		
@@ -135,15 +135,16 @@
 				<p>-------------------------------------------------------------</P>
 				<label>주문:</label>
 				<input type="text" value=<%=num1 %> size="1">
-
+				
 				<a href="<%=request.getContextPath()%>/book/bookView.jsp?bookNumber=<%=bookNo %>&num1=<%=num1+1%>"><input type="button" value="+" size="1" ></a>
 				<a href="<%=request.getContextPath()%>/book/bookView.jsp?bookNumber=<%=bookNo %>&num1=<%=num1-1%>"><input type="button" value="-" size="1"></a><br><br>
 				<a href="<%=request.getContextPath()%>/shoppingCart/shoppingCartAddAction.jsp?bookNumber=<%=bookNo %>&bookAmount=<%=num1 %>&memberNumber=<%=member.getMemberNum() %>&totalPrice=<%=book.getBookPrice()*num1 %>"><input type="button" value="장바구니" size="1"></a>
 				<a href="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp?bookNumber=<%=bookNo %>&amount=<%=num1 %>&memberNumber=<%=member.getMemberNum()%>&price=<%=book.getBookPrice() %>"><input type="button" value="바로구매" size="1"></a>
-		
-				<a href="#"><input type="button" value="삭제"></a>
+				<%
+					if(sessionId=="")
+				%>
 				<a href="#"><input type="button" value="수정"></a>
-				<a href="#"><input type="button" value="목록"></a>
+				<a href="#"><input type="button" value="삭제"></a>
 			</div>
 		</div>
 		<div id="intro">
@@ -152,22 +153,48 @@
 			<span>책소개</span>
 			<span>-------------------------------------------------------</span><br>
 			<%
-				for(int i=0;i<result.size();i++){
+				for(int i=0;i<result1.size();i++){
 					BookIntro bookIntro1=result.get(i);
+				
 			%>
 				<div><%=bookIntro1.getBookIntroContent() %>--<%=bookIntro1.getBookIntroWrite().replace("<br>","\r\n") %></div>
+				
 					
 			<%
 				}
 			%>
 					
 				
-			<form action="<%=request.getContextPath()%>/book/bookView.jsp?bookNumber=<%=bookNo %>" method="post">
+		<form action="<%=request.getContextPath()%>/book/bookIntroInsertAction.jsp?bookNumber=<%=bookNo %>" method="post">
 				<label>글쓴이</label>
 				<input type="text"  width="1px;" name="write"required><br><br>
 				<textarea name="content" style="width:800px;height:100px;resize: none;"required></textarea>
 				<input type="submit" value="등록">
 		</form>
+		</div>
+		<div id="review">
+			<br><br>
+			<span>-----------------------------------------------------</span>
+			<span>Book Review</span>
+			<span>-----------------------------------------------------</span><br><br>
+			
+			<div>
+				<%
+					for(int i=0;i<result1.size();i++){
+						BookReview bookReview1=result1.get(i);
+				%>
+					<div><%=bookReview1.getBookReviewContent() %>--<%=bookReview1.getMemberNo() %></div>					
+				<%
+					}
+				%>
+			</div><br>
+			<form method="post" action="<%= request.getContextPath() %>/book/bookReviewInsertAction.jsp">
+				<input type="hidden" name="bookNo" value="<%=bookNo%>">
+				<textarea name="bookReviewContent" placeholder="서평(Book Review)을 작성해주세요." style="width:800px;height:100px;resize: none;"required></textarea><br><br>
+				<input type="submit" value="작성">&nbsp;&nbsp;
+				<button type="button" onclick="location.href='<%= request.getContextPath() %>/book/bookList.jsp'">목록</button>&nbsp;&nbsp;
+				<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button>
+			</form>
 		</div>
 	</body>
 </html>

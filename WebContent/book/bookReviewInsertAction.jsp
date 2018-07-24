@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ page import = "dto.bookshop.project.Bookreview" %>
+<%@ page import = "dto.bookshop.project.BookReview" %>
 <%@ page import = "service.bookshop.project.ServiceBook" %>
 
 <!DOCTYPE html>
@@ -14,7 +14,7 @@
 			
 			request.setCharacterEncoding("UTF-8");
 		
-			int bookNo = Integer.parseInt(request.getParameter("bookNo"));	
+			int bookNumber = Integer.parseInt(request.getParameter("bookNo"));	
 			
 			int sessionNo = 1;
 			if(session.getAttribute("sessionNo") != null){
@@ -24,16 +24,17 @@
 			String bookReviewContent = request.getParameter("bookReviewContent");
 			bookReviewContent = bookReviewContent.replace("\r\n","<br>");
 			
+			System.out.println();
 			
-			Bookreview bookReview = new Bookreview();
-			bookReview.setBookNo(bookNo);
+			BookReview bookReview = new BookReview();
+			bookReview.setBookNo(bookNumber);
 			bookReview.setMemberNo(sessionNo);
 			bookReview.setBookReviewContent(bookReviewContent);
 			
 			ServiceBook serviceBook = new ServiceBook();
 			serviceBook.insertBookReview(bookReview);
 			
-			response.sendRedirect(request.getContextPath()+"/book/bookList.jsp");
+			response.sendRedirect(request.getContextPath()+"/book/bookView.jsp?bookNumber="+bookNumber);
 		%>
 	</body>
 </html>
