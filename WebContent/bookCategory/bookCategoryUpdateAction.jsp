@@ -1,25 +1,25 @@
 <%@page import="dto.bookshop.project.BookCode"%>
 <%@page import="dao.bookshop.project.BookCategoryDao"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Insert title here</title>
 	</head>
 	<body>
 		<%
-			//BookCode(dto)°´Ã¼¸¦ »ı¼ºÈÄ ³Ñ¾î¿Âno,name ÆÄ¶ó¹ÌÅÍ°ªÀ» °¡Áö°í ¼ÂÆÃÇÑ´Ù. 
+			//BookCode(dto)ê°ì²´ë¥¼ ìƒì„±í›„ ë„˜ì–´ì˜¨no,name íŒŒë¼ë¯¸í„°ê°’ì„ ê°€ì§€ê³  ì…‹íŒ…í•œë‹¤. 
 			BookCode bookCode=new BookCode();
 			bookCode.setBookCodeNo(Integer.parseInt(request.getParameter("categoryNo")));
 			bookCode.setBookCodeName(request.getParameter("categoryName"));
 			
-			//BookCategoryDao(dao)°´Ã¼¸¦ »ı¼ºÇÑÈÄ updateBookCategory¸Ş¼­µå¿¡ no,name°ªÀ» ´ëÀÔÇÑÈÄ È£ÃâÇÑ´Ù.
+			//BookCategoryDao(dao)ê°ì²´ë¥¼ ìƒì„±í•œí›„ updateBookCategoryë©”ì„œë“œì— no,nameê°’ì„ ëŒ€ì…í•œí›„ í˜¸ì¶œí•œë‹¤.
 			BookCategoryDao bookCategoryDao=new BookCategoryDao();
 			bookCategoryDao.updateBookCategory(bookCode.getBookCodeNo(), bookCode.getBookCodeName());
 	
-			//bookManagement.jspÆÄÀÏ·Î ÆäÀÌÁö ÀÌµ¿
+			//bookManagement.jspíŒŒì¼ë¡œ í˜ì´ì§€ ì´ë™
 			response.sendRedirect(request.getContextPath()+"/bookCategory/bookCategoryManagement.jsp");
 		%>
 	</body>

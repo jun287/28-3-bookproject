@@ -50,5 +50,7 @@
 		<div id="button">
 			<a href="<%=request.getContextPath()%>/bookCategory/bookCategoryManagement.jsp"><button>관리</button></a>
 		</div>
+		
+		<%@ include file="/book/bookList.jsp"%>
 	</body>
 </html>

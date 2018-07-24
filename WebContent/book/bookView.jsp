@@ -1,3 +1,5 @@
+<%@page import="dto.bookshop.project.Member"%>
+<%@page import="service.bookshop.project.ServiceMember"%>
 <%@page import="dao.bookshop.project.PublisherDao"%>
 <%@page import="dto.bookshop.project.Publisher"%>
 <%@page import="dto.bookshop.project.Book"%>
@@ -61,7 +63,7 @@
 				border-radius:5px;
 				float:left;
 				width: 380px;
-				height: 500px;
+				height: 450px;
 				border: 1px solid #000000;
 			}
 			#userinfo{
@@ -94,7 +96,15 @@
 			String operator=request.getParameter("operator");
 			System.out.println(operator+"<--operator");
 			
-			int num=Integer.parseInt(request.getParameter("num"));
+			int num1=0;
+			
+			if(request.getParameter("num1")==null){
+				System.out.println("값이 없음");
+				num1=1;
+			}else{
+				System.out.println("값이 있음");
+				num1=Integer.parseInt(request.getParameter("num1"));
+			}
 			
 			BookDao bookDao=new BookDao();
 			Book book=bookDao.selectBook(bookNo);
@@ -105,15 +115,14 @@
 			System.out.println(publisher.getPublisherNo()+"<--publisher.getPublisherNo()");
 			System.out.println(publisher.getPublisherName()+"<--publisher.getPublisherName()");
 			System.out.println(publisher.getPublisherWebsite()+"<--publisher.getPublisherWebsite()");
-			
-			if(operator.equals("")){
-				num=1;
-			}else if(operator.equals("mul")){
-				num+=1;
-			}else{
-				num-=1;
-			}
 		
+			String sessionId=(String)session.getAttribute("sessionId");
+			
+			ServiceMember serviceMember=new ServiceMember();
+			Member member=serviceMember.selectMember(sessionId);
+			
+			System.out.println(session.getAttribute("sessionId")+"<--session.getAttribute(sessionId)");
+			
 		%>
 		
 		<div id="info">
@@ -131,17 +140,19 @@
 				<label>정가</label>
 				<span><%=book.getBookPrice() %>원</span><br>
 				<label>통합포인트</label>
+				<span> <%=book.getBookPoint() %>%</span>
 				<p>-------------------------------------------------------------</P>
 				<span>배송비 : 무료</span><br>
 				<span>배송일정 : 서울특별시 종로구 세종대로 기준</span><br>
 				<span>바로드림 : 인터넷으로 주문하고 매장에서 직접 수령</span>
 				<p>-------------------------------------------------------------</P>
 				<label>주문:</label>
-				<input type="text" value=<%=num %> size="1">
-				<a href="<%=request.getContextPath()%>/book/bookView.jsp?bookNumber=<%=bookNo %>&operator=mul&num=<%=num%>"><input type="button" value="+" size="1"></a>
-				<a href="<%=request.getContextPath()%>/book/bookView.jsp?bookNumber=<%=bookNo %>&operator=min"><input type="button" value="-" size="1"></a><br><br>
-				<a href="<%=request.getContextPath()%>/book/bookView.jsp?bookNumber=<%=bookNo %>&operator=mul"><input type="button" value="장바구니" size="1"></a>
-				<a href="<%=request.getContextPath()%>/book/bookView.jsp?bookNumber=<%=bookNo %>&operator=mul"><input type="button" value="바로구매" size="1"></a>
+				<input type="text" value=<%=num1 %> size="1">
+
+				<a href="<%=request.getContextPath()%>/book/bookView.jsp?bookNumber=<%=bookNo %>&num1=<%=num1+1%>"><input type="button" value="+" size="1" ></a>
+				<a href="<%=request.getContextPath()%>/book/bookView.jsp?bookNumber=<%=bookNo %>&num1=<%=num1-1%>"><input type="button" value="-" size="1"></a><br><br>
+				<a href="<%=request.getContextPath()%>/book/bookAddCartForm.jsp?bookNumber=<%=bookNo %>&bookamount=<%=num1 %>&memberId=<%=member.getMemberNum() %>>"><input type="button" value="장바구니" size="1"></a>
+				<a href="<%=request.getContextPath()%>/book/bookOrdersForm.jsp?bookNumber=<%=bookNo %>&bookamount=<%=num1 %>&memberId=<%=member.getMemberNum() %>>"><input type="button" value="바로구매" size="1"></a>
 			</div>
 			
 			<div id="goodsInfo">
