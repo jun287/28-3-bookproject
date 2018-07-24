@@ -20,7 +20,7 @@
 		int bookPrice = Integer.parseInt(request.getParameter("bookPrice"));
 		int bookPoint = Integer.parseInt(request.getParameter("bookPoint"));
 		int bookAmount = Integer.parseInt(request.getParameter("bookAmount"));
-		
+		String bookIntro=request.getParameter("bookIntro").replace("\r\n","<br>");
 		
 		Book book=new Book();
 		book.setBookName(bookName);
@@ -36,7 +36,10 @@
 		System.out.println(book.getPublisherNo()+"<--publisher");
 		System.out.println(book.getBookCodeNo()+"<--category");
 		System.out.println("---------------------------------");
-		 
+		
+		System.out.println(bookIntro+"<--bookIntro");
+		
+		
 		BookDao BookDao = new BookDao();
 		BookDao.insertBook(book);  
 		

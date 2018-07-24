@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="dto.bookshop.project.BookIntro"%>
 <%@page import="dto.bookshop.project.Member"%>
 <%@page import="service.bookshop.project.ServiceMember"%>
 <%@page import="dao.bookshop.project.PublisherDao"%>
@@ -5,7 +7,7 @@
 <%@page import="dto.bookshop.project.Book"%>
 <%@page import="dao.bookshop.project.BookDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -20,12 +22,6 @@
 			}
 			#button a:visited{
 			color:white;	
-			}
-			#wrap{
-				width: 800px;
-				height: auto;
-				border: 1px solid #000000;
-				border-radius: 6px;
 			}
 			#info{
 				align-content:center;
@@ -53,7 +49,15 @@
 				height: 400px;
 				
 			}
-		
+			#intro{
+				clear:both;
+				align-content:center;
+				width: 800px;
+				height: auto;
+			}
+			#button{
+			 float:right;
+			}
 		</style>
 	</head>
 	<body>
@@ -91,7 +95,21 @@
 			
 			System.out.println(member.getMemberNum()+"<--member.getMemberNum()");
 			System.out.println(session.getAttribute("sessionId")+"<--session.getAttribute(sessionId)");
-
+			
+			String write=request.getParameter("write");
+			String content=request.getParameter("content").replace("\r\n","<br>");
+			System.out.println(write+"<--write");
+			System.out.println(content+"<--content");
+			
+			BookIntro bookIntro=new BookIntro();
+			bookIntro.setBookIntroWrite(write); 
+			bookIntro.setBookIntroContent(content);
+			bookIntro.setBookNo(bookNo);
+			
+			bookDao.insertBookIntro(bookIntro);
+			
+			ArrayList<BookIntro> result=bookDao.selectBookIntro();
+			
 		%>
 		
 		<div id="info">
@@ -123,13 +141,33 @@
 				<a href="<%=request.getContextPath()%>/shoppingCart/shoppingCartAddAction.jsp?bookNumber=<%=bookNo %>&bookAmount=<%=num1 %>&memberNumber=<%=member.getMemberNum() %>&totalPrice=<%=book.getBookPrice()*num1 %>"><input type="button" value="장바구니" size="1"></a>
 				<a href="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp?bookNumber=<%=bookNo %>&amount=<%=num1 %>&memberNumber=<%=member.getMemberNum()%>&price=<%=book.getBookPrice() %>"><input type="button" value="바로구매" size="1"></a>
 		
-					<a href="#"><input type="button" value="삭제"></a>
+				<a href="#"><input type="button" value="삭제"></a>
 				<a href="#"><input type="button" value="수정"></a>
-				<a href="./goodsList.jsp"><input type="button" value="목록"></a>
+				<a href="#"><input type="button" value="목록"></a>
 			</div>
 		</div>
 		<div id="intro">
-			<p>----------------------------------------------------------------------------------------------<p>
+			<br><br>
+			<span>--------------------------------------------------------</span>
+			<span>책소개</span>
+			<span>-------------------------------------------------------</span><br>
+			<%
+				for(int i=0;i<result.size();i++){
+					BookIntro bookIntro1=result.get(i);
+			%>
+				<div><%=bookIntro1.getBookIntroContent() %>--<%=bookIntro1.getBookIntroWrite().replace("<br>","\r\n") %></div>
+					
+			<%
+				}
+			%>
+					
+				
+			<form action="<%=request.getContextPath()%>/book/bookView.jsp?bookNumber=<%=bookNo %>" method="post">
+				<label>글쓴이</label>
+				<input type="text"  width="1px;" name="write"required><br><br>
+				<textarea name="content" style="width:800px;height:100px;resize: none;"required></textarea>
+				<input type="submit" value="등록">
+		</form>
 		</div>
 	</body>
 </html>

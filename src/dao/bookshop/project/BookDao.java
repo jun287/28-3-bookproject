@@ -91,6 +91,67 @@ public class BookDao {
 		return book;
 	}
 	
+	public void insertBookIntro(BookIntro bookIntro) {
+		Connection connection=null;
+		PreparedStatement statement=null;
+		
+		String sql="insert into bookintro(book_no,bookintro_content,bookintro_write) values(?,?,?)";
+		try {
+			connection=DBconnection.getConnetion();
+			
+			statement=connection.prepareStatement(sql);
+			statement.setInt(1, bookIntro.getBookNo());
+			statement.setString(2, bookIntro.getBookIntroContent());
+			statement.setString(3, bookIntro.getBookIntroWrite());
+		
+			statement.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {statement.close();} catch (SQLException e) {e.printStackTrace();}
+			try {connection.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		
+	}
+	
+	public ArrayList<BookIntro> selectBookIntro(){
+		
+		Connection connection=null;
+		PreparedStatement statement=null;
+		ResultSet resultSet =null;
+		
+		String sql="select bookintro_no,book_no,bookintro_content,bookintro_write from bookintro order by bookintro_no asc";
+		ArrayList<BookIntro> list=new ArrayList<BookIntro>();
+		
+		try {
+			connection=DBconnection.getConnetion();
+			
+			statement=connection.prepareStatement(sql);
+			resultSet =statement.executeQuery();
+			
+			while(resultSet.next()) {
+				BookIntro bookIntro=new BookIntro();
+				bookIntro.setBookIntroNo(resultSet.getInt("bookintro_no"));
+				bookIntro.setBookNo(resultSet.getInt("book_no"));
+				bookIntro.setBookIntroContent(resultSet.getString("bookintro_content"));
+				bookIntro.setBookIntroWrite(resultSet.getString("bookintro_write"));
+				
+				list.add(bookIntro);
+			}
+			
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {resultSet.close();} catch (SQLException e) {e.printStackTrace();}
+			try {statement.close();} catch (SQLException e) {e.printStackTrace();}
+			try {connection.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		
+		return list;
+	}
+	
 	/*
 	메소드 설명	
 	1. 용도 : 전체 책을 검색조건에 맞춰 조회, 검색조건없을시 전체조회(DB book,bookcode,publisher inner join 특정조건 행 조회)

@@ -27,23 +27,23 @@
 		<table>
 			<tr>
 				<td>책이름</td>
-				<td><input type="text" name="bookName"></td>
+				<td><input type="text" name="bookName" required></td>
 			</tr>
 			<tr>
 				<td>저자</td>
-				<td><input type="text" name="bookAuthor"></td>
+				<td><input type="text" name="bookAuthor" required></td>
 			</tr>
 			<tr>
 				<td>가격</td>
-				<td><input type="text" name="bookPrice"></td>
+				<td><input type="text" name="bookPrice" required></td>
 			</tr>
 			<tr>
 				<td>포인트</td>
-				<td><input type="text" name="bookPoint"></td>
+				<td><input type="text" name="bookPoint" required></td>
 			</tr>
 			<tr>
 				<td>수량</td>
-				<td><input type="text" name="bookAmount"></td>
+				<td><input type="text" name="bookAmount" required></td>
 			</tr>
 			<tr>
 				<td>출판사</td>
@@ -75,6 +75,7 @@
 				%>		
 				</select></td>
 		</table>
+	
 		<input type="submit" value="등록">
 	</form>
 </body>
