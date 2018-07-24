@@ -92,10 +92,11 @@
 						<a href = "./boardList.jsp?currentPage=<%=currentPage+1%>">다음 ▶</a>
 						<%
 					}
-					
+				%>
+					<br><br>
+				<%
 					if(sessionId != null){
 						%>
-						<br><br>
 						<input type="submit" value="글쓰기">&nbsp;&nbsp;
 						<%
 					}
