@@ -9,6 +9,7 @@
 		<title>memberLoginForm</title>
 	</head>
 	<body>
+		<!-- 회원 로그인 페이지 입니다. -->
 		<div align="center">
 			<h1>회원 로그인</h1>
 			<form method="post" action="<%= request.getContextPath() %>/member/memberLoginAction.jsp">

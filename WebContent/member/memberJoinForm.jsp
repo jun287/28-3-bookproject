@@ -1,3 +1,5 @@
+<!-- 2018. 07. 24. 공세준 -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ page import = "java.util.ArrayList"%>
@@ -12,6 +14,15 @@
 	</head>
 	<body>
 		<%
+			/* 
+				회원가입을 받는 페이지 입니다.
+				
+				도서카테고리를 조회후 for반복문으로 화면에 나타냅니다.
+				아이디와 비밀번호 및 회원정보를 작성받아 
+				값을 post 방식으로 넘겨줍니다.
+
+			*/
+		
 			BookCategoryDao bookCategoryDao = new BookCategoryDao();
 			ArrayList<BookCode> arrayList = bookCategoryDao.selectBookCategory();
 		%>

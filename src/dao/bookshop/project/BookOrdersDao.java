@@ -4,9 +4,88 @@ import util.connetion.db.DBconnection;
 import java.sql.*;
 import java.util.ArrayList;
 
+import dto.bookshop.project.Book;
 import dto.bookshop.project.Orders;
 
 public class BookOrdersDao {
+	
+	public Book selectBookOrder(int bookNumber) {
+		// book테이블의 정보를 조회하여 bookOrderForm.jsp에 출력하는 메서드
+		// book 클래스의 주소값을 리턴하여 bookOrderForm.jsp에서 출력
+		// bookNumber를 받아 쿼리문 작성
+		// 18.7.24 최지수
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Book book = null;
+		try {
+			connection = DBconnection.getConnetion();
+			preparedStatement = connection.prepareStatement("SELECT book_no,bookcode_no,publisher_no,book_name,book_author,book_price,book_point,book_amount,book_out,book_date FROM book WHERE book_no=?");
+			preparedStatement.setInt(1, bookNumber);
+			
+			resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				book = new Book();
+				book.setBookNo(resultSet.getInt("book_no"));
+				book.setBookCodeNo(resultSet.getInt("bookcode_no"));
+				book.setPublisherNo(resultSet.getInt("publisher_no"));
+				book.setBookName(resultSet.getString("book_name"));
+				book.setBookAuthor(resultSet.getString("book_author"));
+				book.setBookPrice(resultSet.getInt("book_price"));
+				book.setBookPoint(resultSet.getInt("book_point"));
+				book.setBookAmount(resultSet.getInt("book_amount"));
+				book.setBookOut(resultSet.getString("book_out"));
+				book.setBookDate(resultSet.getString("book_date"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			// 객체 종료 (닫는 순서 중요)
+			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}	// 객체 종료
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 객체 종료
+			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DB연결종료
+		}
+		return book;
+	}
+	
+	public void selectforUpdateBookPoint (int bookNumber, int ordersNumber) {
+		// 책넘버 주문넘버 조회 후 포인트 업데이트
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		PreparedStatement preparedStatement2 = null;
+		ResultSet resultSet = null;
+		
+		try {
+			connection = DBconnection.getConnetion();
+			preparedStatement = connection.prepareStatement("SELECT book.book_amount, orders.orders_amount FROM orders INNER JOIN book ON orders.book_no=book.book_no WHERE orders.orders_no=? AND book.book_no=?");
+			preparedStatement.setInt(1, ordersNumber);
+			preparedStatement.setInt(2, bookNumber);
+			
+			resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				int bookAmount = resultSet.getInt("book_amount");
+				int ordersAmount = resultSet.getInt("orders_amount");
+				preparedStatement2 =connection.prepareStatement("UPDATE book SET book_amount=? WHERE book_no=?");
+				preparedStatement2.setInt(1, (bookAmount-ordersAmount));
+				preparedStatement2.setInt(2, bookNumber);
+				
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("예외발생");
+			e.printStackTrace();
+			
+		} finally {
+			// 객체 종료 (닫는 순서 중요)
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 객체 종료
+			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// DB연결종료
+		}
+		
+	}
 	
 	public  void updateStateApproval (int ordersNumber) {
 		// 상품 진행 상태 바꿔주는 메소드
@@ -87,6 +166,7 @@ public class BookOrdersDao {
 		// return data type Orders, selectOrdersRecentAddress 메소드 (int data type으로 MemberNumber매개변수 선언)
 		// Orders클래스 return하여 조회된 값 세팅 및 불러오기
 		// 매개변수는 회원번호를 받아서 주문정보를 조회한다
+		// 18.7.23 최지수
 		Orders orders = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -130,6 +210,7 @@ public class BookOrdersDao {
 	public void insertBookOrders (Orders orders) {
 		// orders테이블에 주문정보를 추가하는 메서드
 		// 리턴값 없는 insertBookOrders 메소드 (Orders data type orders 매개변수 생성)
+		// 18.7.23 최지수
 		Connection connection = null;			
 		PreparedStatement  preparedStatement= null;
 		

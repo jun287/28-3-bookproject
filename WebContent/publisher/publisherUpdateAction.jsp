@@ -14,8 +14,10 @@
 			int publisherNO=Integer.parseInt(request.getParameter("publisherNo"));
 			String publisherName=request.getParameter("publisherName");
 			String publisherSite=request.getParameter("publisherSite");
+			
+			
 			publisher.setPublisherNo(publisherNO);
-			publisher.setPublisherName(publisherSite);
+			publisher.setPublisherName(publisherName);
 			publisher.setPublisherWebsite(publisherSite);
 			
 			PublisherDao publisherDao = new PublisherDao();

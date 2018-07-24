@@ -1,3 +1,5 @@
+<!-- 2018. 07. 24. 공세준 -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ page import = "service.bookshop.project.ServiceMember" %>
@@ -14,6 +16,16 @@
 	</head>
 	<body>
 		<%
+			/*  
+				회원의 정보를 보여 주는 페이지 입니다.
+				
+				로그인후 아이디와 회원번호를 받아 selectMember 메서드 호출하여 회원정보가 담긴
+				객체의 참조값을 리턴받아 Member 클래스타입의 member 객체참조변수에 대입하고
+				selectMemberInter 메서드 호출하여 회원의 관심 카테고리를 조회후 
+				객체배열 참조값을 리턴받아 MemberInter객체 배열 타입으로 arrayList 객체참조변수에
+				대입후 참조값을 참조하여 회원정보를 불러와 화면에 나타냅니다.
+			*/
+		
 			request.setCharacterEncoding("UTF-8");
 			String sessionId = (String)session.getAttribute("sessionId");
 			

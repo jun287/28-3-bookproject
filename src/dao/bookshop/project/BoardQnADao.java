@@ -14,6 +14,35 @@ import dto.bookshop.project.Member;
 
 public class BoardQnADao {
 	
+	// 설명 : 질문게시판에 글쓰기후 정보를 데이터베이스에 insert하는 메서드 입니다.
+	// 매개변수 : Connection 클래스 타입으로 드라이버로딩, DB연결정보를 담은 connection 객체참조값과 BoardQnA 클래스타입으로 게시판내용등을 담은 boardQna 객체참조값을 받습니다.
+	// 리턴 : void로 없습니다.
+	public void updateBoardQnaContent(Connection connection, BoardQnA boardQna) {
+		
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			
+			preparedStatement = connection.prepareStatement("UPDATE qna SET qna_title=?, qna_content=? WHERE qna_no=? and member_no=?");
+			preparedStatement.setString(1, boardQna.getBoardQnaTitle());
+			preparedStatement.setString(2, boardQna.getBoardQnaContent());
+			preparedStatement.setInt(3, boardQna.getBoardQnaNo());
+			preparedStatement.setInt(4, boardQna.getMemberNo());
+			
+			preparedStatement.executeUpdate();
+			
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}finally {
+			if(preparedStatement != null)try{
+				preparedStatement.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+
+		}
+	}
+	
 	// 설명 : 질문게시판 페이징시 다음페이지로 이동하기위한 lastPage를 리턴하는 메서드 입니다.
 	// 매개변수 : Connection 클래스 타입으로 드라이버로딩, DB연결정보를 담은 connection 객체참조값과 int 기본타입으로 페이지당 갯수, String 참조타입으로 검색키워드를 받습니다.
 	// 리턴 : int 기본타입으로 다음페이지로 이동하기 위한 lastPage를 리턴합니다. 
