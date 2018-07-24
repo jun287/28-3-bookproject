@@ -167,7 +167,7 @@ public class BookOrdersDao {
 		
 		try {
 			connection = DBconnection.getConnetion();
-			preparedStatement = connection.prepareStatement("SELECT orders_no,book_no,member_no,orders_price,orders_amount, orders_date,orders_addr,orders_state FROM orders WHERE orders_no=?");
+			preparedStatement = connection.prepareStatement("SELECT orders_no, book_no, member_no, orders_price, orders_amount, orders_date, orders_addr, orders_state FROM orders WHERE orders_no=?");
 			preparedStatement.setInt(1, ordersNumber);
 			
 			resultSet = preparedStatement.executeQuery();
@@ -235,7 +235,7 @@ public class BookOrdersDao {
 	
 	public ArrayList<Orders> selectOrderByPage (int currentPage, int pagePerRow, int memberNumber){
 		// 상품 주문 정보 리스트로 받는 메소드
-		// return data type ArrayList<Orders>, selectOrderBypage 메솧드 (int data type currentPage 매개변수, int data type memberNumber)
+		// return data type ArrayList<Orders>, selectOrderBypage 메소드 (int data type currentPage 매개변수, int data type memberNumber)
 		ArrayList<Orders> ordersList = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

@@ -1,4 +1,5 @@
-<!-- 2018-07-18 김소희 / bookOrderList.jsp 주문 페이지-->
+<!-- 2018-07-18 김소희 / bookOrderList.jsp-->
+<!-- 주문 페이지 -->
 <%@ page language = "java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "dto.bookshop.project.MemberAndBookAndShoppingCart"%>		<!-- dto.bookshop.project패키지 안에 MemberAndBookAndShoppingCart클래스 import  -->
 <%@ page import = "dao.bookshop.project.BookOrdersDao" %>					<!-- dao.bookshop.project패키지 안에 BookOrdersDo클래스 import -->
@@ -70,13 +71,13 @@
 	
 	if(currentPage > 1){								// currentPage(시작페이지)가 1보다 크면
 %>
-	 <a href="<%=request.getContextPath()%>/bookOrders/bookOrdersList.jsp?currentPage=<%=currentPage-1%>">이전</a>
+	 <a href="<%=request.getContextPath()%>/bookOrders/bookOrdersList.jsp?currentPage=<%=currentPage-1%>&memberNumber=<%=memberNumber%>">이전</a>
 <%
 	
 	}
 	if(currentPage < lastPage){							// currentPage(시작페이지)가 lastPage(마지막페이지)보다 작으면
 %>
-	  <a href="<%=request.getContextPath()%>/bookOrders/bookOrdersList.jsp?currentPage=<%=currentPage+1%>">다음</a>
+	  <a href="<%=request.getContextPath()%>/bookOrders/bookOrdersList.jsp?currentPage=<%=currentPage+1%>&memberNumber=<%=memberNumber%>">다음</a>
 <%
 	}
 %>

@@ -1,4 +1,5 @@
-<!-- 2018-07-23 김소희 / adminStateApproval.jsp 관리자 주문 진행상태 승인 -->
+<!-- 2018-07-23 김소희 / adminStateApproval.jsp -->
+<!-- 관리자 주문 진행상태 승인 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ page import="dao.bookshop.project.BookOrdersDao"%>			<!-- dao.bookshop.project패키지 안에 BookOrdersDo클래스 import -->
 <%@ page import="dao.bookshop.project.MemberDao"%>				<!-- dao.bookshop.project패키지 안에 MemberDao클래스 import -->

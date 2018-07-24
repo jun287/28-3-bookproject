@@ -73,8 +73,8 @@
 %>	
 	<form action="<%=request.getContextPath()%>/bookOrders/bookOrdersAction.jsp" method="post">
 		<input type="hidden" name="ordersPrice" value="<%=ordersPrice%>">
-		<%-- <input type="hidden" name="bookNumber" value="<%=bookNumber%>">
-		<input type="hidden" name="orderAmount" value="<%=orderAmount%>"> --%>
+		<input type="hidden" name="bookNumber" value="<%=bookNumber%>">
+		<input type="hidden" name="orderAmount" value="<%=ordersAmount%>">
 		<input type="hidden" name="bookNumber" value="<%=bookNumber%>">
 		<input type="hidden" name="ordersAmount" value="<%=ordersAmount%>">
 		<input type="hidden" name="memberNumber" value="<%=memberNumber%>">
@@ -88,9 +88,9 @@
 			</tr>
 			<tr>
 				<th>배송주소</th>
-				<td><a href="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp">기존주소</a></td>
-				<td><a href="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp?addressCheck=1&usePoint=<%=usePoint%>">새로운주소</a></td>
-				<td><a href="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp?addressCheck=2&usePoint=<%=usePoint%>">최근배송지</a></td>
+				<td><a href="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp?bookNumber=<%=bookNumber %>&memberNumber=<%=memberNumber %>&amount=<%=ordersAmount%>&price=<%=price%>">기존주소</a></td>
+				<td><a href="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp?addressCheck=1&usePoint=<%=usePoint%>&bookNumber=<%=bookNumber %>&memberNumber=<%=memberNumber %>&amount=<%=ordersAmount%>&price=<%=price%>">새로운주소</a></td>
+				<td><a href="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp?addressCheck=2&usePoint=<%=usePoint%>&bookNumber=<%=bookNumber %>&memberNumber=<%=memberNumber %>&amount=<%=ordersAmount%>&price=<%=price%>">최근배송지</a></td>
 			</tr>
 			<tr>
 <%
@@ -129,6 +129,10 @@
 		<button>주문하기</button>
 	</form>
 	<form action="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp" method="post">
+		<input type="hidden" name="bookNumber" value = "<%=bookNumber %>">
+		<input type="hidden" name="memberNumber" value="<%=memberNumber %>">
+		<input type="hidden" name="amount" value="<%=ordersAmount%>">
+		<input type="hidden" name="price" value="<%=price%>">
 		<input type="hidden" name="addressCheck" value="<%=addressCheck %>">
 		<table>
 			<tr>

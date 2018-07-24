@@ -65,7 +65,8 @@ public class ShoppingCartDao {
 		try {
 			sql1 = "DELETE FROM shoppingcart WHERE shoppingcart_no=?";
 			preparedStatement = connection.prepareStatement(sql1);
-			connection.setAutoCommit(false);		// 쿼리실행 결과가 자동으로 DB에 입력(수정)되는 것(commit)을 수동으로 지정
+			// connection.setAutoCommit(false);		
+			// 쿼리실행 결과가 자동으로 DB에 입력(수정)되는 것(commit)을 수동으로 지정
 			preparedStatement.setInt(1, shoppingCartNumber);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
