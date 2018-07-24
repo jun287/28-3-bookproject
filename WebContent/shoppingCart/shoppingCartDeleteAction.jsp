@@ -9,7 +9,7 @@
 
 	ShoppingCartDao shoppingCartDao= new ShoppingCartDao();
 	shoppingCartDao.deleteShoppingCart(shoppingCartNumber);										// shoppingCart 삭제메소드
-	response.sendRedirect(request.getContextPath()+"/shoppingCart/shoppingCartList.jsp?memberNumber="+"memberNumber");					// 삭제 후  해당 member의 shoppingCartList.jsp로 이동
+	response.sendRedirect(request.getContextPath()+"/shoppingCart/shoppingCartList.jsp?memberNumber="+memberNumber);					// 삭제 후  해당 member의 shoppingCartList.jsp로 이동
 	
 %>
 
