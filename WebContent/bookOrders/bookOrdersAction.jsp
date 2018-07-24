@@ -24,12 +24,12 @@
 		ShoppingCartDao shoppingCartDao = new ShoppingCartDao();							// ShoppingCartDao객체생성
 		shoppingCartDao.deleteShoppingCart(shoppingCartNumber);								// 장바구니 내 삭제 메서드 호출
 	}
-	
 	ServiceMember ServiceMember = new ServiceMember();										// ServiceMember객체생성
-	Member member = ServiceMember.selectMember((String)session.getAttribute("memberId"));	// 회원정보 조회하는 메서드 호출
+	Member member = ServiceMember.selectMember((String)session.getAttribute("sessionId"));	// 회원정보 조회하는 메서드 호출
 	MemberDao memberDao = new MemberDao();													// MemberDao 객체생성
 	
 	memberPoint = member.getMemberPoint() - usePoint;										// 회원포인트 = 현재총포인트 - 사용포인트
+
 	
 	memberDao.updateMemberPoint(memberNumber, memberPoint);									// 회원 포인트 업데이트 메서드 호출
 	
