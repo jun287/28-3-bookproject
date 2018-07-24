@@ -71,13 +71,13 @@
 	
 	if(currentPage > 1){								// currentPage(시작페이지)가 1보다 크면
 %>
-	 <a href="<%=request.getContextPath()%>/bookOrders/bookOrdersList.jsp?currentPage=<%=currentPage-1%>">이전</a>
+	 <a href="<%=request.getContextPath()%>/bookOrders/bookOrdersList.jsp?currentPage=<%=currentPage-1%>&memberNumber=<%=memberNumber%>">이전</a>
 <%
 	
 	}
 	if(currentPage < lastPage){							// currentPage(시작페이지)가 lastPage(마지막페이지)보다 작으면
 %>
-	  <a href="<%=request.getContextPath()%>/bookOrders/bookOrdersList.jsp?currentPage=<%=currentPage+1%>">다음</a>
+	  <a href="<%=request.getContextPath()%>/bookOrders/bookOrdersList.jsp?currentPage=<%=currentPage+1%>&memberNumber=<%=memberNumber%>">다음</a>
 <%
 	}
 %>
