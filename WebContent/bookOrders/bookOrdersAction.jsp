@@ -13,17 +13,14 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	BookOrdersDao bookOrderDao = new BookOrdersDao();										// BookOrdersDao 객체 생성
+	ShoppingCartDao shoppingCartDao = new ShoppingCartDao();								// ShoppingCartDao객체생성
 	Orders orders = new Orders();															// Orders객체생성
 	int usePoint = Integer.parseInt(request.getParameter("usePoint"));						// 사용포인트 받아오기
 	int memberPoint = 0;																	// 회원포인트 초기값 설정
-	//int buyPoint = Integer.parseInt(request.getParameter("buyPoint"));					// 구매시 적립포인트 받아오기
 	int memberNumber = Integer.parseInt(request.getParameter("memberNumber"));				// 회원번호 받아오기
 	int shoppingCartNumber = Integer.parseInt(request.getParameter("shoppingCartNumber"));	// 장바구니번호 받아오기
+
 	
-	if(shoppingCartNumber>0){																// 장바구니 번호가 0보다 크다면
-		ShoppingCartDao shoppingCartDao = new ShoppingCartDao();							// ShoppingCartDao객체생성
-		shoppingCartDao.deleteShoppingCart(shoppingCartNumber);								// 장바구니 내 삭제 메서드 호출
-	}
 	ServiceMember ServiceMember = new ServiceMember();										// ServiceMember객체생성
 	Member member = ServiceMember.selectMember((String)session.getAttribute("sessionId"));	// 회원정보 조회하는 메서드 호출
 	MemberDao memberDao = new MemberDao();													// MemberDao 객체생성
@@ -37,7 +34,7 @@
 	orders.setBookNumber(Integer.parseInt(request.getParameter("bookNumber")));
 	orders.setMemberNumber(Integer.parseInt(request.getParameter("memberNumber")));
 	orders.setOrdersPrice(Integer.parseInt(request.getParameter("ordersPrice")));
-	orders.setOrdersAmount(Integer.parseInt(request.getParameter("orderAmount")));
+	orders.setOrdersAmount(Integer.parseInt(request.getParameter("ordersAmount")));
 	orders.setOrdersAddress(request.getParameter("ordersAddress"));
 	
 	System.out.println(orders.getBookNumber());
@@ -47,6 +44,10 @@
 	System.out.println(orders.getOrdersAddress());
 	
 	bookOrderDao.insertBookOrders(orders);													// orders테이블 생성 메서드 호출
+	if(shoppingCartNumber>0){																// 장바구니 번호가 0보다 크다면
+		System.out.println("장바구니 삭제진행");
+		shoppingCartDao.deleteShoppingCart(shoppingCartNumber);								// 장바구니 내 삭제 메서드 호출
+	}
 	
 	response.sendRedirect(request.getContextPath() + "/bookOrders/bookOrdersList.jsp?memberNumber="+memberNumber);
 	
