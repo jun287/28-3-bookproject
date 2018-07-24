@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 import dto.bookshop.project.Publisher;
 import util.connetion.db.DBconnection;
 
@@ -70,5 +71,38 @@ public class PublisherDao {
 		return list;
 	}
 
-	
+	//no를 이용하여 특정 출판사 정보 조회
+	public Publisher selectPublisherNo(int no) {
+		System.out.println("selectPublisherNo");
+		
+		Connection connection=null;
+		PreparedStatement statement=null;
+		ResultSet resultSet=null;
+		
+		String sql="select publisher_no,publisher_name,publisher_website from publisher where publisher_no=?";
+		Publisher publisher=new Publisher();
+		
+		try {
+			connection=DBconnection.getConnetion();
+			
+			statement=connection.prepareStatement(sql);
+			statement.setInt(1, no);
+			
+			resultSet=statement.executeQuery();
+			
+			if(resultSet.next()) {
+				publisher.setPublisherNo(resultSet.getInt("publisher_no"));
+				publisher.setPublisherName(resultSet.getString("publisher_name"));
+				publisher.setPublisherWebsite(resultSet.getString("publisher_website"));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {resultSet.close();} catch (SQLException e) {e.printStackTrace();}
+			try {statement.close();} catch (SQLException e) {e.printStackTrace();}
+			try {connection.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		
+		return publisher;
+	}
 }

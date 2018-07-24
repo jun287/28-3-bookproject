@@ -17,7 +17,7 @@
 			PublisherDao publisherDao=new PublisherDao();
 			publisherDao.insertPublisher(publisher.getPublisherName(),publisher.getPublisherWebsite());
 			
-			
+			response.sendRedirect(request.getContextPath()+"/publisher/publisherList.jsp");
 		%>
 	</body>
 </html>

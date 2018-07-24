@@ -12,19 +12,18 @@ public class Publisher {
 	public void setPublisherNo(int publisherNo) {
 		this.publisherNo = publisherNo;
 	}
+	
 	public String getPublisherName() {
 		return publisherName;
 	}
 	public void setPublisherName(String publisherName) {
 		this.publisherName = publisherName;
 	}
+	
 	public String getPublisherWebsite() {
 		return publisherWebsite;
 	}
 	public void setPublisherWebsite(String publisherWebsite) {
 		this.publisherWebsite = publisherWebsite;
 	}
-	
-	
-
 }
