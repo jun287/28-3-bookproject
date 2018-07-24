@@ -25,20 +25,24 @@
 				게시글의 정보를 가져와서 화면에 출력합니다.
 			*/
 	
-		
 			request.setCharacterEncoding("UTF-8");
 			String sessionId = (String)session.getAttribute("sessionId");
 			
-			request.setCharacterEncoding("EUC-KR");
-			//페이징을 위해 첫 페이지의 값을 1로 지정합니다.
 			int currentPage = 1;
 			if(request.getParameter("currentPage")!=null) {
 				currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			}
+			
+			String searchWord = "";
+			if(request.getParameter("searchWord")!=null) {
+				searchWord = request.getParameter("searchWord");
+				System.out.println(searchWord);
+			}
+			
 			int rowPerPage = 5;
 		
 			ServiceBoardQnA serviceBoardQna = new ServiceBoardQnA();
-			ArrayList<BoardQnAandMember> arrayList = serviceBoardQna.selectBoardQnaList(currentPage, rowPerPage);
+			ArrayList<BoardQnAandMember> arrayList = serviceBoardQna.selectBoardQnaList(currentPage, rowPerPage ,searchWord);
 			
 		%>
 		
@@ -77,7 +81,7 @@
 				</table><br>
 				
 				<%
-					int lastPage = serviceBoardQna.lastPageBoardQnA(rowPerPage);
+					int lastPage = serviceBoardQna.lastPageBoardQnA(rowPerPage, searchWord);
 						
 					
 						// 페이징 함으로서 검색키워드와 나이차순정렬 키워드를 get 방식으로 값을 넘겨줍니다.

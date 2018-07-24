@@ -1,4 +1,4 @@
-// 2018. 07. 22 공세준
+// 2018. 07. 24 공세준
 
 package dao.bookshop.project;
 
@@ -15,9 +15,9 @@ import dto.bookshop.project.Member;
 public class BoardQnADao {
 	
 	// 설명 : 질문게시판 페이징시 다음페이지로 이동하기위한 lastPage를 리턴하는 메서드 입니다.
-	// 매개변수 : Connection 클래스 타입으로 드라이버로딩, DB연결정보를 담은 connection 객체참조값과 int 기본타입으로 페이지당 갯수를 받습니다.
+	// 매개변수 : Connection 클래스 타입으로 드라이버로딩, DB연결정보를 담은 connection 객체참조값과 int 기본타입으로 페이지당 갯수, String 참조타입으로 검색키워드를 받습니다.
 	// 리턴 : int 기본타입으로 다음페이지로 이동하기 위한 lastPage를 리턴합니다. 
-	public int lastPageBoardQnA(Connection connection, int rowPerPage) {
+	public int lastPageBoardQnA(Connection connection, int rowPerPage, String searchWord) {
 		
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -27,8 +27,16 @@ public class BoardQnADao {
 		
 		try {
 			
+			String sql = "";
 			
-			preparedStatement = connection.prepareStatement("SELECT COUNT(qna_no) FROM qna ORDER BY qna_no DESC");
+			if(!searchWord.equals("")) {
+				sql = "SELECT COUNT(qna_no) FROM qna WHERE qna_title like ? ORDER BY qna_no DESC";
+				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setString(1, "%"+searchWord+"%");
+			}else{
+				sql = "SELECT COUNT(qna_no) FROM qna ORDER BY qna_no DESC";
+				preparedStatement = connection.prepareStatement(sql);
+			}
 			
 			resultSet = preparedStatement.executeQuery();
 			
@@ -127,9 +135,9 @@ public class BoardQnADao {
 	}
 	
 	// 설명 : 질문게시판 리스트에 데이터베이스 조회후 글 목록을 가져와 보여주는 메서드 입니다.
-	// 매개변수 : Connection 클래스 타입으로 드라이버로딩, DB연결정보를 담은 connection 객체참조값을 받습니다.
+	// 매개변수 : Connection 클래스 타입으로 드라이버로딩, DB연결정보를 담은 connection 객체참조값과 int 기본타입으로 현재페이지와 페이지당 갯수, String 참조타입으로 검색키워드를 받습니다.
 	// 리턴 : ArrayList<BoardQnAandMember> 클래스타입으로 게시글들의 정보가 담긴 객체의 참조값을 리턴합니다.
-	public ArrayList<BoardQnAandMember> selectBoardQnaList(Connection connection, int currentPage, int pagePerRow) {
+	public ArrayList<BoardQnAandMember> selectBoardQnaList(Connection connection, int currentPage, int pagePerRow ,String searchWord) {
 		
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -138,10 +146,21 @@ public class BoardQnADao {
 		try {
 			
 			int startRow = (currentPage-1)*pagePerRow;
+			String sql = "";
 			
-			preparedStatement = connection.prepareStatement("SELECT bq.qna_no, m.member_no, bq.qna_title, m.member_id, substring(bq.qna_date,1,10) as date FROM qna bq INNER JOIN member m ON bq.member_no = m.member_no ORDER By bq.qna_no DESC LIMIT ?,?");
-			preparedStatement.setInt(1, startRow);
-			preparedStatement.setInt(2, pagePerRow);
+			if(!searchWord.equals("")) {
+				sql = "SELECT bq.qna_no, m.member_no, bq.qna_title, m.member_id, substring(bq.qna_date,1,10) as date FROM qna bq INNER JOIN member m ON bq.member_no = m.member_no WHERE bq.qna_title LIKE ? ORDER By bq.qna_no DESC LIMIT ?,?";
+				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setString(1, "%"+searchWord+"%");
+				preparedStatement.setInt(2, startRow);
+				preparedStatement.setInt(3, pagePerRow);
+			}else{
+				sql = "SELECT bq.qna_no, m.member_no, bq.qna_title, m.member_id, substring(bq.qna_date,1,10) as date FROM qna bq INNER JOIN member m ON bq.member_no = m.member_no ORDER By bq.qna_no DESC LIMIT ?,?";
+				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setInt(1, startRow);
+				preparedStatement.setInt(2, pagePerRow);
+			}
+			
 			resultSet = preparedStatement.executeQuery();
 			
 			while(resultSet.next()){

@@ -1,4 +1,4 @@
-// 2018. 07. 23 공세준
+// 2018. 07. 24 공세준
 
 package service.bookshop.project;
 
@@ -17,9 +17,9 @@ import util.connetion.db.DBconnection;
 public class ServiceBoardQnA {
 	
 	// 설명 : 질문게시판 페이징시 다음페이지로 이동하기위한 lastPage를 리턴하는 메서드 입니다.
-	// 매개변수 : int 기본타입으로 페이지당 갯수를 받습니다.
+	// 매개변수 : int 기본타입으로 페이지당 갯수와 String 참조타입으로 검색키워드를 받습니다.
 	// 리턴 : int 기본타입으로 다음페이지로 이동하기 위한 lastPage를 리턴합니다.
-	public int lastPageBoardQnA(int rowPerPage) {
+	public int lastPageBoardQnA(int rowPerPage, String searchWord) {
 		
 		BoardQnADao boardQnaDao = new BoardQnADao();
 		Connection connection = null;
@@ -31,7 +31,7 @@ public class ServiceBoardQnA {
 			connection = DBconnection.getConnetion();
 			connection.setAutoCommit(false);
 			
-			lastPage = boardQnaDao.lastPageBoardQnA(connection, rowPerPage);
+			lastPage = boardQnaDao.lastPageBoardQnA(connection, rowPerPage ,searchWord);
 			
 			connection.commit();
 		}catch(Exception e) {
@@ -128,9 +128,9 @@ public class ServiceBoardQnA {
 	}
 	
 	// 설명 : 질문게시판 리스트에 데이터베이스 조회후 글 목록을 가져와 보여주는 메서드 입니다.
-	// 매개변수 : 없습니다.
+	// 매개변수 : int 기본타입으로 현재페이지와, 페이지당 글 갯수, String 참조타입으로 검색 키워드를 받습니다.
 	// 리턴 : ArrayList<BoardQnAandMember> 클래스타입으로 게시글들의 정보가 담긴 객체의 참조값을 리턴합니다.
-	public ArrayList<BoardQnAandMember> selectBoardQnaList(int currentPage, int pagePerRow) {
+	public ArrayList<BoardQnAandMember> selectBoardQnaList(int currentPage, int pagePerRow, String searchWord) {
 		
 		BoardQnADao boardQnaDao = new BoardQnADao();
 		Connection connection = null;
@@ -141,7 +141,7 @@ public class ServiceBoardQnA {
 			connection = DBconnection.getConnetion();
 			connection.setAutoCommit(false);
 			
-			arrayList = boardQnaDao.selectBoardQnaList(connection, currentPage, pagePerRow);
+			arrayList = boardQnaDao.selectBoardQnaList(connection, currentPage, pagePerRow, searchWord);
 			
 			connection.commit();
 		}catch(Exception e) {
