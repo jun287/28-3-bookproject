@@ -6,6 +6,7 @@
 <%@ page import = "service.bookshop.project.ServiceMember" %>
 <%@ page import = "dto.bookshop.project.Member" %>
 <%@ page import = "dto.bookshop.project.Orders" %>
+<%@ page import = "dto.bookshop.project.Book" %>
 <%@ page import = "dao.bookshop.project.BookOrdersDao" %>
 <!DOCTYPE html>
 <html>
@@ -23,9 +24,12 @@
 	BookOrdersDao BookOrdersDao = new BookOrdersDao();										// BookOrdersDao 객체생성
 	
 	Member Member = ServiceMember.selectMember((String)session.getAttribute("sessionId"));	// 멤버의 정보를 받아오기 위한 메서드 호출
-
+	
 
 	int bookNumber = Integer.parseInt(request.getParameter("bookNumber"));		// book_no를 받아오는 코드
+	
+	Book book = BookOrdersDao.selectBookOrder(bookNumber);						// book테이블의 정보를 받아오기 위한 메서드 호출
+	
 	int memberNumber = Integer.parseInt(request.getParameter("memberNumber"));	// member_no를 받아오는 코드
 	int ordersAmount = 0;														// 수량을 받아오는 코드
 	int price = 0;																// 상품금액(임시)
@@ -135,7 +139,7 @@
 		<table>
 			<tr>
 				<th>상품명</th>
-				<td>상품명 받아온값 입력</td>
+				<td><%=book.getBookName() %></td>
 			</tr>
 			<tr>
 				<th>수량</th>

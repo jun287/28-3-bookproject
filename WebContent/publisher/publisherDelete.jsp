@@ -9,8 +9,9 @@
 	</head>
 	<body>
 		<% 
+		int publisherNo=Integer.parseInt(request.getParameter("publisherNo"));
 		Publisher publisher = new Publisher();
-		publisher.setPublisherNo(Integer.parseInt(request.getParameter("publisherNo")));
+		publisher.setPublisherNo(publisherNo);
 		
 		PublisherDao publisherDao = new PublisherDao();
 		publisherDao.deletePublisher(publisher.getPublisherNo());

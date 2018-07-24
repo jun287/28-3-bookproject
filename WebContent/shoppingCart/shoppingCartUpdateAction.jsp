@@ -3,6 +3,9 @@
 <%@ page import="dao.bookshop.project.ShoppingCartDao"%>
 <%
 	request.setCharacterEncoding("UTF-8");
+	if(session.getAttribute("sessionId") == null){
+		response.sendRedirect(request.getContextPath()+"/member/memberLoginForm.jsp");
+	}
 	int shoppingCartNumber = Integer.parseInt(request.getParameter("shoppingCartNumber"));					// shoppingCartUpdateForm.jsp에서 넘겨받은 쇼핑카트번호
 	int updateShoppingCartAmount = Integer.parseInt(request.getParameter("updateShoppingCartAmount"));		// shoppingCartUpdateForm.jsp에서 넘겨받은 수정된 쇼핑카트수량	
 	int memberNumber = Integer.parseInt(request.getParameter("memberNumber"));								// shoppingCartUpdateForm.jsp에서 넘겨받은 멤버번호

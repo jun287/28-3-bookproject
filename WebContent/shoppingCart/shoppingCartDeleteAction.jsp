@@ -2,8 +2,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="dao.bookshop.project.ShoppingCartDao" %>
 <%
-
 	request.setCharacterEncoding("utf-8");
+	if(session.getAttribute("sessionId") == null){
+		response.sendRedirect(request.getContextPath()+"/member/memberLoginForm.jsp");
+	}
 	int shoppingCartNumber = Integer.parseInt(request.getParameter("shoppingCartNumber"));		// shoppingCartList.jsp에서 넘겨받은 쇼핑카트 넘버
 	int memberNumber = Integer.parseInt(request.getParameter("memberNumber"));					// shoppingCartList.jsp에서 넘겨받은 멤버 넘버
 

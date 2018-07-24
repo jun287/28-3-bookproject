@@ -5,12 +5,14 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>dd</title>
+		<title></title>
 	</head>
 	<body>
 	<%
+/* 		int publisherNO=;
+		System.out.println(publisherNO+"<--publisherNO"); */
 		Publisher publisher = new Publisher();
-		publisher.setPublisherNo(Integer.parseInt(request.getParameter("publisherNo")));
+		publisher.setPublisherNo(Integer.parseInt(request.getParameter("publisherNO")));
 		
 		PublisherDao publisherDao = new PublisherDao();
 		Publisher result=publisherDao.selectPublisherNo(publisher.getPublisherNo());

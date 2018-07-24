@@ -11,9 +11,14 @@
 	<body>
 		<%
 			Publisher publisher = new Publisher();
-			publisher.setPublisherNo(Integer.parseInt(request.getParameter("PublisherNo")));
-			publisher.setPublisherName(request.getParameter("publisherName"));
-			publisher.setPublisherWebsite(request.getParameter("publisherSite"));
+			int publisherNO=Integer.parseInt(request.getParameter("publisherNo"));
+			String publisherName=request.getParameter("publisherName");
+			String publisherSite=request.getParameter("publisherSite");
+			
+			
+			publisher.setPublisherNo(publisherNO);
+			publisher.setPublisherName(publisherName);
+			publisher.setPublisherWebsite(publisherSite);
 			
 			PublisherDao publisherDao = new PublisherDao();
 			publisherDao.updatePublisher(publisher.getPublisherNo(), publisher.getPublisherName(),publisher.getPublisherWebsite());
