@@ -13,6 +13,18 @@
 	</head>
 	<body>
 		<%
+			/* 
+				질문게시글의 수정 정보를 받아서 데이터베이스 테이블내에 게시글 정보를을 수정합니다.
+				
+				게시글의 제목과 내용 그리고 회원번호 게시글의 번호를 받아 각각의 변수에 대입합니다.
+				변수에 담긴 값들을 BoardQnA 클래스 객체 생성후
+				setter's 메서드 호출 하여 대입하여 줍니다.
+				ServiceBoardQnA 클래스 객체 생성후 serviceBoardQnA 객체참조값을
+				찾아가서  updateBoardQnaContent 메서드에 boardQna 참조값을 대입하여 
+				호출하면 데이터베이스에 게시글 정보가 수정됩니다. 
+				
+			*/
+		
 			request.setCharacterEncoding("UTF-8");
 			String boardQnaTitle = request.getParameter("boardQnaTitle");
 			String boardQnaContent = request.getParameter("boardQnaContent");
