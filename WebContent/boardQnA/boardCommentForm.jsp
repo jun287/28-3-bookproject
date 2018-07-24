@@ -22,7 +22,7 @@
 			<h1>답변 등록</h1>
 			<form method="post" action="<%= request.getContextPath() %>/boardQnA/boardCommentAction.jsp">
 				<input type="hidden" name="bqNo" value="<%=boardQnaNo%>">
-				<textarea name="boardQnaCommentContent" placeholder="답변 내용을 작성해주세요." cols="100" required></textarea><br>
+				<textarea name="boardQnaCommentContent" placeholder="답변 내용을 작성해주세요." cols="100" rows="5" required></textarea><br><br>
 				<input type="submit" value="작성">&nbsp;&nbsp;
 				<button type="button" onclick="location.href='<%= request.getContextPath() %>/boardQnA/boardList.jsp'">목록</button>&nbsp;&nbsp;
 				<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button>
