@@ -134,8 +134,10 @@ public class PublisherDao {
 		
 		Connection connection=null;
 		PreparedStatement statement=null;
+		PreparedStatement statement1=null;
 		
-		String sql="delete from publisher where publisher_no=?";
+		String sql="delete from book where publisher_no=?";
+		String sql1="delete from publisher where publisher_no=?";
 		try {
 			connection=DBconnection.getConnetion();
 			
@@ -144,6 +146,12 @@ public class PublisherDao {
 			
 		
 			statement.executeUpdate();
+			
+			statement1=connection.prepareStatement(sql1);
+			statement1.setInt(1, no);
+			
+			
+			statement1.executeUpdate();
 			
 		}catch(Exception e) {
 			e.printStackTrace();
