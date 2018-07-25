@@ -6,10 +6,75 @@ import java.sql.SQLException;
 import dao.bookshop.project.BookOrdersDao;
 import dao.bookshop.project.MemberDao;
 import dao.bookshop.project.ShoppingCartDao;
+import dto.bookshop.project.Book;
 import dto.bookshop.project.Orders;
 import util.connetion.db.DBconnection;
 
 public class ServiceBookOrders {
+	
+	public Book seslectBookOrders(int bookNumber) {
+		// Book 테이블 정보를 받아오는 메서드 			public Book selectBookOrder(int bookNumber)
+		// 18.7.25 최지수
+		
+		BookOrdersDao bookOrdersDao = new BookOrdersDao();
+		Book book = null;
+		Connection connection = null;
+		
+		try {
+			
+			connection = DBconnection.getConnetion();
+			connection.setAutoCommit(false);														// 오토커밋 false
+			
+			book = bookOrdersDao.selectBookOrder(bookNumber);
+			
+			connection.commit();																	// 위 메서드 동시에 커밋
+			
+		}catch(Exception e) {
+			try {
+				connection.rollback();																// 한개라도 처리가 안되면 롤백
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally {
+			if(connection != null)try{connection.close();}catch(SQLException ex){ex.printStackTrace();}
+		}
+		
+		return book;
+		
+	}
+	
+	public Orders selectOrdersRecontAddress(int memberNumber) {
+		// orders 테이블의 최근 주소를 받아오는 메서드	public Orders selectOrdersRecentAddress(int MemberNumber)
+		// 18.7.25 최지수
+		
+		BookOrdersDao bookOrdersDao = new BookOrdersDao();
+		Orders orders = null;
+		Connection connection = null;
+		
+		try {
+			
+			connection = DBconnection.getConnetion();
+			connection.setAutoCommit(false);														// 오토커밋 false
+			
+			orders = bookOrdersDao.selectOrdersRecentAddress(memberNumber);
+			
+			connection.commit();																	// 위 메서드 동시에 커밋
+			
+		}catch(Exception e) {
+			try {
+				connection.rollback();																// 한개라도 처리가 안되면 롤백
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally {
+			if(connection != null)try{connection.close();}catch(SQLException ex){ex.printStackTrace();}
+		}
+		
+		return orders;
+		
+	}
 	
 	
 	public Orders updateStateApproval (int ordersNumber) {

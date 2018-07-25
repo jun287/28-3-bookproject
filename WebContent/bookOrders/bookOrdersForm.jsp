@@ -4,10 +4,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "java.util.ArrayList" %>
 <%@ page import = "service.bookshop.project.ServiceMember" %>
+<%@ page import = "service.bookshop.project.ServiceBookOrders" %>
 <%@ page import = "dto.bookshop.project.Member" %>
 <%@ page import = "dto.bookshop.project.Orders" %>
 <%@ page import = "dto.bookshop.project.Book" %>
-<%@ page import = "dao.bookshop.project.BookOrdersDao" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -20,15 +20,16 @@
 		response.sendRedirect(request.getContextPath() + "/member/memberLoginForm.jsp" );
 	}
 
-	ServiceMember ServiceMember = new ServiceMember();										// ServiceMember 객체생성
-	BookOrdersDao BookOrdersDao = new BookOrdersDao();										// BookOrdersDao 객체생성
+	ServiceMember serviceMember = new ServiceMember();										// ServiceMember 객체생성
+	ServiceBookOrders serviceBookOrders = new ServiceBookOrders();							// ServiceBookOrders 객체생성
 	
-	Member Member = ServiceMember.selectMember((String)session.getAttribute("sessionId"));	// 멤버의 정보를 받아오기 위한 메서드 호출
+	
+	Member Member = serviceMember.selectMember((String)session.getAttribute("sessionId"));	// 멤버의 정보를 받아오기 위한 메서드 호출
 	
 
 	int bookNumber = Integer.parseInt(request.getParameter("bookNumber"));		// book_no를 받아오는 코드
 	
-	Book book = BookOrdersDao.selectBookOrder(bookNumber);						// book테이블의 정보를 받아오기 위한 메서드 호출
+	Book book = serviceBookOrders.seslectBookOrders(bookNumber);				// book테이블의 정보를 받아오기 위한 메서드 호출
 	
 	int memberNumber = Integer.parseInt(request.getParameter("memberNumber"));	// member_no를 받아오는 코드
 	int ordersAmount = 0;														// 수량을 받아오는 코드
@@ -71,7 +72,7 @@
 	
 	String recentAddress = null;												// 최근배송지 받아오는 변수
 	
-	Orders orders = BookOrdersDao.selectOrdersRecentAddress(memberNumber);		// 최근배송지 받아오는 메서드
+	Orders orders = serviceBookOrders.selectOrdersRecontAddress(memberNumber);	// 최근배송지 받아오는 메서드
 	if(orders != null){															// 메서드 호출하여 결과값이 있으면 
 		recentAddress = orders.getOrdersAddress();								// 받아온 주소값 recentAddress변수에 대입
 	}
