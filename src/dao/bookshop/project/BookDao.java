@@ -250,10 +250,10 @@ public class BookDao {
 	4. BookAndPublisherAndBookCode Class 프로퍼티
 		- 접근지정자는 모두 private임.
 			Book book, Publisher publisher, BookCode bookCode; 
+    5. 2018. 7. 24(화) 이원상
 	*/
-	public ArrayList<BookAndPublisherAndBookCode> selectBookListSearchByPage(String beginDate, String endDate, String searchKeyword, String searchCategory, int currentPage, int pagePerRow){
+	public ArrayList<BookAndPublisherAndBookCode> selectBookListSearchByPage(String beginDate, String endDate, String searchKeyword, String searchCategory, int currentPage, int pagePerRow, Connection connection){
 		ArrayList<BookAndPublisherAndBookCode> bookAndPublisherAndBookCodeList = new ArrayList<BookAndPublisherAndBookCode>();
-		connection = DBconnection.getConnetion();
 		int startRow = (currentPage-1)*pagePerRow;
 			try {
 				if(!beginDate.equals("") &&  !endDate.equals("") && !searchCategory.equals("") && !searchKeyword.equals("")) {
@@ -487,7 +487,6 @@ public class BookDao {
 			} finally {
 				try {if(resultSet != null) {resultSet.close();}
 					if(preparedStatement != null) {preparedStatement.close();}
-					if(connection != null) {connection.close();}
 				}catch (SQLException e) {e.printStackTrace();}
 			}
 
@@ -502,10 +501,10 @@ public class BookDao {
 	4. BookAndPublisherAndBookCode Class 프로퍼티
 		- 접근지정자는 모두 private임.
 			Book book, Publisher publisher, BookCode bookCode; 
+	5. 2018. 7. 24(화) 이원상		
 	*/
-	public int checkBookListLastPage(String beginDate, String endDate, String searchKeyword, String searchCategory, int currentPage, int pagePerRow){
+	public int checkBookListLastPage(String beginDate, String endDate, String searchKeyword, String searchCategory, int currentPage, int pagePerRow, Connection connection){
 		ArrayList<BookAndPublisherAndBookCode> bookAndPublisherAndBookCodeList = new ArrayList<BookAndPublisherAndBookCode>();
-		connection = DBconnection.getConnetion();
 		int totalRow=0;
 		int lastPage = 0;
 			try {

@@ -50,7 +50,7 @@
 %>
 	<body>
 	<!-- 페이지당 볼 행 설정 폼 시작 -->
-		<form action="<%=request.getContextPath() %>/book/bookList.jsp" method="post" id="pagePerRowSelectForm">
+		<form action="<%=request.getContextPath() %>/bookCategory/bookCategoryView.jsp" method="post" id="pagePerRowSelectForm">
 		
 <%		
 	if(pagePerRow == 3){											// 보기설정시 선택되어있게하는 조건문
@@ -134,7 +134,7 @@
 %>							
 		</table>
 		<!-- 검색폼 시작 -->
-		<form action="<%=request.getContextPath() %>/book/bookList.jsp" method="post" id="searchForm">
+		<form action="<%=request.getContextPath() %>/bookCategory/bookCategoryView.jsp" method="post" id="searchForm">
 			<label for="beginDate">검색시작날짜</label>
 <%
 	if(beginDate.equals("")){										// 검색시작날짜 유지를 위한 조건문
@@ -289,15 +289,15 @@
 <%
 	if(currentPage !=0 && currentPage != 1){
 %>
-			<a href="<%=request.getContextPath() %>/book/bookList.jsp?currentPage=<%=currentPage-1 %>&pagePerRow=<%=pagePerRow%>&searchCategory=<%=searchCategory%>&searchKeyword=<%=searchKeyword%>&beginDate=<%=beginDate%>&endDate=<%=endDate%>">이전</a>
+			<a href="<%=request.getContextPath() %>/bookCategory/bookCategoryView.jsp?currentPage=<%=currentPage-1 %>&pagePerRow=<%=pagePerRow%>&searchCategory=<%=searchCategory%>&searchKeyword=<%=searchKeyword%>&beginDate=<%=beginDate%>&endDate=<%=endDate%>">이전</a>
 <%
 	}for(int p=1; p<=lastPage; p++){
 %>		
-			<a href="<%=request.getContextPath() %>/book/bookList.jsp?currentPage=<%=p%>&pagePerRow=<%=pagePerRow%>&searchCategory=<%=searchCategory%>&searchKeyword=<%=searchKeyword%>&beginDate=<%=beginDate%>&endDate=<%=endDate%>"><%=p%></a>
+			<a href="<%=request.getContextPath() %>/bookCategory/bookCategoryView.jsp?currentPage=<%=p%>&pagePerRow=<%=pagePerRow%>&searchCategory=<%=searchCategory%>&searchKeyword=<%=searchKeyword%>&beginDate=<%=beginDate%>&endDate=<%=endDate%>"><%=p%></a>
 <%		
 	}if(currentPage < lastPage){
 %>	
-			<a href="<%=request.getContextPath() %>/book/bookList.jsp?currentPage=<%=currentPage+1 %>&pagePerRow=<%=pagePerRow%>&searchCategory=<%=searchCategory%>&searchKeyword=<%=searchKeyword%>&beginDate=<%=beginDate%>&endDate=<%=endDate%>">다음</a>
+			<a href="<%=request.getContextPath() %>/bookCategory/bookCategoryView.jsp?currentPage=<%=currentPage+1 %>&pagePerRow=<%=pagePerRow%>&searchCategory=<%=searchCategory%>&searchKeyword=<%=searchKeyword%>&beginDate=<%=beginDate%>&endDate=<%=endDate%>">다음</a>
 <%
 	}
 %>		
