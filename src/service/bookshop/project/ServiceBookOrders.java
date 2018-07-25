@@ -25,7 +25,7 @@ public class ServiceBookOrders {
 			connection = DBconnection.getConnetion();
 			connection.setAutoCommit(false);														// 오토커밋 false
 			
-			book = bookOrdersDao.selectBookOrder(bookNumber);
+			book = bookOrdersDao.selectBookOrder(bookNumber, connection);
 			
 			connection.commit();																	// 위 메서드 동시에 커밋
 			
@@ -57,7 +57,7 @@ public class ServiceBookOrders {
 			connection = DBconnection.getConnetion();
 			connection.setAutoCommit(false);														// 오토커밋 false
 			
-			orders = bookOrdersDao.selectOrdersRecentAddress(memberNumber);
+			orders = bookOrdersDao.selectOrdersRecentAddress(memberNumber, connection);
 			
 			connection.commit();																	// 위 메서드 동시에 커밋
 			
