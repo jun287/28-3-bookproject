@@ -20,7 +20,7 @@ public class BookDao {
 		}
 
 		try {
-			sql1 = "INSERT INTO book (bookcode_no, publisher_no, book_name, book_author, book_price, book_point, book_amount, book_out, book_date) VALUES (?,?,?,?,?,?,?,?, NOW())";
+			sql1 = "INSERT INTO book (bookcode_no, publisher_no, book_name, book_author, book_price, book_point, book_amount, book_out, book_date) VALUES (?,?,?,?,?,?,?,?,?)";
 
 			preparedStatement = connection.prepareStatement(sql1);
 
@@ -32,7 +32,8 @@ public class BookDao {
 			preparedStatement.setInt(6, book.getBookPoint());
 			preparedStatement.setInt(7, book.getBookAmount());
 			preparedStatement.setString(8, book.getBookOut());
-
+			preparedStatement.setString(9, book.getBookDate());
+			
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -51,8 +52,10 @@ public class BookDao {
 
 		}
 	}
-
-	// db에 있는 book데이터들을 조회한다.
+	
+	
+	//특정 no에 대한 조회하는 메서드 
+	//매개변수에 no에 값을 대입하여 조회한다
 	public Book selectBook(int bookNo) {
 		System.out.println("selectBook");
 
@@ -61,7 +64,7 @@ public class BookDao {
 		ResultSet resultSet = null;
 
 		Book book = new Book();
-		String sql = "SELECT book_no,bookcode_no,publisher_no,book_name,book_author,book_price,book_point,book_amount,book_out,book_date FROM book where book_no=?";
+		String sql = "SELECT book_no,bookcode_no,publisher_no,book_name,book_author,book_price,book_point,book_amount,book_out,subString(book_date,1,10)as book_date FROM book where book_no=?";
 
 		try {
 			connection = DBconnection.getConnetion();
@@ -151,6 +154,93 @@ public class BookDao {
 		
 		return list;
 	}
+
+	//특정 no에 대한 조회하는 메서드 
+	//매개변수에 no에 값을 대입하여 조회한다
+	public void updateBook(Book book) {
+			System.out.println("bookUpdate");
+			
+			Connection connection=null;
+			PreparedStatement statement=null;
+			
+			if (book.getBookAmount() > 0) {
+				book.setBookOut("재고있음");
+			} else {
+				book.setBookOut("재고없음");
+			}
+			
+			String sql="update book set bookcode_no=?,publisher_no=?,book_name=?,book_author=?,book_price=?,book_point=?,book_amount=?,book_out=?,book_date=? where book_no=?";
+			
+			
+			try {
+				connection=DBconnection.getConnetion();
+				statement=connection.prepareStatement(sql);
+				
+				statement.setInt(1,book.getBookCodeNo() );
+				statement.setInt(2,book.getPublisherNo());
+				statement.setString(3,book.getBookName());
+				statement.setString(4, book.getBookAuthor());
+				statement.setInt(5, book.getBookPrice());
+				statement.setInt(6, book.getBookPoint());
+				statement.setInt(7, book.getBookAmount());
+				statement.setString(8, book.getBookOut());
+				statement.setString(9, book.getBookDate());
+				statement.setInt(10, book.getBookNo());
+				
+				statement.executeUpdate();
+			
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				try {statement.close();} catch (SQLException e) {e.printStackTrace();}
+				try {connection.close();} catch (SQLException e) {e.printStackTrace();}
+			}
+			
+			
+		} 
+	
+	public void  deleteBook(int bookNumber) {
+		Connection connection=null;
+		PreparedStatement statement=null;
+		PreparedStatement statement1=null;
+		PreparedStatement statement2=null;
+		PreparedStatement statement3=null;
+		
+		String sql="delete from book where book_no=?";
+		String sql1="delete from bookintro where book_no=?";
+		String sql2="delete from bookreview where book_no=?";
+		String sql3="delete from orders where book_no=?";
+		try {
+			connection=DBconnection.getConnetion();
+			statement=connection.prepareStatement(sql1);
+			statement.setInt(1, bookNumber);
+			
+			statement.executeUpdate();
+			
+			statement1=connection.prepareStatement(sql2);
+			statement1.setInt(1, bookNumber);
+			
+			statement1.executeUpdate();
+			
+			statement3=connection.prepareStatement(sql3);
+			statement3.setInt(1, bookNumber);
+			
+			statement3.executeUpdate();
+			
+			statement2=connection.prepareStatement(sql);
+			statement2.setInt(1, bookNumber);
+			
+			statement2.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {statement.close();} catch (SQLException e) {e.printStackTrace();}
+			try {connection.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		
+	}
+	
 	
 	/*
 	메소드 설명	

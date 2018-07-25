@@ -109,7 +109,7 @@
 			BookReviewDao bookReviewDao=new BookReviewDao();
 			ArrayList<BookReview> result1=bookReviewDao.selectBookReview();
 		
-			
+			String sessionAdminId = (String)session.getAttribute("sessionAdminId");
 		%>
 		
 		<div id="info">
@@ -141,19 +141,23 @@
 				<a href="<%=request.getContextPath()%>/shoppingCart/shoppingCartAddAction.jsp?bookNumber=<%=bookNo %>&bookAmount=<%=num1 %>&memberNumber=<%=member.getMemberNum() %>&totalPrice=<%=book.getBookPrice()*num1 %>"><input type="button" value="장바구니" size="1"></a>
 				<a href="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp?bookNumber=<%=bookNo %>&amount=<%=num1 %>&memberNumber=<%=member.getMemberNum()%>&price=<%=book.getBookPrice() %>"><input type="button" value="바로구매" size="1"></a>
 				<%
-					if(sessionId=="")
+					if(sessionAdminId!=null){
 				%>
-				<a href="#"><input type="button" value="수정"></a>
-				<a href="#"><input type="button" value="삭제"></a>
+				<a href="<%=request.getContextPath()%>/book/bookUpdateForm.jsp?bookNumber=<%=bookNo %>"><input type="button" value="수정"></a>
+				<a href="<%=request.getContextPath()%>/book/bookDelete.jsp?bookNumber=<%=bookNo %>"><input type="button" value="삭제"></a>
+				<%
+					}
+				%>
 			</div>
 		</div>
+		
 		<div id="intro">
 			<br><br>
 			<span>--------------------------------------------------------</span>
 			<span>책소개</span>
 			<span>-------------------------------------------------------</span><br>
 			<%
-				for(int i=0;i<result1.size();i++){
+				for(int i=0;i<result.size();i++){
 					BookIntro bookIntro1=result.get(i);
 				
 			%>
@@ -162,17 +166,25 @@
 					
 			<%
 				}
+			
+				if(sessionAdminId!=null){
 			%>
 					
 				
-		<form action="<%=request.getContextPath()%>/book/bookIntroInsertAction.jsp?bookNumber=<%=bookNo %>" method="post">
-				<label>글쓴이</label>
-				<input type="text"  width="1px;" name="write"required><br><br>
-				<textarea name="content" style="width:800px;height:100px;resize: none;"required></textarea>
-				<input type="submit" value="등록">
-		</form>
+			<form action="<%=request.getContextPath()%>/book/bookIntroInsertAction.jsp?bookNumber=<%=bookNo %>" method="post">
+					<label>글쓴이</label>
+					<input type="text"  width="1px;" name="write"required><br><br>
+					<textarea name="content" style="width:800px;height:100px;resize: none;"required></textarea>
+					<input type="submit" value="등록">
+			</form>
+			<%
+				}
+			%>
 		</div>
+		
+		
 		<div id="review">
+			
 			<br><br>
 			<span>-----------------------------------------------------</span>
 			<span>Book Review</span>
@@ -188,6 +200,7 @@
 					}
 				%>
 			</div><br>
+			
 			<form method="post" action="<%= request.getContextPath() %>/book/bookReviewInsertAction.jsp">
 				<input type="hidden" name="bookNo" value="<%=bookNo%>">
 				<textarea name="bookReviewContent" placeholder="서평(Book Review)을 작성해주세요." style="width:800px;height:100px;resize: none;"required></textarea><br><br>
