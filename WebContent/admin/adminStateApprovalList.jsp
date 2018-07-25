@@ -30,7 +30,6 @@
 				<td>주문날짜</td>
 				<td>배송주소</td>
 				<td>진행상태</td>
-				<td>포인트</td>
 			</tr>
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -77,7 +76,6 @@
 				<%
 					}
 				%>
-				<td><%=member.getMemberPoint() %></td>
 			</tr>
 <% 	
 	}
