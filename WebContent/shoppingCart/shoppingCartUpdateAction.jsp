@@ -1,6 +1,6 @@
 <!-- 28기 이원상 2018. 7. 24(화) shoppingCartUpdateAction.jsp -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="dao.bookshop.project.ShoppingCartDao"%>
+<%@ page import="service.bookshop.project.ServiceShoppingCart"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	if(session.getAttribute("sessionId") == null){
@@ -18,8 +18,8 @@
 	System.out.println(bookPrice+"<--bookPrice");
 	System.out.println(updateShoppingCartPrice+"<--updateShoppingCartPrice");
 	
-	ShoppingCartDao shoppingCartDao = new ShoppingCartDao();
-	shoppingCartDao.updateShoppingCart(shoppingCartNumber, updateShoppingCartAmount, updateShoppingCartPrice);
+	ServiceShoppingCart serviceShoppingCart = new ServiceShoppingCart();									// ServiceShoppingCart클래스내 메소드 호출을 위한 인스턴스 생성
+	serviceShoppingCart.updateShoppingCart(shoppingCartNumber, updateShoppingCartAmount, updateShoppingCartPrice);
 	response.sendRedirect(request.getContextPath()+"/shoppingCart/shoppingCartList.jsp?memberNumber="+memberNumber);	// 수정 후 해당 member의 shoppingCartList로 이동
 %>
 <!DOCTYPE html>

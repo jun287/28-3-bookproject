@@ -1,6 +1,5 @@
 // 28기 이원상 2018. 7. 18(수) ShoppingCartDao.java
 package dao.bookshop.project;
-import util.connetion.db.DBconnection;
 import dto.bookshop.project.MemberAndBookAndShoppingCart;
 import dto.bookshop.project.ShoppingCart;
 import dto.bookshop.project.Member;
@@ -172,8 +171,6 @@ public class ShoppingCartDao {
 		try {
 			sql1 = "UPDATE shoppingcart SET shoppingcart_amount=?, shoppingcart_price=? WHERE shoppingcart_no=?";
 			preparedStatement = connection.prepareStatement(sql1);
-			// connection.setAutoCommit(false);		
-			// 쿼리실행 결과가 자동으로 DB에 입력(수정)되는 것(commit)을 수동으로 지정
 			preparedStatement.setInt(1, updateShoppingCartAmount);
 			preparedStatement.setInt(2, updateShoppingCartPrice);
 			preparedStatement.setInt(3, shoppingCartNumber);
@@ -199,8 +196,6 @@ public class ShoppingCartDao {
 		try {
 			sql1 = "DELETE FROM shoppingcart WHERE member_no=?";
 			preparedStatement = connection.prepareStatement(sql1);
-			// connection.setAutoCommit(false);		
-			// 쿼리실행 결과가 자동으로 DB에 입력(수정)되는 것(commit)을 수동으로 지정
 			preparedStatement.setInt(1, memberNumber);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
