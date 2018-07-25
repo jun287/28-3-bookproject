@@ -14,16 +14,15 @@ public class PublisherDao {
 
 	//출판사 등록하는 메서드
 	//매개변수에 Publisher dto에 있는 데이터를 대입한다.
-	public void insertPublisher(String publisherName,String publishersite) {
+	public void insertPublisher(String publisherName,String publishersite, Connection connection) {
 		System.out.println("insertPublisher");
 		
-		Connection connection=null;
+		
 		PreparedStatement statement=null;
 		
 		String sql="insert into publisher(publisher_name,publisher_website) values(?,?)";
 	
 		try {
-			connection=DBconnection.getConnetion();
 			statement=connection.prepareStatement(sql);
 			statement.setString(1, publisherName);
 			statement.setString(2, publishersite);
@@ -32,50 +31,18 @@ public class PublisherDao {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			try {connection.close();} catch (SQLException e) {e.printStackTrace();}
-			try {statement.close();} catch (SQLException e) {e.printStackTrace();}
-		}
-	}
-
-	//출판사 리스트를 보여주는메서드
-	public ArrayList<Publisher> selectPublisher() {
-		System.out.println("selectPublisher");
-		
-		Connection connection=null;
-		PreparedStatement statement=null;
-		ResultSet resultSet=null;
-		String sql="select publisher_no,publisher_name,publisher_website from publisher";
-		ArrayList<Publisher> list=new ArrayList<Publisher>();
-		try {
-			connection=DBconnection.getConnetion();
-			statement=connection.prepareStatement(sql);
-			
-			resultSet=statement.executeQuery();
-			while(resultSet.next()) {
-				Publisher publisher=new Publisher();
-				
-				publisher.setPublisherNo(resultSet.getInt("publisher_no"));
-				publisher.setPublisherName(resultSet.getString("publisher_name"));
-				publisher.setPublisherWebsite(resultSet.getString("publisher_website"));
-				
-				list.add(publisher);
+			try {
+				if(statement!=null) {statement.close();}				
+			}catch (SQLException e) {
+				e.printStackTrace();
 			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally {
-			try {resultSet.close();} catch (SQLException e) {e.printStackTrace();}
-			try {statement.close();} catch (SQLException e) {e.printStackTrace();}
-			try {connection.close();} catch (SQLException e) {e.printStackTrace();}
 		}
-		
-		return list;
 	}
-
 	//no를 이용하여 특정 출판사 정보 조회
-	public Publisher selectPublisherNo(int no) {
+	public Publisher selectPublisherNo(int no,Connection connection) {
 		System.out.println("selectPublisherNo");
 		
-		Connection connection=null;
+		
 		PreparedStatement statement=null;
 		ResultSet resultSet=null;
 		
@@ -83,8 +50,7 @@ public class PublisherDao {
 		Publisher publisher=new Publisher();
 		
 		try {
-			connection=DBconnection.getConnetion();
-			
+
 			statement=connection.prepareStatement(sql);
 			statement.setInt(1, no);
 			
@@ -98,23 +64,38 @@ public class PublisherDao {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			try {resultSet.close();} catch (SQLException e) {e.printStackTrace();}
-			try {statement.close();} catch (SQLException e) {e.printStackTrace();}
-			try {connection.close();} catch (SQLException e) {e.printStackTrace();}
+			try {
+				if(resultSet!=null) {
+					resultSet.close();
+				}
+			}
+			
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				if(statement!=null) {
+					statement.close();
+				}
+			} 
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
 		}
 		
 		return publisher;
 	}
-	public void updatePublisher(int no,String publishername, String publisherwebsite) {
+	public void updatePublisher(int no,String publishername, String publisherwebsite, Connection connection) {
 		System.out.println("updatePublisher");
 		
-		Connection connection=null;
+		
 		PreparedStatement statement=null;
 		
 		String sql="Update publisher set publisher_name=? ,publisher_website=? where publisher_no=?";
 		
 		try {
-			connection=DBconnection.getConnetion();
+			
 			
 			statement=connection.prepareStatement(sql);
 			statement.setString(1, publishername);
@@ -126,20 +107,27 @@ public class PublisherDao {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			try {connection.close();} catch (SQLException e) {e.printStackTrace();}
-			try {statement.close();} catch (SQLException e) {e.printStackTrace();}
+			
+				
+			try {
+				if(statement!=null) {
+					statement.close();
+				}
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
-	public void deletePublisher(int no) {
+	public void deletePublisher(int no,Connection connection) {
 		
-		Connection connection=null;
+		
 		PreparedStatement statement=null;
 		PreparedStatement statement1=null;
 		
 		String sql="delete from book where publisher_no=?";
 		String sql1="delete from publisher where publisher_no=?";
 		try {
-			connection=DBconnection.getConnetion();
+			
 			
 			statement=connection.prepareStatement(sql);
 			statement.setInt(1, no);
@@ -156,19 +144,25 @@ public class PublisherDao {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			try {connection.close();} catch (SQLException e) {e.printStackTrace();}
-			try {statement.close();} catch (SQLException e) {e.printStackTrace();}
+			
+			try {
+				if(statement!=null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
-	public int selectCount() {
+	public int selectCount(Connection connection) {
 		
 		int totalRow = 0;
-		Connection connection=null;
+		
 		PreparedStatement statement=null;
 		ResultSet resultSet=null;
 		
 		try {
-			connection=DBconnection.getConnetion();
+			
 			statement = connection.prepareStatement("SELECT COUNT(*) FROM publisher");
 			resultSet = statement.executeQuery();
 			if(resultSet.next()) {
@@ -178,25 +172,36 @@ public class PublisherDao {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
+			try {
+				if(resultSet!=null) {
+					resultSet.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}try {
+				if(statement!=null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			
-			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
-			if(statement!=null) try{ statement.close(); } catch (SQLException e) {}
-			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}
+			
 		}
 		
 		
 		return totalRow;
 	}
-	public ArrayList<Publisher> selectByPagePublisher(int currentpage, int pagePerRow){
+	public ArrayList<Publisher> selectByPagePublisher(int currentpage, int pagePerRow, Connection connection){
 		
 		ArrayList<Publisher> list = new ArrayList<Publisher>();
-		Connection connection=null;
+		
 		PreparedStatement statement=null;
 		ResultSet resultSet=null;
 		String sql = null;
 		
 		try {
-			connection=DBconnection.getConnetion();
+			
 			
 			
 			 	int startRow = (currentpage-1)*pagePerRow;
@@ -222,14 +227,25 @@ public class PublisherDao {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			
-			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
-			if(statement!=null) try{ statement.close(); } catch (SQLException e) {}
-			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}
+			try {
+				if(resultSet!=null) {
+					resultSet.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}try {
+				if(statement!=null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
+
 		return list;
 		
 	}
-	}
+	
+}
 
 

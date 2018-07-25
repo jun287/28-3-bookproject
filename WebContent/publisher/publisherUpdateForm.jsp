@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="dao.bookshop.project.PublisherDao" %>
+<%@ page import="service.bookshop.project.ServicePublisher" %>
 <%@ page import="dto.bookshop.project.Publisher" %>
 <!DOCTYPE html>
 <html>
@@ -14,8 +14,8 @@
 		Publisher publisher = new Publisher();
 		publisher.setPublisherNo(Integer.parseInt(request.getParameter("publisherNO")));
 		
-		PublisherDao publisherDao = new PublisherDao();
-		Publisher result=publisherDao.selectPublisherNo(publisher.getPublisherNo());
+		ServicePublisher servicePublisher = new ServicePublisher();
+		Publisher result=servicePublisher.selectPublisherNo(publisher.getPublisherNo());
 	%>
 		<div align="center">
 			<h1>출판사 수정</h1>

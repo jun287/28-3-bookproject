@@ -110,15 +110,13 @@ public class MemberDao {
 		
 	}
 	
-	public Member selectMemberPoint(int memberNumber) {
+	public Member selectMemberPoint(int memberNumber, Connection connection) {
 		// memberPoint 조회하는 메소드
-		// return data type Member, selectMemberPoint 메소드 선언 (int data type으로 memberNumber 매개변수 생성)
-		Connection connection = null;
+		// return data type Member, selectMemberPoint 메소드 선언 (int data type으로 memberNumber 매개변수 생성, Connection data type으로 connection 매개변수 생성 )
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		Member member = null;
 		try {
-			connection = DBconnection.getConnetion();
 			preparedStatement = connection.prepareStatement("SELECT member_no,member_id,member_pw,member_name,member_addr,member_point,member_date FROM member WHERE member_no=?");
 			preparedStatement.setInt(1, memberNumber);
 			

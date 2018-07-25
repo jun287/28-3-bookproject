@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="dao.bookshop.project.PublisherDao" %>
+<%@ page import="service.bookshop.project.ServicePublisher" %>
 <%@ page import="dto.bookshop.project.Publisher" %>
 <%request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
@@ -20,8 +20,8 @@
 			publisher.setPublisherName(publisherName);
 			publisher.setPublisherWebsite(publisherSite);
 			
-			PublisherDao publisherDao = new PublisherDao();
-			publisherDao.updatePublisher(publisher.getPublisherNo(), publisher.getPublisherName(),publisher.getPublisherWebsite());
+			ServicePublisher servicePublisher = new ServicePublisher();
+			servicePublisher.updatePublisher(publisher.getPublisherNo(), publisher.getPublisherName(),publisher.getPublisherWebsite());
 			response.sendRedirect(request.getContextPath()+"/publisher/publisherList.jsp");
 		%>
 	</body>

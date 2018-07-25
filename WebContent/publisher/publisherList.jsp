@@ -1,6 +1,6 @@
 <%@page import="dto.bookshop.project.Publisher"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="dao.bookshop.project.PublisherDao"%>
+<%@page import="service.bookshop.project.ServicePublisher"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -35,8 +35,8 @@
 			
 			int startRow = (currentPage - 1) * pagePerRow;	
 					
-			PublisherDao publisherdao = new PublisherDao();		
-			ArrayList<Publisher> list = publisherdao.selectByPagePublisher(currentPage, pagePerRow);
+			ServicePublisher servicePublisher  = new ServicePublisher();		
+			ArrayList<Publisher> list = servicePublisher.selectByPagePublisher(currentPage, pagePerRow);
 			
 				
 				for(int i=0;i<list.size();i++){
@@ -56,7 +56,7 @@
 			
 			
 			<%
-			int totalRow = publisherdao.selectCount();	
+			int totalRow = servicePublisher.selectCount();
 			int lastPage = 0;	
 			
 			if(totalRow % pagePerRow == 0){		

@@ -1,4 +1,4 @@
-<%@page import="dao.bookshop.project.PublisherDao"%>
+<%@page import="service.bookshop.project.ServicePublisher"%>
 <%@page import="dto.bookshop.project.Publisher"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%request.setCharacterEncoding("UTF-8"); %>
@@ -14,8 +14,8 @@
 			publisher.setPublisherName(request.getParameter("publisherName"));
 			publisher.setPublisherWebsite(request.getParameter("publisherSite"));
 			
-			PublisherDao publisherDao=new PublisherDao();
-			publisherDao.insertPublisher(publisher.getPublisherName(),publisher.getPublisherWebsite());
+			ServicePublisher servicePublisher=new ServicePublisher();
+			servicePublisher.insertPublisher(publisher.getPublisherName(),publisher.getPublisherWebsite());
 			
 			response.sendRedirect(request.getContextPath()+"/publisher/publisherList.jsp");
 		%>

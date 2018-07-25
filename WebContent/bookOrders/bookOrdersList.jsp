@@ -5,6 +5,7 @@
 <%@ page import = "dao.bookshop.project.BookOrdersDao" %>					<!-- dao.bookshop.project패키지 안에 BookOrdersDo클래스 import -->
 <%@ page import = "dto.bookshop.project.Orders" %>							<!-- dto.bookshop.project패키지 안에 Orders클래스 import  -->
 <%@ page import = "java.util.ArrayList" %>									<!-- ArrayList는 java.util.ArrayList에 포함 import -->
+<%@ page import = "service.bookshop.project.ServiceBookOrders" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -28,6 +29,8 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	
+	ServiceBookOrders serviceBookOrders = new ServiceBookOrders();
+	
 	int currentPage = 1;	// 시작 페이지 (1페이지)
 	int pagePerRow = 3;		// 한 페이지에 보이는 글 수 (글 3개)
 	int memberNumber = Integer.parseInt(request.getParameter("memberNumber"));
@@ -38,7 +41,7 @@
 	int startRow = (currentPage - 1 ) * pagePerRow;		// 시작 페이지 = (현재 페이지 번호 -1) * 한 페이지에 보여주는 글 수
 	
 	BookOrdersDao bookOrdersDao = new BookOrdersDao();
-	ArrayList<Orders> ordersList = bookOrdersDao.selectOrderByPage(currentPage, pagePerRow, memberNumber);
+	ArrayList<Orders> ordersList = serviceBookOrders.selectOrderByPage(currentPage, pagePerRow, memberNumber);
 	
 	for(int i=0; i<ordersList.size(); i++){
 		Orders orders = ordersList.get(i);
@@ -57,7 +60,8 @@
 		</table>
 	
 <% 
-	int totalRow = bookOrdersDao.selectCount();			// 총 개수
+	
+	int totalRow = serviceBookOrders.selectCount();		// 총 개수
 	int lastPage = 0;									// 마지막 페이지
 	
 	if(totalRow % pagePerRow == 0) {
