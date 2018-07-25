@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import dto.bookshop.project.Book;
 import dto.bookshop.project.Orders;
+import dto.bookshop.project.Member;
 
 public class BookOrdersDao {
 	
@@ -144,14 +145,16 @@ public class BookOrdersDao {
 				
 				Orders orders = new Orders();
 				//Orders data type으로 orders 변수를 생성하고 new생성자메소드로  생성된 Orders객체의 주소 값을 orders 변수에 할당한다	
+				Member member = new Member();
 				orders.setOrdersNumber(resultSet.getInt("orders_no"));
 				orders.setBookNumber(resultSet.getInt("book_no"));
+				orders.setBookNumber(resultSet.getInt("member_no"));
 				orders.setOrdersPrice(resultSet.getInt("orders_price"));
 				orders.setOrdersAmount(resultSet.getInt("orders_amount"));
 				orders.setOrdersDate(resultSet.getString("orders_date"));
 				orders.setOrdersAddress(resultSet.getString("orders_addr"));
 				orders.setOrderState(resultSet.getString("orders_state"));
-				
+				//member.setMemberPoint(resultSet.getInt("member_point"));
 				selectOrdersList.add(orders);
 			}
 			

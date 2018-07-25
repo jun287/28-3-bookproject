@@ -42,4 +42,6 @@
 	
 	memberDao.updateMemberPoint(memberNumber, memberPoint);				// 주문 후 기존의 memberPoint 업데이트 
 	
+	response.sendRedirect(request.getContextPath() + "/admin/adminStateApprovalList.jsp");
+	
 %>
