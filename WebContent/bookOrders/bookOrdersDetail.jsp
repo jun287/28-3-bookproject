@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ page import = "dao.bookshop.project.BookOrdersDao" %>		<!-- dao.bookshop.project패키지 안에 BookOrdersDao클래스 import  -->
 <%@ page import = "dto.bookshop.project.Orders"  %>				<!-- dto.bookshop.project패키지 안에 Orders클래스 import  -->
+<%@ page import = "service.bookshop.project.ServiceBookOrders" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,9 +17,10 @@
 </head>
 <body>
 <%
+	ServiceBookOrders serviceBookOrders = new ServiceBookOrders();
 	int ordersNumber = Integer.parseInt(request.getParameter("ordersNumber"));
 	BookOrdersDao bookOrdersDao = new BookOrdersDao();
-	Orders orders = bookOrdersDao.selectOrders(ordersNumber);
+	Orders orders = serviceBookOrders.selectOrders(ordersNumber);
 %>
 		<form action="<%=request.getContextPath()%>/bookOrders/bookOrdersList.jsp">
 			<input type="hidden" name="memberNumber" value="<%=orders.getMemberNumber()%>">

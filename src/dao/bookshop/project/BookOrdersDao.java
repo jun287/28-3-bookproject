@@ -11,16 +11,14 @@ import dto.bookshop.project.Member;
 public class BookOrdersDao {
 	
 
-	public void selectforUpdateBookAmount (int bookNumber, int ordersNumber) {
+	public void selectforUpdateBookAmount (int bookNumber, int ordersNumber, Connection connection) {
 		// bookNumber, ordersNumber 조회 후 수량 업데이트
-		// 리턴값 없는 selectforUpdateBookAmount메소드 (int data type으로 bookNumber, ordersNumber 매개변수 생성)
-		Connection connection = null;
+		// 리턴값 없는 selectforUpdateBookAmount메소드 (int data type으로 bookNumber, ordersNumber 매개변수 생성, Connection data type으로 connection 매개변수 생성)
 		PreparedStatement preparedStatement = null;
 		PreparedStatement preparedStatement2 = null;
 		ResultSet resultSet = null;
 		
 		try {
-			connection = DBconnection.getConnetion();
 			preparedStatement = connection.prepareStatement("SELECT book.book_amount, orders.orders_amount FROM orders INNER JOIN book ON orders.book_no=book.book_no WHERE orders.orders_no=? AND book.book_no=?");
 			preparedStatement.setInt(1, ordersNumber);
 			preparedStatement.setInt(2, bookNumber);
@@ -61,6 +59,7 @@ public class BookOrdersDao {
 		// book테이블의 정보를 조회하여 bookOrderForm.jsp에 출력하는 메서드
 		// book 클래스의 주소값을 리턴하여 bookOrderForm.jsp에서 출력
 		// bookNumber를 받아 쿼리문 작성
+		// Connection data type으로 connection 매개변수 생성
 		// 18.7.24 최지수
 		
 		PreparedStatement preparedStatement = null;
@@ -96,14 +95,12 @@ public class BookOrdersDao {
 		return book;
 	}
 	
-	public  void updateStateApproval (int ordersNumber) {
+	public  void updateStateApproval (int ordersNumber, Connection connection) {
 		// 상품 진행 상태 바꿔주는 메소드
-		// 리턴값 없는 updateStateApproval메소드 (int data type으로 orderNumber매개변수 생성)
-		Connection connection = null;
+		// 리턴값 없는 updateStateApproval메소드 (int data type으로 orderNumber매개변수 생성, Connection data type으로 connection 매개변수 생성)
 		PreparedStatement preparedStatement = null;
 		
 		try {
-			connection = DBconnection.getConnetion();
 			preparedStatement = connection.prepareStatement("UPDATE orders SET orders_state='배송완료' WHERE orders_no=?");
 			preparedStatement.setInt(1, ordersNumber);
 			
@@ -122,16 +119,14 @@ public class BookOrdersDao {
 		
 	}
 	
-	public ArrayList<Orders> selectOrdersState (int currentPage, int pagePerRow){
+	public ArrayList<Orders> selectOrdersState (int currentPage, int pagePerRow, Connection connection){
 		// 관리자 상품 진행상태 승인 메소드
-		// return data type ArrayList<Orders>, selectOrdersState 메소드 (int data type currentPage 매개변수, int data type memberNumber 매개변수 )
+		// return data type ArrayList<Orders>, selectOrdersState 메소드 (int data type currentPage 매개변수, int data type memberNumber 매개변수, Connection data type으로 connection 매개변수 생성 )
 		ArrayList<Orders> selectOrdersList = new ArrayList<>();
-		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		
 		try {
-			connection = DBconnection.getConnetion();
 			preparedStatement = connection.prepareStatement("SELECT orders_no, book_no, member_no, orders_price, orders_amount, orders_date, orders_addr ,orders_state FROM orders ORDER BY orders_no ASC LIMIT ?,?");
 			preparedStatement.setInt(1, (currentPage-1)*pagePerRow);
 			preparedStatement.setInt(2, pagePerRow);
@@ -142,16 +137,14 @@ public class BookOrdersDao {
 				
 				Orders orders = new Orders();
 				//Orders data type으로 orders 변수를 생성하고 new생성자메소드로  생성된 Orders객체의 주소 값을 orders 변수에 할당한다	
-				Member member = new Member();
 				orders.setOrdersNumber(resultSet.getInt("orders_no"));
 				orders.setBookNumber(resultSet.getInt("book_no"));
-				orders.setBookNumber(resultSet.getInt("member_no"));
+				orders.setMemberNumber(resultSet.getInt("member_no"));
 				orders.setOrdersPrice(resultSet.getInt("orders_price"));
 				orders.setOrdersAmount(resultSet.getInt("orders_amount"));
 				orders.setOrdersDate(resultSet.getString("orders_date"));
 				orders.setOrdersAddress(resultSet.getString("orders_addr"));
 				orders.setOrderState(resultSet.getString("orders_state"));
-				//member.setMemberPoint(resultSet.getInt("member_point"));
 				selectOrdersList.add(orders);
 			}
 			
@@ -174,7 +167,7 @@ public class BookOrdersDao {
 	
 	public Orders selectOrdersRecentAddress(int MemberNumber, Connection connection) {
 		// 주문정보를 조회하여 가장 최신의 정보를 조회하는 메서드
-		// return data type Orders, selectOrdersRecentAddress 메소드 (int data type으로 MemberNumber매개변수 선언)
+		// return data type Orders, selectOrdersRecentAddress 메소드 (int data type으로 MemberNumber매개변수 선언, Connection data type으로 connection 매개변수 생성)
 		// Orders클래스 return하여 조회된 값 세팅 및 불러오기
 		// 매개변수는 회원번호를 받아서 주문정보를 조회한다
 		// 18.7.23 최지수
@@ -217,7 +210,7 @@ public class BookOrdersDao {
 	
 	public void insertBookOrders (Orders orders, Connection connection) {
 		// orders테이블에 주문정보를 추가하는 메서드
-		// 리턴값 없는 insertBookOrders 메소드 (Orders data type orders 매개변수 생성)
+		// 리턴값 없는 insertBookOrders 메소드 (Orders data type orders 매개변수 생성, Connection data type으로 connection 매개변수 생성)
 		// 18.7.23 최지수			
 		PreparedStatement  preparedStatement= null;
 		
@@ -242,16 +235,14 @@ public class BookOrdersDao {
 		}
 	}
 	
-	public Orders selectOrders(int ordersNumber) {
+	public Orders selectOrders(int ordersNumber, Connection connection) {
 		// 한 개의 주문 조회하는 메소드
-		// return data type Orders, orederSelectUpdate 메소드 (int data type으로  ordersNumber 매개변수 생성
+		// return data type Orders, orederSelectUpdate 메소드 (int data type으로  ordersNumber 매개변수 생성, Connection data type으로 connection 매개변수 생성)
 		Orders orders = null;
-		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		
 		try {
-			connection = DBconnection.getConnetion();
 			preparedStatement = connection.prepareStatement("SELECT orders_no, book_no, member_no, orders_price, orders_amount, orders_date, orders_addr, orders_state FROM orders WHERE orders_no=?");
 			preparedStatement.setInt(1, ordersNumber);
 			
@@ -286,16 +277,14 @@ public class BookOrdersDao {
 	}
 	
 
-	public int selectCount() {
-		// 페이징하는 메소드
+	public int selectCount(Connection connection) {
+		// 페이징하는 메소드 (Connection data type으로 connection 매개변수 생성)
 		// return data type int, selectCount 메소드 (매개변수 없음)
 		int totalRow = 0;
-		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		
 		try {
-			connection = DBconnection.getConnetion();
 			preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM orders");	
 			resultSet = preparedStatement.executeQuery();
 			if(resultSet.next()) {
@@ -318,16 +307,14 @@ public class BookOrdersDao {
 		
 	}
 	
-	public ArrayList<Orders> selectOrderByPage (int currentPage, int pagePerRow, int memberNumber){
+	public ArrayList<Orders> selectOrderByPage (int currentPage, int pagePerRow, int memberNumber, Connection connection){
 		// 상품 주문 정보 리스트로 받는 메소드
-		// return data type ArrayList<Orders>, selectOrderBypage 메소드 (int data type currentPage 매개변수, int data type memberNumber)
+		// return data type ArrayList<Orders>, selectOrderBypage 메소드 (int data type currentPage 매개변수, int data type memberNumber, Connection data type으로 connection 매개변수 생성 )
 		ArrayList<Orders> ordersList = new ArrayList<>();
-		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		
 		try {
-			connection = DBconnection.getConnetion();
 			preparedStatement = connection.prepareStatement("SELECT orders_no, book_no, member_no, orders_price, orders_amount, orders_date, orders_addr ,orders_state FROM orders WHERE member_no=? ORDER BY orders_no DESC LIMIT ?,?");
 			preparedStatement.setInt(1, memberNumber);
 			preparedStatement.setInt(2, (currentPage-1)*pagePerRow);

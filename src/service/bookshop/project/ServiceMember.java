@@ -3,6 +3,7 @@
 package service.bookshop.project;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -10,9 +11,39 @@ import dao.bookshop.project.MemberDao;
 import dto.bookshop.project.Member;
 
 import dto.bookshop.project.MemberInter;
+import dto.bookshop.project.Orders;
 import util.connetion.db.DBconnection;
 
 public class ServiceMember {
+	
+	public Member selectMemberPoint(int memberNumber) {
+		// memberPoint 조회하는 메소드
+		// return data type Member, selectMemberPoint 메소드 선언 (int data type으로 memberNumber 매개변수 생성)
+		MemberDao memberDao = new MemberDao();
+		Connection connection = null;
+		Member member = new Member();
+		
+		try {
+			connection = DBconnection.getConnetion();
+			connection.setAutoCommit(false);
+			
+			member = memberDao.selectMemberPoint(memberNumber, connection);
+			
+			connection.commit();
+		} catch(Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			if(connection != null) try{connection.close();} catch(SQLException ex){ex.printStackTrace();}
+		}	
+		
+		return member;
+		
+	}
 	
 	// 설명 : 회원정보 변경후 데이터 값을 받아 데이터베이스에 업데이트 하는 메서드 입니다.
 	// 매개변수 : Member 클래스타입으로 member 객체의 참조값을 받습니다.
