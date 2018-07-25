@@ -1,6 +1,6 @@
 <!-- 28기 이원상 2018. 7. 24(화) shoppingCartUpdateForm.jsp -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="dao.bookshop.project.ShoppingCartDao"%>
+<%@ page import="service.bookshop.project.ServiceShoppingCart"%>
 <%@ page import="dto.bookshop.project.MemberAndBookAndShoppingCart"%>
 <%@ page import="dto.bookshop.project.ShoppingCart"%>
 <%@ page import="dto.bookshop.project.Member"%>
@@ -66,12 +66,12 @@
 			</thead>
 			<tbody>	
 <%
-	ShoppingCartDao shoppingCartDao = new ShoppingCartDao();															// ShoppingCartDao클래스내 메소드 호출을 위한 인스턴스 생성
-	int lastPage=shoppingCartDao.countMemberShoppingCart(memberNumber, pagePerRow);
+	ServiceShoppingCart serviceShoppingCart = new ServiceShoppingCart();												// ServiceShoppingCart클래스내 메소드 호출을 위한 인스턴스 생성
+	int lastPage=serviceShoppingCart.countMemberShoppingCart(memberNumber, pagePerRow);
 	ArrayList<MemberAndBookAndShoppingCart> selectShoppingCartList = new ArrayList<MemberAndBookAndShoppingCart>();		// ShoppingCartDao클래스내 메소드의 리턴값을 받기 위한 인스턴스 생성
 	MemberAndBookAndShoppingCart memberAndBookAndShoppingCart = new MemberAndBookAndShoppingCart();						// ArrayList<ShoppingCart>클래스내 메소드의 리턴값을 받기 위한 인스턴스 생성
 	
-	selectShoppingCartList = shoppingCartDao.selectShoppingCartListBypage(memberNumber, currentPage, pagePerRow);		// 메소드 호출, 리턴값 참조변수에 대입
+	selectShoppingCartList = serviceShoppingCart.selectShoppingCartListBypage(memberNumber, currentPage, pagePerRow);		// 메소드 호출, 리턴값 참조변수에 대입
 	
 	int i = 0, selectShoppingCartListSize = selectShoppingCartList.size();
 	for(i=0; i<selectShoppingCartListSize; i++){

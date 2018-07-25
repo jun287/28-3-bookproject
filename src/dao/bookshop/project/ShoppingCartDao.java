@@ -1,6 +1,5 @@
 // 28기 이원상 2018. 7. 18(수) ShoppingCartDao.java
 package dao.bookshop.project;
-import util.connetion.db.DBconnection;
 import dto.bookshop.project.MemberAndBookAndShoppingCart;
 import dto.bookshop.project.ShoppingCart;
 import dto.bookshop.project.Member;
@@ -9,15 +8,13 @@ import java.sql.*;
 import java.util.*;
 
 public class ShoppingCartDao {						
-	Connection connection;							// 인스턴스 변수 선언
 	PreparedStatement preparedStatement;
 	ResultSet resultSet;
 	String sql1;
 	String sql2;
 	
 	public ShoppingCartDao() {						// ShoppingCartDao클래스 인수없는 생성자 메소드 생성
-		this.connection = null;						// 인스턴스 변수 초기화
-		this.preparedStatement = null;
+		this.preparedStatement = null;				// 인스턴스 변수 초기화
 		this.resultSet = null;						// this - 만들어질 인스턴스의 인스턴스 변수를 가르킴
 		this.sql1 = null;							// 참조변수의 초기값 null
 		this.sql2 = null;							// 참조변수의 초기값 null
@@ -31,13 +28,10 @@ public class ShoppingCartDao {
 	 * int shoppingCartNumber, int bookNumber, int memberNumber, int shoppingCartAmount, 
 	 * int shoppingCartPrice, String shoppingCartDate
 	*/
-	public void insertShoppingCart(ShoppingCart shoppingCart) {
-		connection = DBconnection.getConnetion();				// DBconnection클래스의 클래스 메소드, import로 패키지명 생략
+	public void insertShoppingCart(ShoppingCart shoppingCart, Connection connection) {
 		try {
 			sql1 = "INSERT INTO shoppingcart (book_no, member_no, shoppingcart_amount, shoppingcart_price, shoppingcart_date) VALUES (?, ?, ?, ?, NOW())";
 			preparedStatement = connection.prepareStatement(sql1);
-			// connection.setAutoCommit(false);	
-			// 쿼리실행 결과가 자동으로 DB에 입력(수정)되는 것(commit)을 수동으로 지정 			
 			preparedStatement.setInt(1, shoppingCart.getBookNumber());		
 			preparedStatement.setInt(2, shoppingCart.getMemberNumber());
 			preparedStatement.setInt(3, shoppingCart.getShoppingCartAmount());
@@ -47,7 +41,6 @@ public class ShoppingCartDao {
 			e.printStackTrace();
 		} finally {
 			try {if(preparedStatement != null) {preparedStatement.close();}
-				if(connection != null) {connection.close();}
 			} catch (SQLException e) {e.printStackTrace();}
 		}
 	}	
@@ -60,20 +53,16 @@ public class ShoppingCartDao {
 	 * int shoppingCartNumber, int bookNumber, int memberNumber, int shoppingCartAmount, 
 	 * int shoppingCartPrice, String shoppingCartDate
 	*/
-	public void deleteShoppingCart(int shoppingCartNumber) {
-		connection = DBconnection.getConnetion();				// DBconnection클래스의 클래스 메소드, import로 패키지명 생략
+	public void deleteShoppingCart(int shoppingCartNumber, Connection connection) {
 		try {
 			sql1 = "DELETE FROM shoppingcart WHERE shoppingcart_no=?";
 			preparedStatement = connection.prepareStatement(sql1);
-			// connection.setAutoCommit(false);		
-			// 쿼리실행 결과가 자동으로 DB에 입력(수정)되는 것(commit)을 수동으로 지정
 			preparedStatement.setInt(1, shoppingCartNumber);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {if(preparedStatement != null) {preparedStatement.close();}
-				if(connection != null) {connection.close();}
 			} catch (SQLException e) {e.printStackTrace();}
 		}
 	}
@@ -85,8 +74,7 @@ public class ShoppingCartDao {
 	 * int shoppingCartNumber, int bookNumber, int memberNumber, int shoppingCartAmount, 
 	 * int shoppingCartPrice, String shoppingCartDate
 	*/
-	public ArrayList<MemberAndBookAndShoppingCart> selectShoppingCartListBypage(int memberNumber, int currentPage, int pagePerRow) {
-		connection = DBconnection.getConnetion();				// DBconnection클래스의 클래스 메소드, import로 패키지명 생략
+	public ArrayList<MemberAndBookAndShoppingCart> selectShoppingCartListBypage(int memberNumber, int currentPage, int pagePerRow, Connection connection) {
 		ArrayList<MemberAndBookAndShoppingCart> shoppingCartList = new ArrayList<MemberAndBookAndShoppingCart>();
 		try {
 			int startRow = (currentPage-1)*pagePerRow;
@@ -96,7 +84,6 @@ public class ShoppingCartDao {
 					+ "from shoppingcart sc inner join member m on sc.member_no = m.member_no "
 					+ "inner join book b on sc.book_no = b.book_no where sc.member_no = ? order by sc.shoppingcart_date desc limit ?,?";
 			preparedStatement = connection.prepareStatement(sql1);
-			// connection.setAutoCommit(false);		// 쿼리실행 결과가 자동으로 DB에 입력(수정)되는 것(commit)을 수동으로 지정
 			preparedStatement.setInt(1, memberNumber);
 			preparedStatement.setInt(2, startRow);
 			preparedStatement.setInt(3, pagePerRow);
@@ -134,7 +121,6 @@ public class ShoppingCartDao {
 		} finally {
 			try {if(resultSet != null) {resultSet.close();}
 				if(preparedStatement != null) {preparedStatement.close();}
-				if(connection != null) {connection.close();}
 			} catch (SQLException e) {e.printStackTrace();}
 		}
 		return shoppingCartList;
@@ -148,8 +134,7 @@ public class ShoppingCartDao {
 	 * int shoppingCartNumber, int bookNumber, int memberNumber, int shoppingCartAmount, 
 	 * int shoppingCartPrice, String shoppingCartDate
 	*/
-	public int countMemberShoppingCart(int memberNumber, int pagePerRow) {
-		connection = DBconnection.getConnetion();				// DBconnection클래스의 클래스 메소드, import로 패키지명 생략
+	public int countMemberShoppingCart(int memberNumber, int pagePerRow, Connection connection) {
 		int latsPage = 0;
 		try {
 			sql1 = "select count(member_no) as totalRow from shoppingcart where member_no=?";
@@ -168,7 +153,6 @@ public class ShoppingCartDao {
 		} finally {
 			try {if(resultSet != null) {resultSet.close();}
 			if(preparedStatement != null) {preparedStatement.close();}
-			if(connection != null) {connection.close();}
 			} catch (SQLException e) {e.printStackTrace();}
 		}
 		return latsPage;
@@ -183,13 +167,10 @@ public class ShoppingCartDao {
 	 * int shoppingCartNumber, int bookNumber, int memberNumber, int shoppingCartAmount, 
 	 * int shoppingCartPrice, String shoppingCartDate
 	*/
-	public void updateShoppingCart(int shoppingCartNumber, int updateShoppingCartAmount, int updateShoppingCartPrice) {
-		connection = DBconnection.getConnetion();				// DBconnection클래스의 클래스 메소드, import로 패키지명 생략
+	public void updateShoppingCart(int shoppingCartNumber, int updateShoppingCartAmount, int updateShoppingCartPrice, Connection connection) {
 		try {
 			sql1 = "UPDATE shoppingcart SET shoppingcart_amount=?, shoppingcart_price=? WHERE shoppingcart_no=?";
 			preparedStatement = connection.prepareStatement(sql1);
-			// connection.setAutoCommit(false);		
-			// 쿼리실행 결과가 자동으로 DB에 입력(수정)되는 것(commit)을 수동으로 지정
 			preparedStatement.setInt(1, updateShoppingCartAmount);
 			preparedStatement.setInt(2, updateShoppingCartPrice);
 			preparedStatement.setInt(3, shoppingCartNumber);
@@ -198,8 +179,31 @@ public class ShoppingCartDao {
 			e.printStackTrace();
 		} finally {
 			try {if(preparedStatement != null) {preparedStatement.close();}
+			} catch (SQLException e) {e.printStackTrace();}
+		}
+	}
+	
+	/* 6번 메소드
+	 * 기능 : 한 회원의 장바구니리스트에 구매할 책의 정보를 모두 삭제시키는 메소드 (DB shoppingcart 테이블에 특정memberNumber의 모든 행 삭제)
+	 * 매개변수 : int memberNumber(DB member 테이블에 기본키)
+	 * 회원탈퇴시 회원의 장바구니를 먼저 삭제
+	 * 리턴값 : 없음
+	 * ShoppingCart클래스 인스턴스 변수(멤버변수) 접근제한자 private
+	 * int shoppingCartNumber, int bookNumber, int memberNumber, int shoppingCartAmount, 
+	 * int shoppingCartPrice, String shoppingCartDate
+	*/
+	public void deleteMemberShoppingCart(int memberNumber, Connection connection) {
+		try {
+			sql1 = "DELETE FROM shoppingcart WHERE member_no=?";
+			preparedStatement = connection.prepareStatement(sql1);
+			preparedStatement.setInt(1, memberNumber);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {if(preparedStatement != null) {preparedStatement.close();}
 				if(connection != null) {connection.close();}
 			} catch (SQLException e) {e.printStackTrace();}
 		}
-	}	
+	}
 }

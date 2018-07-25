@@ -1,8 +1,6 @@
 <!-- 28기 이원상 2018. 7. 18(수) shoppingCartAddAction.jsp -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="dao.bookshop.project.ShoppingCartDao" %>
-<%@ page import="dto.bookshop.project.ShoppingCart" %>
-<%@ page import="service.bookshop.project.ServiceShoppingCart" %>
+<%@ page import="service.bookshop.project.ServiceShoppingCart"%>
 <%@ page import="dto.bookshop.project.ShoppingCart" %>
 <%
 	request.setCharacterEncoding("utf-8");
@@ -17,8 +15,8 @@
 	
 	ShoppingCart shoppingCart = new ShoppingCart(bookNumber,memberNumber,shoppingCartAmount,shoppingCartPrice);
 																					// 객체 생성시 매개변수로 값 대입하여 객체 생성시 초기값 setting
-	ShoppingCartDao shoppingCartDao= new ShoppingCartDao();
-	shoppingCartDao.insertShoppingCart(shoppingCart);
+	ServiceShoppingCart serviceShoppingCart = new ServiceShoppingCart();			// ServiceShoppingCart클래스내 메소드 호출을 위한 인스턴스 생성
+	serviceShoppingCart.insertShoppingCart(shoppingCart);							// 쇼핑카트 등록 메소드 호출
 	response.sendRedirect(request.getContextPath()+"/shoppingCart/shoppingCartList.jsp?memberNumber="+memberNumber);	// 입력 후 해당 member의 shoppingCartList로 이동
 %>
 <!DOCTYPE html>

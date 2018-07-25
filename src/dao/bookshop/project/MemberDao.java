@@ -148,18 +148,16 @@ public class MemberDao {
 	
 	}
 	
-	public void updateMemberPoint(int memberNumber, int memberPoint) {
+	public void updateMemberPoint(int memberNumber, int memberPoint, Connection connection) {
 		// 18.7.23 최지수
 		// 구매완료 시 포인트 적립 or 차감하는 메서드
 		// 매개변수 memberNumber 받아서 해당 회원만 업데이트
 		// 리턴값 없음
 		
-		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
 		try {
 			
-			connection = DBconnection.getConnetion();
 			preparedStatement = connection.prepareStatement("UPDATE member SET member_point=? WHERE member_no=?");
 			preparedStatement.setInt(1, memberPoint);
 			preparedStatement.setInt(2, memberNumber);
@@ -171,7 +169,6 @@ public class MemberDao {
 			e.printStackTrace();
 		}finally {
 			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	
-			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}
 		}
 		
 	}

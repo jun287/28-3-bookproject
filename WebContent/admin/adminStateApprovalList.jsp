@@ -39,14 +39,14 @@
 	if(request.getParameter("currentPage") !=null){
 		currentPage =Integer.parseInt(request.getParameter("currentPage"));
 	}
-	int startRow = (currentPage - 1 ) * pagePerRow;		//시작 페이지 = (현재 페이지 번호  - 1) * 한 페이지에 보여주는 글 수
+	int startRow = (currentPage - 1 ) * pagePerRow;			//시작 페이지 = (현재 페이지 번호  - 1) * 한 페이지에 보여주는 글 수
 	
 	BookOrdersDao bookOrdersDao = new BookOrdersDao();		// bookOrdersDao
 	ArrayList<Orders> selectOrdersList = bookOrdersDao.selectOrdersState(currentPage, pagePerRow);
 	
-	MemberDao memberDao = new MemberDao();		// memberDao 생성
-	Member member = new Member(); 				// member 생성
-	Orders orders = new Orders();				// orders 생성
+	MemberDao memberDao = new MemberDao();				// memberDao 생성
+	Member member = new Member(); 						// member 생성
+	Orders orders = new Orders();						// orders 생성
 
 	int memberNumber = orders.getMemberNumber();
 	memberDao.selectMemberPoint(memberNumber);
