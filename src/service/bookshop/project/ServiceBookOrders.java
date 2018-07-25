@@ -11,6 +11,41 @@ import util.connetion.db.DBconnection;
 
 public class ServiceBookOrders {
 	
+	
+	public Orders updateStateApproval (int ordersNumber) {
+		// 주문 정보 조회해서 가장 최신 정보 조회
+		BookOrdersDao bookOrdersDao = new BookOrdersDao();
+		Orders orders = new Orders();
+		
+		Connection connection = null;
+		
+	try {
+			connection = DBconnection.getConnetion();
+			connection.setAutoCommit(false);	
+			
+			bookOrdersDao.updateStateApproval(ordersNumber);
+		
+			connection.commit();
+			
+		}catch(Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally {
+			if(connection != null)try{
+				connection.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+		}	
+	
+		return orders;
+		
+	}
+	
 	public void insertBookOrders(int memberNumber, int memberPoint, Orders orders, int shoppingCartNumber) {
 		// 회원포인트업데이트			public void updateMemberPoint(int memberNumber, int memberPoint)
 		// orders 테이블에 insert	public void insertBookOrders (Orders orders)
