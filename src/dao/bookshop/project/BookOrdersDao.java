@@ -221,22 +221,19 @@ public class BookOrdersDao {
 		
 	}
 	
-	public void insertBookOrders (Orders orders) {
+	public void insertBookOrders (Orders orders, Connection connection) {
 		// orders테이블에 주문정보를 추가하는 메서드
 		// 리턴값 없는 insertBookOrders 메소드 (Orders data type orders 매개변수 생성)
-		// 18.7.23 최지수
-		Connection connection = null;			
+		// 18.7.23 최지수			
 		PreparedStatement  preparedStatement= null;
 		
 		try{
-			connection = DBconnection.getConnetion();
 			preparedStatement = connection.prepareStatement("INSERT INTO orders (book_no, member_no, orders_price, orders_amount, orders_date, orders_addr, orders_state) VALUES (?, ?, ?, ?, NOW(), ?, '주문완료')");
 			preparedStatement.setInt(1, orders.getBookNumber());
 			preparedStatement.setInt(2, orders.getMemberNumber());
 			preparedStatement.setInt(3, orders.getOrdersPrice());
 			preparedStatement.setInt(4, orders.getOrdersAmount());
 			preparedStatement.setString(5, orders.getOrdersAddress());
-			System.out.println(orders.getOrdersAddress());
 			
 			preparedStatement.executeUpdate();
 			
@@ -247,7 +244,6 @@ public class BookOrdersDao {
 		}finally {
 			// 객체 종료 (닫는 순서 중요)
 			if(preparedStatement!=null) try{ preparedStatement.close(); } catch (SQLException e) {}	// 객체 종료
-			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}	// DB연결종료
 			
 		}
 	}
