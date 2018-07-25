@@ -117,19 +117,20 @@ public class BookDao {
 		
 	}
 	
-	public ArrayList<BookIntro> selectBookIntro(){
+	public ArrayList<BookIntro> selectBookIntro(int bookNo){
 		
 		Connection connection=null;
 		PreparedStatement statement=null;
 		ResultSet resultSet =null;
 		
-		String sql="select bookintro_no,book_no,bookintro_content,bookintro_write from bookintro order by bookintro_no asc";
+		String sql="select bookintro_no,book_no,bookintro_content,bookintro_write from bookintro where book_no=? order by bookintro_no asc";
 		ArrayList<BookIntro> list=new ArrayList<BookIntro>();
 		
 		try {
 			connection=DBconnection.getConnetion();
 			
 			statement=connection.prepareStatement(sql);
+			statement.setInt(1, bookNo);
 			resultSet =statement.executeQuery();
 			
 			while(resultSet.next()) {

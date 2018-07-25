@@ -104,10 +104,10 @@
 			System.out.println(member.getMemberNum()+"<--member.getMemberNum()");
 			System.out.println(session.getAttribute("sessionId")+"<--session.getAttribute(sessionId)");
 			
-			ArrayList<BookIntro> result=bookDao.selectBookIntro();
+			ArrayList<BookIntro> result=bookDao.selectBookIntro(bookNo);
 			
 			BookReviewDao bookReviewDao=new BookReviewDao();
-			ArrayList<BookReview> result1=bookReviewDao.selectBookReview();
+			ArrayList<BookReview> result1=bookReviewDao.selectBookReview(bookNo);
 		
 			String sessionAdminId = (String)session.getAttribute("sessionAdminId");
 		%>
@@ -161,12 +161,13 @@
 					BookIntro bookIntro1=result.get(i);
 				
 			%>
-				<div><%=bookIntro1.getBookIntroContent() %>--<%=bookIntro1.getBookIntroWrite().replace("<br>","\r\n") %></div>
-				
+				<span><%=bookIntro1.getBookIntroContent() %>--<%=bookIntro1.getBookIntroWrite().replace("<br>","\r\n") %></span>
+				<a href="<%=request.getContextPath()%>/book/bookReviewUpdateForm.jsp?bookNumber=<%=bookNo%>"><button>수정</button></a>
+				<a href="<%=request.getContextPath()%>/book/bookUpdateForm.jsp?bookNumber=<%=bookNo%>"><button>삭제</button></a><br>
 					
 			<%
 				}
-			
+				
 				if(sessionAdminId!=null){
 			%>
 					
@@ -195,7 +196,9 @@
 					for(int i=0;i<result1.size();i++){
 						BookReview bookReview1=result1.get(i);
 				%>
-					<div><%=bookReview1.getBookReviewContent() %>--<%=bookReview1.getMemberNo() %></div>					
+					<span><%=bookReview1.getBookReviewContent() %>--<%=bookReview1.getMemberNo() %></span>
+					<a href="<%=request.getContextPath()%>/book/bookReviewUpdateForm.jsp?bookReviewNo=<%=bookReview1.getBookReviewNo()%>&bookNumber=<%=bookNo%>"><button>수정</button></a>
+					<a href="<%=request.getContextPath()%>/book/bookUpdateForm.jsp?bookNumber=<%=bookNo%>"><button>삭제</button></a><br>					
 				<%
 					}
 				%>

@@ -23,7 +23,7 @@
 			
 			
 			BookDao bookDao=new BookDao();
-			bookDao.bookUpdate(book);
+			bookDao.updateBook(book);
 	
 			//bookView.jsp파일로 페이지 이동
 			response.sendRedirect(request.getContextPath()+"/book/bookView.jsp?bookNumber="+book.getBookNo());

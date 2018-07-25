@@ -40,16 +40,17 @@ public class BookReviewDao {
 		
 	}
 
-	public ArrayList<BookReview> selectBookReview(){
+	public ArrayList<BookReview> selectBookReview(int bookNo){
 		Connection connection=null;
 		PreparedStatement statement=null;
 		ResultSet resultSet=null;
 		
-		String sql="select bookreview_no,book_no,member_no,bookreview_content from bookreview";
+		String sql="select bookreview_no,book_no,member_no,bookreview_content from bookreview where book_no=?";
 		ArrayList<BookReview> list=new ArrayList<BookReview>();
 		try{
 			connection=DBconnection.getConnetion();
 			statement=connection.prepareStatement(sql);
+			statement.setInt(1, bookNo);
 			resultSet=statement.executeQuery();
 			
 			while(resultSet.next()) {
@@ -65,9 +66,65 @@ public class BookReviewDao {
 		}catch(Exception e) {
 			
 		}finally {
-			
+			try {resultSet.close();} catch (SQLException e) {e.printStackTrace();}
+			try {statement.close();} catch (SQLException e) {e.printStackTrace();}
+			try {connection.close();} catch (SQLException e) {e.printStackTrace();}
 		}
 		
 		return list;
+	}
+
+	public BookReview updateBookReviewForm(int bookReivewNo) {
+		Connection connection=null;
+		PreparedStatement statement=null;
+		ResultSet resultSet=null;
+		
+		String sql="select bookreview_no,book_no,member_no,bookreview_content from bookreview where bookreview_no=?";
+		
+		BookReview bookReview =new BookReview();
+		try {
+			connection=DBconnection.getConnetion();
+			statement=connection.prepareStatement(sql);
+			statement.setInt(1, bookReivewNo);
+			
+			resultSet=statement.executeQuery();
+			if(resultSet.next()) {
+				bookReview.setBookReviewNo(resultSet.getInt("bookreview_no"));
+				bookReview.setBookNo(resultSet.getInt("book_no"));
+				bookReview.setMemberNo(resultSet.getInt("member_no"));
+				bookReview.setBookReviewContent(resultSet.getString("bookreview_content"));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {resultSet.close();} catch (SQLException e) {e.printStackTrace();}
+			try {statement.close();} catch (SQLException e) {e.printStackTrace();}
+			try {connection.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		return bookReview;
+	}
+
+	public void updateBookReivew(BookReview bookReview) {
+		Connection connection=null;
+		PreparedStatement statement=null;
+		ResultSet resultSet=null;
+		
+		String sql="update bookreview set bookreview_content=? from bookreview_no=?";
+		
+	
+		try {
+			connection=DBconnection.getConnetion();
+			statement=connection.prepareStatement(sql);
+			statement.setInt(1, bookReview.getBookReviewNo());
+			statement.setString(2, bookReview.getBookReviewContent());
+			
+			statement.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {statement.close();} catch (SQLException e) {e.printStackTrace();}
+			try {connection.close();} catch (SQLException e) {e.printStackTrace();}
+		}
 	}
 }
