@@ -1,6 +1,6 @@
 <!-- 2018. 7. 23(월) 이원상  bookList.jsp-->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="dao.bookshop.project.*"%>
+<%@ page import="service.bookshop.project.ServiceBook"%>
 <%@ page import="dto.bookshop.project.*"%>
 <%@ page import="java.util.*" %>
 <!DOCTYPE html>
@@ -35,14 +35,14 @@
 	System.out.println(beginDate+"<--beginDate");
 	System.out.println(endDate+"<--endDate");
 	
-	BookDao bookDao = new BookDao();
+	ServiceBook serviceBook = new ServiceBook();
 	BookAndPublisherAndBookCode bookAndPublisherAndBookCode = new BookAndPublisherAndBookCode();
 	// DB테이블 3개 join결과를 담기 위한 클래스타입 멤버변수를 가진 bookAndPublisherAndBookCode 객체 생성
 	ArrayList<BookAndPublisherAndBookCode> bookAndPublisherAndBookCodeList =new ArrayList<BookAndPublisherAndBookCode>();
 	// DB테이블 3개 join select결과를 받을 ArrayList 객체 생성
-	bookAndPublisherAndBookCodeList = bookDao.selectBookListSearchByPage(beginDate, endDate, searchKeyword, searchCategory, currentPage, pagePerRow);
+	bookAndPublisherAndBookCodeList = serviceBook.selectBookListSearchByPage(beginDate, endDate, searchKeyword, searchCategory, currentPage, pagePerRow);
 	// List select 메소드
-	int lastPage = bookDao.checkBookListLastPage(beginDate, endDate, searchKeyword, searchCategory, currentPage, pagePerRow);
+	int lastPage = serviceBook.checkBookListLastPage(beginDate, endDate, searchKeyword, searchCategory, currentPage, pagePerRow);
 	// select된 행의 수를 구해 lastPage를 구하는 메소드
 	System.out.println(lastPage+"<--lastPage");
 	int bookAndPublisherAndBookCodeListSize = bookAndPublisherAndBookCodeList.size();
