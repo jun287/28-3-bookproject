@@ -6,9 +6,11 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Insert title here</title>
+		<title>publisher list</title>
 	</head>
 	<body>
+		<form action="<%=request.getContextPath()%>/publisher/publisherInsertForm.jsp" method="post">
+		<h1>출판사 리스트</h1>
 		<table border="1">
 			<tr>
 				<th>번호</th>
@@ -18,11 +20,27 @@
 				<th>삭제</th>
 			</tr>
 			<%
-				PublisherDao publisherDao=new PublisherDao();
-				ArrayList<Publisher> result=publisherDao.selectPublisher();
+			request.setCharacterEncoding("euc-kr");
+			String searchWord = "";
+			if(request.getParameter("searchWord") != null){
+				searchWord = request.getParameter("searchWord");
+		}
+			
+			int currentPage = 1;	
+			int pagePerRow = 3;		
+					
+			if(request.getParameter("currentPage") !=null ){
+					currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			}
+			
+			int startRow = (currentPage - 1) * pagePerRow;	
+					
+			PublisherDao publisherdao = new PublisherDao();		
+			ArrayList<Publisher> list = publisherdao.selectByPagePublisher(currentPage, pagePerRow);
+			
 				
-				for(int i=0;i<result.size();i++){
-				Publisher publisher=result.get(i);
+				for(int i=0;i<list.size();i++){
+				Publisher publisher=list.get(i);
 			%>
 				<tr>
 					<td><%=publisher.getPublisherNo() %></td>
@@ -35,5 +53,37 @@
 				}
 			%>
 		</table>
+			
+			
+			<%
+			int totalRow = publisherdao.selectCount();	
+			int lastPage = 0;	
+			
+			if(totalRow % pagePerRow == 0){		
+				lastPage = totalRow / pagePerRow ;		
+			       
+			}else{
+				lastPage = totalRow / pagePerRow + 1 ;	
+			      
+			}
+						
+			if(currentPage > 1){
+		%>
+				<a href="<%=request.getContextPath() %>/publisher/publisherList.jsp?currentPage=<%=currentPage-1 %>">이전</a>
+		<%
+			}
+			if(currentPage < lastPage){
+		%>
+				<a href="<%=request.getContextPath() %>/publisher/publisherList.jsp?currentPage=<%=currentPage+1%>">다음</a>
+		<%
+			}
+		%>	
+			
+			
+			<br><br>
+			<input type="submit" value="입력">&nbsp;&nbsp;
+			<button type="button" onclick="location.href='<%= request.getContextPath() %>/publisher/publisherList.jsp'">목록</button>&nbsp;&nbsp;
+			<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button>
+			</form>
 	</body>
 </html>

@@ -160,5 +160,76 @@ public class PublisherDao {
 			try {statement.close();} catch (SQLException e) {e.printStackTrace();}
 		}
 	}
+	public int selectCount() {
+		
+		int totalRow = 0;
+		Connection connection=null;
+		PreparedStatement statement=null;
+		ResultSet resultSet=null;
+		
+		try {
+			connection=DBconnection.getConnetion();
+			statement = connection.prepareStatement("SELECT COUNT(*) FROM publisher");
+			resultSet = statement.executeQuery();
+			if(resultSet.next()) {
+				totalRow = resultSet.getInt("COUNT(*)");
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
+			if(statement!=null) try{ statement.close(); } catch (SQLException e) {}
+			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}
+		}
+		
+		
+		return totalRow;
 	}
+	public ArrayList<Publisher> selectByPagePublisher(int currentpage, int pagePerRow){
+		
+		ArrayList<Publisher> list = new ArrayList<Publisher>();
+		Connection connection=null;
+		PreparedStatement statement=null;
+		ResultSet resultSet=null;
+		String sql = null;
+		
+		try {
+			connection=DBconnection.getConnetion();
+			
+			
+			 	int startRow = (currentpage-1)*pagePerRow;
+				sql = "SELECT publisher_no, publisher_name, publisher_website FROM publisher ORDER BY publisher_no LIMIT ?,?";
+				statement = connection.prepareStatement(sql);
+				statement.setInt(1, (startRow));
+				statement.setInt(2, pagePerRow);
+				
+							
+				
+				resultSet = statement.executeQuery();
+				
+				while(resultSet.next()) {
+					
+					Publisher publisher = new Publisher();
+					publisher.setPublisherNo(resultSet.getInt(1));
+					publisher.setPublisherName(resultSet.getString(2));
+					publisher.setPublisherWebsite(resultSet.getString(3));
+					
+					list.add(publisher);
+				}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			if(resultSet!=null) try{ resultSet.close(); } catch (SQLException e) {}
+			if(statement!=null) try{ statement.close(); } catch (SQLException e) {}
+			if(connection!=null) try{ connection.close(); } catch (SQLException e) {}
+		}
+		return list;
+		
+	}
+	}
+
 
