@@ -160,7 +160,13 @@
 					
 					<a href="<%=request.getContextPath()%>/book/bookView.jsp?bookNumber=<%=bookNo %>&num1=<%=num1+1%>"><input type="button" value="+" size="1" ></a>
 					<a href="<%=request.getContextPath()%>/book/bookView.jsp?bookNumber=<%=bookNo %>&num1=<%=num1-1%>"><input type="button" value="-" size="1"></a><br><br>
-					<a href="<%=request.getContextPath()%>/shoppingCart/shoppingCartAddAction.jsp?bookNumber=<%=bookNo %>&bookAmount=<%=num1 %>&memberNumber=<%=member.getMemberNum() %>&totalPrice=<%=book.getBookPrice()*num1 %>"><input type="button" value="장바구니" size="1"></a>
+					<%
+						if(sessionId!=null){
+					%>
+							<a href="<%=request.getContextPath()%>/shoppingCart/shoppingCartAddAction.jsp?bookNumber=<%=bookNo %>&bookAmount=<%=num1 %>&memberNumber=<%=member.getMemberNum() %>&totalPrice=<%=book.getBookPrice()*num1 %>"><input type="button" value="장바구니" size="1"></a>
+					<%
+						}
+					%>
 					<a href="<%=request.getContextPath()%>/bookOrders/bookOrdersForm.jsp?bookNumber=<%=bookNo %>&amount=<%=num1 %>&memberNumber=<%=member.getMemberNum()%>&price=<%=book.getBookPrice() %>"><input type="button" value="바로구매" size="1"></a>
 					<%
 						if(sessionAdminId!=null){
@@ -220,10 +226,14 @@
 							BookReview bookReview1=result1.get(i);
 							Member member1=serviceMember.selectMemberPoint(bookReview1.getMemberNo());
 					%>
-						<span><%=bookReview1.getBookReviewContent() %>--<%=member1.getMemberId() %></span>
-						<a href="<%=request.getContextPath()%>/book/bookReviewUpdateForm.jsp?bookReviewNo=<%=bookReview1.getBookReviewNo()%>&&bookNumber=<%=bookNo%>"><button>수정</button></a>
-						<a href="<%=request.getContextPath()%>/book/bookReviewDelete.jsp?bookReviewNo=<%=bookReview1.getBookReviewNo()%>&bookNumber=<%=bookNo%>"><button>삭제</button></a><br>					
+							<span><%=bookReview1.getBookReviewContent() %>--<%=member1.getMemberId() %></span>
 					<%
+							if(sessionId!=null){
+					%>
+								<a href="<%=request.getContextPath()%>/book/bookReviewUpdateForm.jsp?bookReviewNo=<%=bookReview1.getBookReviewNo()%>&&bookNumber=<%=bookNo%>"><button>수정</button></a>
+								<a href="<%=request.getContextPath()%>/book/bookReviewDelete.jsp?bookReviewNo=<%=bookReview1.getBookReviewNo()%>&bookNumber=<%=bookNo%>"><button>삭제</button></a><br>					
+					<%
+							}
 						}
 					%>
 					<%
