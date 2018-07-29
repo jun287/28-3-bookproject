@@ -75,6 +75,7 @@
 	</head>
 	<body>
 		<%
+			
 			int bookNo=Integer.parseInt(request.getParameter("bookNumber"));
 			System.out.println(bookNo+"<--bookNo");
 			
@@ -90,6 +91,18 @@
 				System.out.println("값이 있음");
 				num1=Integer.parseInt(request.getParameter("num1"));
 			}
+			
+			int row=5;
+			int currentPage;
+			
+			if(request.getParameter("currentPage")==null){
+				currentPage=1;
+			}else{
+				currentPage=Integer.parseInt(request.getParameter("currentPage"));
+			}
+			
+			
+			
 			
 			BookDao bookDao=new BookDao();
 			Book book=bookDao.selectBook(bookNo);
@@ -112,9 +125,13 @@
 			ArrayList<BookIntro> result=bookDao.selectBookIntro(bookNo);
 			
 			BookReviewDao bookReviewDao=new BookReviewDao();
-			ArrayList<BookReview> result1=bookReviewDao.selectBookReview(bookNo);
+			ArrayList<BookReview> result1=bookReviewDao.selectBookReview(bookNo,currentPage,row);
 		
 			String sessionAdminId = (String)session.getAttribute("sessionAdminId");
+			
+			
+			int total=bookReviewDao.paging(row);
+			
 		%>
 		
 			<div id="info">
@@ -153,6 +170,7 @@
 					<%
 						}
 					%>
+					
 				</div>
 			</div>
 			
@@ -164,19 +182,19 @@
 				<%
 					for(int i=0;i<result.size();i++){
 						BookIntro bookIntro1=result.get(i);
-					
+						
 				%>
 					<span><%=bookIntro1.getBookIntroContent() %>--<%=bookIntro1.getBookIntroWrite().replace("<br>","\r\n") %></span>
-					<a href="<%=request.getContextPath()%>/book/bookReviewUpdateForm.jsp?bookNumber=<%=bookNo%>"><button>수정</button></a>
-					<a href="<%=request.getContextPath()%>/book/bookUpdateForm.jsp?bookNumber=<%=bookNo%>"><button>삭제</button></a><br>
+					<a href="<%=request.getContextPath()%>/book/bookIntroUpdateForm.jsp?bookNumber=<%=bookNo%>"><button>수정</button></a>
+					<a href="<%=request.getContextPath()%>/book/bookIntroDelete.jsp?bookNumber=<%=bookNo%>&bookIntroNo=<%=bookIntro1.getBookIntroNo()%>"><button>삭제</button></a><br>
 						
 				<%
 					}
 					
 					if(sessionAdminId!=null){
 				%>
-						
-					
+				
+				
 				<form action="<%=request.getContextPath()%>/book/bookIntroInsertAction.jsp?bookNumber=<%=bookNo %>" method="post">
 						<label>글쓴이</label>
 						<input type="text"  width="1px;" name="write"required><br><br>
@@ -200,22 +218,42 @@
 					<%
 						for(int i=0;i<result1.size();i++){
 							BookReview bookReview1=result1.get(i);
+							Member member1=serviceMember.selectMemberPoint(bookReview1.getMemberNo());
 					%>
-						<span><%=bookReview1.getBookReviewContent() %>--<%=bookReview1.getMemberNo() %></span>
-						<a href="<%=request.getContextPath()%>/book/bookReviewUpdateForm.jsp?bookReviewNo=<%=bookReview1.getBookReviewNo()%>&bookNumber=<%=bookNo%>"><button>수정</button></a>
-						<a href="<%=request.getContextPath()%>/book/bookUpdateForm.jsp?bookNumber=<%=bookNo%>"><button>삭제</button></a><br>					
+						<span><%=bookReview1.getBookReviewContent() %>--<%=member1.getMemberId() %></span>
+						<a href="<%=request.getContextPath()%>/book/bookReviewUpdateForm.jsp?bookReviewNo=<%=bookReview1.getBookReviewNo()%>&&bookNumber=<%=bookNo%>"><button>수정</button></a>
+						<a href="<%=request.getContextPath()%>/book/bookReviewDelete.jsp?bookReviewNo=<%=bookReview1.getBookReviewNo()%>&bookNumber=<%=bookNo%>"><button>삭제</button></a><br>					
+					<%
+						}
+					%>
+					<%
+					if(currentPage>1){
+					%>
+					<a href="<%=request.getContextPath() %>/book/bookView.jsp?currentPage=<%=currentPage-1%>&bookNumber=<%=bookNo%>">&lt;이전</a>
+					<%
+						}
+					
+						if(currentPage<total){
+					%>
+					<a href="<%=request.getContextPath() %>/book/bookView.jsp?currentPage=<%=currentPage+1%>&bookNumber=<%=bookNo%>">다음&gt;</a>
 					<%
 						}
 					%>
 				</div><br>
-				
+				<%
+					if(sessionId!=null){
+				%>
 				<form method="post" action="<%= request.getContextPath() %>/book/bookReviewInsertAction.jsp">
 					<input type="hidden" name="bookNo" value="<%=bookNo%>">
 					<textarea name="bookReviewContent" placeholder="서평(Book Review)을 작성해주세요." style="width:800px;height:100px;resize: none;"required></textarea><br><br>
 					<input type="submit" value="작성">&nbsp;&nbsp;
-					<button type="button" onclick="location.href='<%= request.getContextPath() %>/book/bookList.jsp'">목록</button>&nbsp;&nbsp;
-					<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button>
+					
 				</form>
+				<%
+					}
+				%>
+				<button type="button" onclick="location.href='<%= request.getContextPath() %>/bookCategory/bookCategoryView.jsp'">목록</button>&nbsp;&nbsp;
+				<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button>
 			</div>
 	</body>
 </html>

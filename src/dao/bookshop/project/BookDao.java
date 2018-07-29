@@ -89,7 +89,9 @@ public class BookDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-
+				try {resultSet.close();} catch (SQLException e) {e.printStackTrace();}
+				try {statement.close();} catch (SQLException e) {e.printStackTrace();}
+				try {connection.close();} catch (SQLException e) {e.printStackTrace();}
 		}
 		return book;
 	}
@@ -155,7 +157,104 @@ public class BookDao {
 		
 		return list;
 	}
+	
+	public BookIntro updateIntroForm(int bookIntroNo){
+			
+			Connection connection=null;
+			PreparedStatement statement=null;
+			ResultSet resultSet =null;
+			
+			BookIntro bookIntro=new BookIntro();
+			
+			String sql="select bookintro_no,book_no,bookintro_content,bookintro_write from bookintro where book_no=? order by bookintro_no asc";
+			
+			try {
+				connection=DBconnection.getConnetion();
+				
+				statement=connection.prepareStatement(sql);
+				statement.setInt(1, bookIntroNo);
+				
+				resultSet =statement.executeQuery();
+				
+				while(resultSet.next()) {
+					bookIntro.setBookIntroNo(resultSet.getInt("bookintro_no"));
+					bookIntro.setBookNo(resultSet.getInt("book_no"));
+					bookIntro.setBookIntroContent(resultSet.getString("bookintro_content"));
+					bookIntro.setBookIntroWrite(resultSet.getString("bookintro_write"));
+				}
+				
+				
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				try {resultSet.close();} catch (SQLException e) {e.printStackTrace();}
+				try {statement.close();} catch (SQLException e) {e.printStackTrace();}
+				try {connection.close();} catch (SQLException e) {e.printStackTrace();}
+			}
+			
+			return bookIntro;
+		}
 
+	public void updateIntro(BookIntro bookIntro) {
+		Connection connection=null;
+		PreparedStatement statement=null;
+		
+		String sql="update bookintro set bookintro_content=?,bookintro_write=? where bookintro_no=?";
+		
+		System.out.println(bookIntro.getBookIntroNo()+"<--bookIntro.getBookIntroNo()");
+		System.out.println(bookIntro.getBookNo()+"<--bookIntro.getBookNo()");
+		System.out.println(bookIntro.getBookIntroWrite()+"<--bookIntro.getBookIntroWrite()");
+		System.out.println(bookIntro.getBookIntroContent()+"<--bookIntro.getBookIntroContent()");
+		
+		try {
+			connection=DBconnection.getConnetion();
+			
+			statement=connection.prepareStatement(sql);
+			System.out.println(statement+"<--statement");
+			
+			statement.setString(1, bookIntro.getBookIntroContent());
+			statement.setString(2, bookIntro.getBookIntroWrite());
+			statement.setInt(3, bookIntro.getBookIntroNo());
+			
+			System.out.println(statement+"<--statement");
+			
+			statement.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {statement.close();} catch (SQLException e) {e.printStackTrace();}
+			try {connection.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+	
+	}
+	
+	public void deletebookIntro(int bookIntroNo) {
+		Connection connection=null;
+		PreparedStatement statement=null;
+		
+		String sql="delete from bookintro where bookintro_no=?";
+		
+		try {
+			connection=DBconnection.getConnetion();
+			
+			statement=connection.prepareStatement(sql);
+			System.out.println(statement+"<--statement");
+			
+			statement.setInt(1, bookIntroNo);
+						
+			System.out.println(statement+"<--statement");
+			
+			statement.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {statement.close();} catch (SQLException e) {e.printStackTrace();}
+			try {connection.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+	}
 	//특정 no에 대한 조회하는 메서드 
 	//매개변수에 no에 값을 대입하여 조회한다
 	public void updateBook(Book book) {

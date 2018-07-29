@@ -4,7 +4,7 @@
 
 <%@ page import="dto.bookshop.project.BookReview"%>
 <%@ page import="dao.bookshop.project.BookReviewDao"%>
-
+<%request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -13,9 +13,12 @@
 	</head>
 	<body>
 		<%
-			int bookReivewNo=Integer.parseInt(request.getParameter("bookReivewNo"));
+			int bookReivewNo=Integer.parseInt(request.getParameter("bookReviewNo"));
 			String bookReviewContent=request.getParameter("bookReviewContent");
 			int bookNumber=Integer.parseInt(request.getParameter("bookNumber"));
+			
+			System.out.println(bookReviewContent+"<--bookReviewContent");
+			
 			BookReview bookReview =new BookReview();
 			bookReview.setBookReviewNo(bookReivewNo);
 			bookReview.setBookReviewContent(bookReviewContent);
