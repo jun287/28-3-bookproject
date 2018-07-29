@@ -85,6 +85,7 @@
 						</td>
 				</table>
 				<input type="submit" value="등록">
+				<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button>
 			</form>
 	</body>
 </html>

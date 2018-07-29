@@ -73,5 +73,6 @@
 		<div id="booklist">
 			<%@ include file="/book/bookList.jsp"%>
 		</div>
+		<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button>
 	</body>
 </html>

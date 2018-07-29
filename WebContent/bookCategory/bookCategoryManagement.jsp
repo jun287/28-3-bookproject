@@ -57,5 +57,6 @@
 		</table>
 			<a href="<%=request.getContextPath()%>/bookCategory/insertBookCategoryForm.jsp">추가</a>
 			<a href="<%=request.getContextPath()%>/bookCategory/bookCategoryView.jsp">목록으로</a>
+			<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button>
 	</body>
 </html>

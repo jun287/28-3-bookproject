@@ -17,6 +17,7 @@
 				<label>출판사홈페이지</label>
 				<input type="text" name="publisherSite" required><br>
 				<input type="submit" value="등록">
+				<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button>
 			</form>
 		</div>
 	</body>

@@ -125,6 +125,7 @@
 	}
 %>		
 		</div>
-		<div><a href="<%=request.getContextPath()%>/book/bookList.jsp">목록으로</a></div>	
+		<div><a href="<%=request.getContextPath()%>/book/bookList.jsp">목록으로</a></div>
+		<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button>	
 	</body>
 </html>
