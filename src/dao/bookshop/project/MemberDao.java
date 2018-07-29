@@ -1,4 +1,4 @@
-// 2018. 07. 22 공세준
+// 2018. 07. 29 공세준
 
 package dao.bookshop.project;
 
@@ -13,6 +13,42 @@ import dto.bookshop.project.MemberInter;
 import util.connetion.db.DBconnection;
 
 public class MemberDao {
+	
+	// 설명 : 회원정보 삭제 및 탈퇴하는 메서드 입니다.
+	// 매개변수 : 회원번호, 아이디, 비밀번호를 대입받은 member 클래스객체의 참조값을 받습니다.
+	// 리턴 : void로 없습니다.
+	public void deleteMember(Connection connection , Member member) {
+		
+		PreparedStatement preparedStatement = null;
+		PreparedStatement preparedStatement2 = null;
+		
+		try {
+			
+			preparedStatement = connection.prepareStatement("DELETE qc,q,mi,bv,o,sc FROM member AS m INNER JOIN memberinter AS mi ON mi.member_no = m.member_no LEFT JOIN qna AS q ON q.member_no = m.member_no INNER JOIN qna_comment AS qc ON qc.qna_no = q.qna_no LEFT JOIN bookreview AS bv ON bv.member_no = m.member_no LEFT JOIN orders AS o ON o.member_no = m.member_no LEFT JOIN shoppingcart AS sc ON sc.member_no = m.member_no WHERE m.member_no=?");
+			preparedStatement.setInt(1, member.getMemberNum());
+			preparedStatement.executeUpdate();
+			
+			preparedStatement2 = connection.prepareStatement("DELETE FROM member WHERE member_id=? and member_pw=?");
+			preparedStatement2.setString(1, member.getMemberId());
+			preparedStatement2.setString(2, member.getMemberPw());
+			preparedStatement2.executeUpdate();
+			
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}finally {
+			if(preparedStatement != null)try{
+				preparedStatement.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+			if(preparedStatement2 != null)try{
+				preparedStatement2.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+		}
+		
+	}
 	
 	public int searchMemberInter(Connection connection, MemberInter memberInter) {
 		

@@ -11,6 +11,55 @@ import dto.bookshop.project.Publisher;
 import util.connetion.db.DBconnection;
 
 public class PublisherDao {
+	
+	public ArrayList<Publisher> selectPublisher(Connection connection) {
+		System.out.println("selectPublisher");
+		
+		PreparedStatement statement=null;
+		ResultSet resultSet=null;
+		
+		String sql="select publisher_no,publisher_name,publisher_website from publisher";
+		ArrayList<Publisher> list = new ArrayList<Publisher>();
+		
+		try {
+
+			statement=connection.prepareStatement(sql);
+			
+			resultSet=statement.executeQuery();
+			
+			while(resultSet.next()) {
+				Publisher publisher=new Publisher();
+				publisher.setPublisherNo(resultSet.getInt("publisher_no"));
+				publisher.setPublisherName(resultSet.getString("publisher_name"));
+				publisher.setPublisherWebsite(resultSet.getString("publisher_website"));
+				
+				list.add(publisher);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(resultSet!=null) {
+					resultSet.close();
+				}
+			}
+			
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				if(statement!=null) {
+					statement.close();
+				}
+			} 
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		return list;
+	}
 
 	//출판사 등록하는 메서드
 	//매개변수에 Publisher dto에 있는 데이터를 대입한다.

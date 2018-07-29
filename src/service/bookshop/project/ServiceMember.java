@@ -1,9 +1,8 @@
-// 2018. 07. 22 공세준
+// 2018. 07. 29 공세준
 
 package service.bookshop.project;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -11,10 +10,41 @@ import dao.bookshop.project.MemberDao;
 import dto.bookshop.project.Member;
 
 import dto.bookshop.project.MemberInter;
-import dto.bookshop.project.Orders;
 import util.connetion.db.DBconnection;
 
 public class ServiceMember {
+	
+	// 설명 : 회원탈퇴하는 메서드 입니다.
+	// 매개변수 : 회원번호, 아이디, 비밀번호를 대입받은 member 클래스객체의 참조값을 받습니다.
+	// 리턴 : void로 없습니다.
+	public void deleteMember(Member member) {
+		
+		MemberDao memberDao = new MemberDao();
+		Connection connection = null;
+		
+		try {
+			connection = DBconnection.getConnetion();
+			connection.setAutoCommit(false);
+			
+			memberDao.deleteMember(connection, member);
+			
+			connection.commit();
+			
+		}catch(Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally {
+			if(connection != null)try{
+				connection.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+		}	
+	}
 	
 	public Member selectMemberPoint(int memberNumber) {
 		// memberPoint 조회하는 메소드

@@ -1,12 +1,16 @@
-<%@page import="service.bookshop.project.ServicePublisher"%>
-<%@page import="dto.bookshop.project.Publisher"%>
+<!-- 2018. 07. 25 이경선  -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ page import="service.bookshop.project.ServicePublisher"%>
+<%@ page import="dto.bookshop.project.Publisher"%>
 <%request.setCharacterEncoding("UTF-8"); %>
+
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Insert title here</title>
+		<title>publisherInsertAction</title>
 	</head>
 	<body>
 		<%			

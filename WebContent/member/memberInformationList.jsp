@@ -79,6 +79,7 @@
 						%>	
 				</table><br>
 					<input type ="submit" value="정보수정">
+					<button type="button" onclick="location.href='<%= request.getContextPath() %>/member/memberDeleteForm.jsp?memberNo=<%=sessionNo%>'">회원 탈퇴</button>
 					<button type="button" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">메인으로</button>
 			</form>
 		</div>

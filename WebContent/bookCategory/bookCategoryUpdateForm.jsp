@@ -1,11 +1,14 @@
-<%@page import="dao.bookshop.project.BookCategoryDao"%>
-<%@page import="dto.bookshop.project.BookCode"%>
+<!-- 2018. 07. 25 정민수  -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ page import="dao.bookshop.project.BookCategoryDao"%>
+<%@ page import="dto.bookshop.project.BookCode"%>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>insertBookCategoryForm.jsp</title>
+		<title>bookCategoryUpdateForm</title>
 	</head>
 	<body>
 		<%

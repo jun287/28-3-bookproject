@@ -11,6 +11,38 @@ import util.connetion.db.DBconnection;
 public class ServicePublisher {
 	Connection connection=null;
 	
+	public ArrayList<Publisher> selectPublisher() {
+		connection = DBconnection.getConnetion();
+		PublisherDao publisherDao = new PublisherDao();
+		ArrayList<Publisher> list = new ArrayList<Publisher>();
+		
+		try {
+			connection.setAutoCommit(false);
+			list = publisherDao.selectPublisher(connection);
+			connection.commit();
+			
+		} catch (SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}finally {
+				try {
+					if(connection!=null) {
+						connection.close();
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+		}
+		return list;
+	}
+	
+	
 	public void insertPublisher(String publisherName,String publishersite) {
 		connection = DBconnection.getConnetion();
 		PublisherDao publisherDao = new PublisherDao();

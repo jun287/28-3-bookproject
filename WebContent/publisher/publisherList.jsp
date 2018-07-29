@@ -1,7 +1,11 @@
-<%@page import="dto.bookshop.project.Publisher"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="service.bookshop.project.ServicePublisher"%>
+<!-- 2018. 07. 25 정민수  -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ page import="dto.bookshop.project.Publisher"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="service.bookshop.project.ServicePublisher"%>
+
 <!DOCTYPE html>
 <html>
 	<head>

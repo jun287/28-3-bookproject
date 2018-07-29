@@ -1,12 +1,16 @@
-<%@page import="dao.bookshop.project.BookDao"%>
-<%@page import="dto.bookshop.project.BookIntro"%>
+<!-- 2018. 07. 25 정민수  -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ page import="dao.bookshop.project.BookDao"%>
+<%@ page import="dto.bookshop.project.BookIntro"%>
+
 <%request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Insert title here</title>
+		<title>bookIntroInsertAction</title>
 	</head>
 	<body>
 		<%

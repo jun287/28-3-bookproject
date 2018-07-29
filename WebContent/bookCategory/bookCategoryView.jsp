@@ -1,13 +1,16 @@
-<%@page import="dto.bookshop.project.BookCode"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="dao.bookshop.project.BookCategoryDao"%>
+<!-- 2018. 07. 25 정민수  -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ page import="dto.bookshop.project.BookCode"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="dao.bookshop.project.BookCategoryDao"%>
 
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Insert title here</title>
+		<title>bookCategoryView</title>
 		<Style>
 			#wrap{
 				width: 1000px;
