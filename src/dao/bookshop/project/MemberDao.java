@@ -50,6 +50,47 @@ public class MemberDao {
 		
 	}
 	
+	// 설명 : id와 pw를 받아서 데이터베이스에 있는 정보를 검색하여 로그인체크 하는 메서드 입니다.
+	// 매개변수 : Connection 클래스타입으로  드라이버로딩 및 DB연결하는 정보를 담은 객체의 참조값과 String 참조타입으로 memberId, memberPw 를 받습니다.
+	// 리턴 : String 참조타입으로 조건문에 결과값인 "로그인성공" 또는 "로그인실패" 를 result에 대입후 리턴합니다. 
+	public String deleteCheckMember(Connection connection ,String memberId, String memberPw) {
+	
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		String result = null;
+		
+		try {
+			
+			preparedStatement = connection.prepareStatement("SELECT * FROM member WHERE member_id=? and member_pw=?");
+			preparedStatement.setString(1, memberId);
+			preparedStatement.setString(2, memberPw);
+			resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				result = "회원확인성공";
+			}else {
+				result = "회원확인실패";
+			}
+			
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+		}finally {
+			if(preparedStatement != null)try{
+				preparedStatement.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+			if(resultSet != null)try{
+				resultSet.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	
+	
 	public int searchMemberInter(Connection connection, MemberInter memberInter) {
 		
 		PreparedStatement preparedStatement = null;

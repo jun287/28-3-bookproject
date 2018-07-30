@@ -26,10 +26,14 @@ public class ServiceMember {
 			connection = DBconnection.getConnetion();
 			connection.setAutoCommit(false);
 			
-			memberDao.deleteMember(connection, member);
-			
+			String result = memberDao.deleteCheckMember(connection, member.getMemberId(), member.getMemberPw());
+			if(result.equals("회원확인성공")) {
+				memberDao.deleteMember(connection, member);
+				System.out.println("회원탈퇴 되었습니다.");
+			}else if(result.equals("회원확인실패")){
+				System.out.println("비밀번호를 확인해주세요");
+			}
 			connection.commit();
-			
 		}catch(Exception e) {
 			try {
 				connection.rollback();
