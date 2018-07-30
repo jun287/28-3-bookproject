@@ -130,7 +130,8 @@
 			String sessionAdminId = (String)session.getAttribute("sessionAdminId");
 			
 			
-			int total=bookReviewDao.paging(row);
+			int total=bookReviewDao.paging(row,bookNo);
+			System.out.println(total+"<-total");
 			
 		%>
 		
@@ -190,13 +191,17 @@
 						BookIntro bookIntro1=result.get(i);
 						
 				%>
-					<span><%=bookIntro1.getBookIntroContent() %>--<%=bookIntro1.getBookIntroWrite().replace("<br>","\r\n") %></span>
+					<span><%=bookIntro1.getBookIntroContent() %>--<%=bookIntro1.getBookIntroWrite().replace("<br>","\r\n") %></span><br>
+					
+					<%
+						if(sessionAdminId!=null){
+					%>
 					<a href="<%=request.getContextPath()%>/book/bookIntroUpdateForm.jsp?bookNumber=<%=bookNo%>"><button>수정</button></a>
 					<a href="<%=request.getContextPath()%>/book/bookIntroDelete.jsp?bookNumber=<%=bookNo%>&bookIntroNo=<%=bookIntro1.getBookIntroNo()%>"><button>삭제</button></a><br>
 						
 				<%
 					}
-					
+					}
 					if(sessionAdminId!=null){
 				%>
 				

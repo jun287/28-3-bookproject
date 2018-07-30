@@ -167,14 +167,14 @@ public class BookReviewDao {
 		}
 	}
 
-	public int paging(int StartRow) {
+	public int paging(int StartRow,int bookNumber) {
 		
 		Connection connection=null;
 		PreparedStatement statement=null;
 		ResultSet resultset=null;
 		
 		//employee table에 있는 갯수를 조회하여라
-		String sql="select count(*) from bookreview";
+		String sql="select count(*) from bookreview where book_no=?";
 		
 		int total=0;
 		
@@ -185,6 +185,7 @@ public class BookReviewDao {
 			
 			//쿼리 실행 준비
 			statement=connection.prepareStatement(sql);
+			statement.setInt(1, bookNumber);
 			//쿼리 실행
 			resultset=statement.executeQuery();
 			
@@ -197,7 +198,7 @@ public class BookReviewDao {
 				if(resultset.getInt("count(*)")%StartRow==0){
 					total=resultset.getInt("count(*)")/StartRow;
 				}else{
-					total=(resultset.getInt("count(*)")/StartRow)+1;
+					total=resultset.getInt("count(*)")/StartRow+1;
 				}
 			}
 		
