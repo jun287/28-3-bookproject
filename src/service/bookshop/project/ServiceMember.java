@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import dao.bookshop.project.BoardQnACommentDao;
+import dao.bookshop.project.BoardQnADao;
 import dao.bookshop.project.MemberDao;
 import dto.bookshop.project.Member;
 
@@ -20,6 +22,8 @@ public class ServiceMember {
 	public void deleteMember(Member member) {
 		
 		MemberDao memberDao = new MemberDao();
+		BoardQnACommentDao boardQnACommentDao = new BoardQnACommentDao();
+		BoardQnADao boardQnADao = new BoardQnADao();
 		Connection connection = null;
 		
 		try {
@@ -28,6 +32,8 @@ public class ServiceMember {
 			
 			String result = memberDao.deleteCheckMember(connection, member.getMemberId(), member.getMemberPw());
 			if(result.equals("회원확인성공")) {
+				boardQnACommentDao.deleteMemberBoardQnaComment(connection, member.getMemberNum());
+				boardQnADao.deleteMemberBoardQnaContent(connection, member.getMemberNum());
 				memberDao.deleteMember(connection, member);
 				System.out.println("회원탈퇴 되었습니다.");
 			}else if(result.equals("회원확인실패")){

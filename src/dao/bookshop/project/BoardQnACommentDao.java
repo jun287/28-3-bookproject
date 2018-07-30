@@ -11,6 +11,33 @@ import dto.bookshop.project.BoardQnAComment;
 
 public class BoardQnACommentDao {
 	
+	// 설명 : 회원번호의 회원 게시글에 답변을 삭제하는 메서드 입니다.
+	// 매개변수 : Connection 클래스 타입으로 드라이버로딩, DB연결정보를 담은 connection 객체참조값과 회원번호를 받습니다.
+	// 리턴 : void 로 없습니다.
+	public void deleteMemberBoardQnaComment(Connection connection, int memberNo) {
+		
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			
+			preparedStatement = connection.prepareStatement("DELETE qc FROM member AS m LEFT JOIN qna AS q ON q.member_no = m.member_no LEFT JOIN qna_comment AS qc ON qc.qna_no = q.qna_no WHERE m.member_no=?");
+			preparedStatement.setInt(1, memberNo);
+			preparedStatement.executeUpdate();
+			
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}finally {
+			if(preparedStatement != null)try{
+				preparedStatement.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+
+		}
+		
+	}
+	
+	
 	// 설명 : 게시글에 답변을 삭제하는 메서드 입니다.
 	// 매개변수 : Connection 클래스 타입으로 드라이버로딩, DB연결정보를 담은 connection 객체참조값과 답변의 정보를 담은  BoardQnACommnet 클래스객체의 참조값을 받습니다.
 	// 리턴 : void 로 없습니다.

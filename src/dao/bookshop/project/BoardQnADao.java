@@ -14,6 +14,33 @@ import dto.bookshop.project.Member;
 
 public class BoardQnADao {
 	
+	// 설명 : 질문게시판에 회원한명의 게시글을 삭제하는 메서드 입니다.
+	// 매개변수 : Connection 클래스 타입으로 드라이버로딩, DB연결정보를 담은 connection 객체참조값과 게시글의 정보를 담은 BoardQnA 클래스객체의 참조값을 받습니다.
+	// 리턴 : void 로 없습니다.
+	public void deleteMemberBoardQnaContent(Connection connection, int memberNo) {
+		
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			
+			preparedStatement = connection.prepareStatement("DELETE FROM qna WHERE member_no=?");
+			preparedStatement.setInt(1, memberNo);
+			preparedStatement.executeUpdate();
+			
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}finally {
+			if(preparedStatement != null)try{
+				preparedStatement.close(); 
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+
+		}
+		
+	}
+	
+	
 	// 설명 : 질문게시판에 글쓰기후 정보를 데이터베이스에 insert하는 메서드 입니다.
 	// 매개변수 : Connection 클래스 타입으로 드라이버로딩, DB연결정보를 담은 connection 객체참조값과 BoardQnA 클래스타입으로 게시판내용등을 담은 boardQna 객체참조값을 받습니다.
 	// 리턴 : void로 없습니다.

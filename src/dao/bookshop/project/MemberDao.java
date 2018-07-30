@@ -24,7 +24,7 @@ public class MemberDao {
 		
 		try {
 			
-			preparedStatement = connection.prepareStatement("DELETE qc,q,mi,bv,o,sc FROM member AS m LEFT JOIN memberinter AS mi ON mi.member_no = m.member_no LEFT JOIN qna AS q ON q.member_no = m.member_no LEFT JOIN qna_comment AS qc ON qc.qna_no = q.qna_no LEFT JOIN bookreview AS bv ON bv.member_no = m.member_no LEFT JOIN orders AS o ON o.member_no = m.member_no LEFT JOIN shoppingcart AS sc ON sc.member_no = m.member_no WHERE m.member_no=?");
+			preparedStatement = connection.prepareStatement("DELETE mi,bv,o,sc FROM member AS m LEFT JOIN memberinter AS mi ON mi.member_no = m.member_no LEFT JOIN bookreview AS bv ON bv.member_no = m.member_no LEFT JOIN orders AS o ON o.member_no = m.member_no LEFT JOIN shoppingcart AS sc ON sc.member_no = m.member_no WHERE m.member_no=?");
 			preparedStatement.setInt(1, member.getMemberNum());
 			preparedStatement.executeUpdate();
 			
